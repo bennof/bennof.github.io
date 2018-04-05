@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <title>Tabular Rasa Css</title>
+    <meta name="description" content="Describtion of an display table base css library framework">
+    <meta name="author" content="Benjamin Benno Falkner">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,600" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/tabularrasa.css"> 
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="js/recall.js"></script>
+
+    <style>
+        /* add your style here */
+        .has-docked-menubar #menubar {position: fixed; top: 0; left: 0; right:0;z-index: 9999;  background: white; margin: 0 auto; max-width: 800px;}
+    </style>
+
+    <script>
+        $(document).ready(function() {
+            ReCall.FixedToolbar('#menubar');
+            ReCall.CleanCode('.clean-code');
+        });
+    </script>
+</head>
+<body>
+    <div class="container tabular">
+        <div class="header">
+            <h1>Tabular Rasa Css</h1>
+            <h6>version 0.02</h6>
+        </div>
+
+        <div id="menubar" class="toolbar">
+                <label for="show_menu" class="show media"><i class="fa fa-bars"></i> Tabular Rasa</label>
+                <input type="checkbox" id="show_menu" class="show media" role="button">
+                <ul class="menu hidden media">
+                    <li><a href="index.html"><i class="fa fa-home"></i></a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#">Elements</a>
+                        <ul>
+                            <li><a href="#grid">Grid/Tabular</a></li>
+                            <li><a href="#typo">Typography</a></li>
+                            <li><a href="#page">Page Elements</a></li>
+                            <li><a href="#forms">Forms</a></li>
+                            <li><a href="#table">Table</a></li>
+                            <li><a href="#menu">Menu</a></li>
+                            <li><a href="#utils">Utils</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Other Tools</a>
+                        <ul>
+                            <li><a href="recall.html">ReCall JS</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">GitHub</a></li>
+                </ul>
+        </div>
+
+        <div id="about" class="section">
+            <h4>About</h4>
+            <em>missing ...</em>
+        </div>
+        <div id="grid" class="section">
+            <h4>Grid/Tabular</h4>
+            <p>The Grid is a table which can be set by default or random values. A typical 12 column table is included.</p>
+            <div class="tabular" style="color:white;">
+                    <div class="box one indent" style="background:lightseagreen"> one </div>
+                    <div class="box two indent" style="background:powderblue"> two </div>
+                    <div class="box three indent" style="background:pink"> three </div>
+                    <div class="box six indent" style="background:grey"> six </div>
+            </div>
+        </div>
+        <div id="typo" class="section">
+            <h4>Typography</h4>
+            <p>Tabular rasa supports only a few typografic elements and is more inspired from software like TeX.</p>
+            <div class="tabular">
+                <div class="box eight">
+                    <p>The base is Roboto (yes I reuse the Andriod Font)(<a href="https://fonts.google.com/specimen/Lato">Lato</a> and <a href="https://fonts.google.com/specimen/Open+Sans">Open Sans</a> seem to work to).</p>
+                    <p>Typical elements are included like <code>strong</code> to mark <strong>important</strong> words and <code>em</code> to add <em>accents</em>.</p>
+                    <div class="tabular">
+                        <ul class="box six">
+                            <li>This</li>
+                            <li>is</li>
+                            <li>a</li>
+                            <li>List</li>
+                        </ul>
+                        <ol class="box six">
+                            <li>This</li>
+                            <li>is</li>
+                            <li>another</li>
+                            <li>List</li>
+                        </ol>
+                    </div>
+                    <p>List are included using <code>ul</code> for dotted and <code>ol</code> enumbered lists.</p>
+                    <p>An often missed element is a quote - ok, there are rule about quotes and cites. But sometimes one others word make the point:</p>
+                    <blockquote class="serife">I can’t go to a restaurant and order food because I keep looking at the fonts on the menu. <br>--Donald Ervin Knuth, 2002</blockquote>
+                </div>
+                <div class="box four indent" style="background: #f4f4f4">
+                    <h1>Heading 1</h1>
+                    <h2>Heading 2</h2>
+                    <h3>Heading 3</h3>
+                    <h4>Heading 4</h4>
+                    <h5>Heading 5</h5>
+                    <h6>Heading 6</h6>
+                </div>
+            </div>
+        </div>
+
+        <div id="page" class="section">
+            <h4>Page Elements</h4>
+            <p><em>missing</em></p>
+        </div>
+
+        <div id="forms" class="section">
+            <h4>Forms</h4>
+            <p>Forms are often used, for buttons logins etc.</p>
+            <form action="#" method="post">
+                    <fieldset>
+                      <label for="name">Name:</label>
+                      <input type="text" id="name" placeholder="Enter your full name" />
+                  
+                      <label for="email">Email:</label>
+                      <input type="email" id="email" placeholder="Enter your email address" />
+                  
+                      <label for="message">Message:</label>
+                      <textarea id="message" placeholder="What's on your mind?"></textarea>
+                  
+                      <input type="submit" value="Send message" />
+                  
+                    </fieldset>
+            </form>
+        </div>
+
+        <div id="table" class="section">
+            <h4>Table</h4>
+            <p>Not only the Layout has to be a table.</p>
+            <table class="data">
+                <tr>
+                    <th>Entry Header 1</th>
+                    <th>Entry Header 2</th>
+                    <th>Entry Header 3</th>
+                    <th>Entry Header 4</th>
+                </tr>
+                <tr>
+                    <td>Entry First Line 1</td>
+                    <td>Entry First Line 2</td>
+                    <td>Entry First Line 3</td>
+                    <td>Entry First Line 4</td>
+                </tr>
+                <tr>
+                    <td>Entry Line 1</td>
+                    <td>Entry Line 2</td>
+                    <td>Entry Line 3</td>
+                    <td>Entry Line 4</td>
+                </tr>
+                <tr>
+                    <td>Entry Last Line 1</td>
+                    <td>Entry Last Line 2</td>
+                    <td>Entry Last Line 3</td>
+                    <td>Entry Last Line 4</td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="menu" class="section">
+            <h4>Menu</h4>
+            <h6>Simple Menu</h6>
+            <p>It is possible to create simple menus with <code>ul</code> and <code>li</code> blocks.</p>
+            <ul class="menu">
+                <li><a href="#">Menu 1</a></li>
+                <li><a href="#">Menu 2</a>
+                    <ul>
+                        <li><a href="#">Submenu 1</a></li>
+                        <li><a href="#">Submenu 2</a></li>
+                        <li><a href="#">Submenu 3</a></li>
+                        <li><a href="#">Submenu 4</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Menu 3</a>
+                    <ul>
+                        <li><a href="#">Submenu 1</a></li>
+                        <li><a href="#">Submenu 2</a></li>
+                        <li><a href="#">Submenu 3</a></li>
+                        <li><a href="#">Submenu 4</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Menu 4</a>
+                    <div>
+                        Some text
+                    </div>
+                </li>
+            </ul>
+            <h6>Responsive Menu</h6>
+            <p>Today it is more and more important to have responsive menues. This can be done using javascript or in pure CSS. JAvascript should only be an addon to make better workflow.</p>
+            <label for="show_menu_resp" class="show"><i class="fa fa-bars"></i> My Site</label>
+            <input type="checkbox" id="show_menu_resp" class="show" role="button">
+            <ul class="menu hidden">
+                <li><a href="#">Menu 1</a></li>
+                <li><a href="#">Menu 2</a>
+                    <ul>
+                        <li><a href="#">Submenu 1</a></li>
+                        <li><a href="#">Submenu 2</a></li>
+                        <li><a href="#">Submenu 3</a></li>
+                        <li><a href="#">Submenu 4</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Menu 3</a>
+                    <ul>
+                        <li><a href="#">Submenu 1</a></li>
+                        <li><a href="#">Submenu 2</a></li>
+                        <li><a href="#">Submenu 3</a></li>
+                        <li><a href="#">Submenu 4</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Menu 4</a>
+                    <div>
+                        Some text
+                    </div>
+                </li>
+            </ul>
+            <h6>Responsive Menu 2</h6>
+            <div class="indent" style="float: right;position:relative; border: 1px solid #ddd; width: 300px; height: 400px; overflow:hidden;">
+                <label for="show_menu_resp2" class="show"><i class="fa fa-bars"></i> My site</label>
+                <input type="checkbox" id="show_menu_resp2" class="show" role="button">
+                <ul class="menu hidden transform">
+                    <li><a href="#">Menu 1</a></li>
+                    <li><a href="#">Menu 2</a>
+                        <ul>
+                            <li><a href="#">Submenu 1</a></li>
+                            <li><a href="#">Submenu 2</a></li>
+                            <li><a href="#">Submenu 3</a></li>
+                            <li><a href="#">Submenu 4</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Menu 3</a>
+                        <ul>
+                            <li><a href="#">Submenu 1</a></li>
+                            <li><a href="#">Submenu 2</a></li>
+                            <li><a href="#">Submenu 3</a></li>
+                            <li><a href="#">Submenu 4</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Menu 4</a>
+                        <div>
+                            Some text
+                        </div>
+                    </li>
+                </ul>
+                <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+            </div>
+            <p>Form mobile devices the menu should change to something like this. It can be combined by using mobile switches <code>.mobile</code>.</p>
+        </div>
+
+        <div id="utils" class="section">
+            <h4>Utils</h4>
+            
+            <h6>Pagination</h6>
+            <div class="pagination">
+                <a href="#">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">4</a>
+                <a href="#">5</a>
+                ...
+                <a href="#">Last</a>
+            </div>
+
+            <h6>Loader</h6>
+            <p>A loader is available by: <code>div class="loader" /div </code>and the color can be chnaged by <code>style="border-top-color:fuchsia"</code>.</p>
+            <div class="loader" style="border-top-color:lightseagreen"></div>
+        </div>
+
+        <div class="footer">
+            <p>Copyright © 2018 <a href="#">Benjamin 'Benno' Falkner</a>. All Rights reserved.</p>
+        </div>  
+    </div>
+</body>
+</html>

@@ -1,16 +1,15 @@
 .container {
+    margin: 0 auto;
     max-width: 800px; }
   .header {
     margin-top: 1em;
     text-align: center; }
-  .header h1 {
-    font-weight: 300;
-    color: #666;
-  }
+ 
   .footer {
     font-size: 10px;
     margin-top: 1em;
     text-align: center; }
+    
   .value-prop {
     margin-top: 1rem; }
   .value-props {
