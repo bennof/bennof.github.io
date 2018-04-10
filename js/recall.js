@@ -47,7 +47,6 @@ function FixedToolbar (name){
 }
 
 FixedToolbar.prototype.scroll = function(){
-    console.log("lol")
     if(this.NavOffset < ReCall.Window.scrollTop() && !ReCall.Body.hasClass('has-docked-'+this.Navbar)) {
         ReCall.Body.addClass('has-docked-'+this.Navbar)
     }

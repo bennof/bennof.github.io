@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <title>Dating JS</title> 
+    <meta name="description" content="Describtion of dating js library framework">
+    <meta name="author" content="Benjamin Benno Falkner">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,600" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/tabularrasa.css"> 
+    <link rel="stylesheet" href="css/date.css">
+
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="js/recall.js"></script>
+    <script src="js/date.js"></script>
+
+    <style>
+        /* add your style here */
+        .has-docked-menubar #menubar {position: fixed; top: 0; left: 0; right:0;z-index: 990;  background: white; margin: 0 auto; max-width: 800px;}
+        
+        /* Date JS */
+        .overlay {position: fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; z-index:998; background-color: Black; opacity: .5; }
+        .popup { position: fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; z-index:998; max-width: 800px; min-height: 100px; margin: auto; padding: 10px; background-color:#eee;  opacity: 1.; }
+
+        /* Example */
+        .example{max-width: 640px; margin: 0 auto; padding: 10px; border: 1px solid lightseagreen; }
+    </style>
+
+    <script>
+        $(document).ready(function() {
+            ReCall.FixedToolbar('#menubar');
+            ReCall.CleanCode('.clean-code');
+
+            //Dating.New("#dateexample","lala")
+            Calendae.New("MyCal",function(cal){ 
+                cal.NextDates('mydates',5,new Date());
+                cal.Calendar('mycal',new Date());
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container tabular">
+        <div class="header">
+            <h1>Date JS</h1>
+            <h6>version 0.01a</h6>
+        </div>
+    
+        <div id="menubar" class="toolbar">
+            <label for="show_menu" class="show media"><i class="fa fa-bars"></i> Date</label>
+            <input type="checkbox" id="show_menu" class="show media" role="button">
+            <ul class="menu hidden media">
+                <li><a href="index.html"><i class="fa fa-home"></i></a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#">Elements</a>
+                    <ul>
+                        <li><a href="#Example">Example</a></li>
+                        <li><a href="#Usage">Usage</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Other Tools</a>
+                    <ul>
+                        <li><a href="tabularrasa.html">Tabular Rasa Css</a></li>
+                        <li><a href="recall.html">ReCall JS</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">GitHub</a></li>
+            </ul>
+        </div>
+    
+        <div id="about" class="section">
+            <h4>About</h4>
+            <em>missing ...</em>
+            <p>A Simple Calendar tool using Javascript and a small CSS file.</p>
+        </div>
+        <div id="Example" class="section">
+            <h4>Example</h4>
+            <p>Calendae produces a small table with upcomming dates and popups a full calendar</p>
+            <div id="mydates" class="example"></div>
+            <pre class="code-example">
+                    <code class="clean-code prettyprint"><!-- HTML Sample -->
+<div id="mydates"></div>
+<script>
+    $(document).ready(function() {
+        // create new calendar with a callback insertion after loading
+        cal = Calendae.New("MyCal",function(cal){ 
+            cal.NextDates('mydates',5,new Date());
+        });
+    });
+</script></code>
+            </pre>
+            <p>or a full calendar</p>
+            <div id="mycal" class="example"></div>
+            <pre class="code-example">
+                <code class="clean-code prettyprint"><!-- HTML Sample -->
+<div id="mycal"></div>
+<script>
+    $(document).ready(function() {
+        // create new calendar with a callback insertion after loading
+        cal = Calendae.New("MyCal",function(cal){ 
+            cal.Calendar('mycal',new Date());
+        });
+    });
+</script></code>
+            </pre>
+
+        </div>
+        <div id="Usage" class="section">
+            <h4>Usage</h4>
+            <em>missing ...</em>
+        </div>
+        <div class="footer">
+            <p>Copyright © 2018 <a href="#">Benjamin 'Benno' Falkner</a>. All Rights reserved.</p>
+        </div>  
+    </div>
+</body>
+</html>
