@@ -34,7 +34,7 @@ var Calendae = {
             });
             var cal = new Calendar(name, result);
             callback(cal);
-            Calendae.Cals.append(cal);
+            Calendae.Cals.push(cal);
         });
     }
 }
