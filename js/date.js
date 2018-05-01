@@ -13,19 +13,7 @@ var testdata =[
     {ID: 10, Start: new Date('2018-10-21T03:24:00'), Title: "Event 9", Info: "Event 9 text info"}
 ];
 
-var Dating = {
-    CloseText: '<i class="fa fa-times" aria-hidden="true"></i>',
-    EventText: 'event-',
-    CalText: 'cal-983',
-    MaxNews: 5,
-    CalendarText: '<i class="fa fa-calendar" aria-hidden="true"></i> Calendar',
-    MonthText: ['January','February','March','April','May','June','July','August','September','October','November','December'],
-    DaysText: ['Mo','Tu','We','Th','Fr','Sa','So'],
-    
-    New: function(id,src) {
-        return new DateMGR(id,src)
-    }
-}
+
 
 
 var Calendae = {
@@ -125,15 +113,19 @@ Calendar.prototype.Calendar = function(target, date){
 // prev month
 Calendar.prototype.CalendarPrev = function(e){
     console.log(e);
+    var E = e.currentTarget.id.split("-")
+    console.log(E[0]+E[4]);
+    console.log(e.currentTarget.id);
     this.Date = new Date(this.Date.getFullYear(), this.Date.getMonth()-1, 1);
     this.Render(this.Date);
 }
 // next month
 Calendar.prototype.CalendarNext = function(e){
     console.log(e);
+    var E = e.currentTarget.id.split("-")
+    console.log(E[0]+E[4]);
+    console.log(e.currentTarget.id);
     this.Date = new Date(this.Date.getFullYear(), this.Date.getMonth()+1, 1);
-    console.log(this.Date);
-    console.log(typeof this.Date);
     this.Render(this.Date);
 }
 // render the calendar
