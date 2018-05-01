@@ -46,7 +46,6 @@ var Calendae = {
             var cal = new Calendar(name, result);
             callback(cal);
         });
-        return cal;
     }
 }
 
@@ -127,13 +126,15 @@ Calendar.prototype.Calendar = function(target, date){
 Calendar.prototype.CalendarPrev = function(e){
     console.log(e);
     this.Date = new Date(this.Date.getFullYear(), this.Date.getMonth()-1, 1);
-    this.Render(this.Date)
+    this.Render(this.Date);
 }
 // next month
 Calendar.prototype.CalendarNext = function(e){
     console.log(e);
     this.Date = new Date(this.Date.getFullYear(), this.Date.getMonth()+1, 1);
-    this.Render(this.Date)
+    console.log(this.Date);
+    console.log(typeof this.Date);
+    this.Render(this.Date);
 }
 // render the calendar
 Calendar.prototype.Render = function(target,date){
