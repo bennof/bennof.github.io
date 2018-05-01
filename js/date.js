@@ -182,6 +182,7 @@ Calendar.prototype.Render = function(target,date){
     s += '</ul>';
 
     // build calendar
+    console.log('#'+target+this.CalId)
     $('#'+target+this.CalId).html(s);
 }
 
