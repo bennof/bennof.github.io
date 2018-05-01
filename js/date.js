@@ -130,7 +130,7 @@ Calendar.prototype.CalendarPrev = function(e){
     this.Render(this.Date)
 }
 // next month
-Calendar.prototype.CalendarNext = function(){
+Calendar.prototype.CalendarNext = function(e){
     console.log(e);
     this.Date = new Date(this.Date.getFullYear(), this.Date.getMonth()+1, 1);
     this.Render(this.Date)
@@ -138,7 +138,7 @@ Calendar.prototype.CalendarNext = function(){
 // render the calendar
 Calendar.prototype.Render = function(target,date){
     var today = new Date();
-    var isCurrentMonth = (today.getFullYear == date.getFullYear && today.getMonth() == date.getMonth());
+    var isCurrentMonth = (today.getFullYear() == date.getFullYear() && today.getMonth() == date.getMonth());
     var sdate = new Date(date.getTime());
     // get first day
     sdate.setDate(1);
