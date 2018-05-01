@@ -17,6 +17,7 @@ var testdata =[
 
 
 var Calendae = {
+    Cals:      [],
     Close:    '<i class="fa fa-times" aria-hidden="true"></i>',
     Calendar: '<i class="fa fa-calendar" aria-hidden="true"></i> Calendar',
     Locale:   'de-DE',
@@ -33,18 +34,21 @@ var Calendae = {
             });
             var cal = new Calendar(name, result);
             callback(cal);
+            Calendae.Cals.append(cal);
         });
     }
 }
 
 // Calendar Data
 function Calendar(name, data) {
-    this.CalId = '-'+Calendae.Cal+'-'+name;
-    this.Date  = new Date();
+    this.Name  = name;
+
+    this.CalId = '-'+Calendae.Cal+name;
     this.Event = this.CalId+'-'+Calendae.Event;
     this.Day   = this.CalId+'-'+Calendae.Day;
-    this.data  = data;
+
     this.Date  = new Date();
+    this.data  = data;
 }
 //
 Calendar.prototype.PopUp = function(e){
@@ -90,6 +94,7 @@ Calendar.prototype.NextDates = function(target, count, date){
         if (c == count) break;
     }  
 }
+
 // create info about date id at target
 Calendar.prototype.Info = function(target, id){
     var t = $('#'+target);
