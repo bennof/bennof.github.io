@@ -83,7 +83,7 @@ th { /*color: #4484ce;*/ border-bottom: 1px solid #ddd;}
 .hidden {display: none;}
 .indent {padding: 5px;}
 /* sections */
-.container{ margin: 0 auto; max-width: 800px; position: relative;}
+.container{ margin: 0 auto; width:100%; max-width: 800px; position: relative;}
 .section, section {}
 .toolbar {}
 .header, header {margin-top: 1em; text-align: center; }
