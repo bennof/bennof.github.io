@@ -112,21 +112,23 @@ Calendar.prototype.Calendar = function(target, date){
 }
 // prev month
 Calendar.prototype.CalendarPrev = function(e){
-    console.log(e);
-    var E = e.currentTarget.id.split("-")
-    console.log(E[0]+E[4]);
-    console.log(e.currentTarget.id);
+    var E = e.currentTarget.id.split("-");
+    var target = E[0];
+    for(var i=1; i<E.length-1;i++)
+        target = target + '-' + E[i];
     this.Date = new Date(this.Date.getFullYear(), this.Date.getMonth()-1, 1);
-    this.Render(this.Date);
+    this.Render(target,this.Date);
 }
 // next month
 Calendar.prototype.CalendarNext = function(e){
-    console.log(e);
-    var E = e.currentTarget.id.split("-")
-    console.log(E[0]+E[4]);
+    var E = e.currentTarget.id.split("-");
+    var target = E[0];
+    for(var i=1; i<E.length-1;i++)
+        target = target + '-' + E[i];
+    console.log(target);
     console.log(e.currentTarget.id);
     this.Date = new Date(this.Date.getFullYear(), this.Date.getMonth()+1, 1);
-    this.Render(this.Date);
+    this.Render(target,this.Date);
 }
 // render the calendar
 Calendar.prototype.Render = function(target,date){
