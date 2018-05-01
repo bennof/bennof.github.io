@@ -37,7 +37,7 @@
             ReCall.CleanCode('.clean-code');
 
             //Dating.New("#dateexample","lala")
-            Calendae.New("MyCal",function(cal){ 
+            Calendae.New("MyCal","data/cal.jsonp?callback=?",function(cal){ 
                 cal.NextDates('mydates',5,new Date());
                 cal.Calendar('mycal',new Date());
             });
@@ -80,6 +80,13 @@
         </div>
         <div id="Example" class="section">
             <h4>Example</h4>
+            <p>To use Calendae you need to download and include a css and a js file. For simplicity jQuery is used.</p>
+            <pre class="code-example">
+                <code class="clean-code prettyprint"><!-- Will be renamed -->
+<link rel="stylesheet" href="css/date.css">
+<script src="js/date.js"></script>
+                </code>
+            </pre>
             <p>Calendae produces a small table with upcomming dates and popups a full calendar</p>
             <div id="mydates" class="example"></div>
             <pre class="code-example">

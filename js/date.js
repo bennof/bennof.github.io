@@ -27,8 +27,8 @@ var Calendae = {
     Month:    ['January','February','March','April','May','June','July','August','September','October','November','December'],
     Day:      ['Mo','Tu','We','Th','Fr','Sa','So'],
 
-    New: function (name, callback) {
-        $.getJSON("data/cal.json", function(result){
+    New: function (name, src, callback) {
+        $.getJSON(src, function(result){
             $.each(result, function(i, obj){
                 obj.Start = new Date(obj.Start)
             });
@@ -99,7 +99,8 @@ Calendar.prototype.NextDates = function(target, count, date){
 Calendar.prototype.Info = function(target, id){
     var t = $('#'+target);
     t.html('<h1>'+this.data[id].Title+'</h1>\
-            <h6>'+this.data[id].Start.toLocaleDateString(Calendae.Locale)+'</h6>\
+            <h6>'+this.data[id].Start.toLocaleDateString(Calendae.Locale)+'-'+this.data[id].End.toLocaleDateString(Calendae.Locale)+'</h6>\
+            <h6>'+this.data[id].Location+'</h6>\
             <p>'+this.data[id].Info+'</p>');
 }
 // create a calendar at target with date as selector
