@@ -39,10 +39,10 @@ var Calendae = {
 
 // Calendar Data
 function Calendar(name, data) {
-    this.CalId = Calendae.Cal+name;
+    this.CalId = '-'+Calendae.Cal+'-'+name;
     this.Date  = new Date();
-    this.Event = '-' + this.CalId+'-'+Calendae.Event;
-    this.Day   = '-' + this.CalId+'-'+Calendae.Day;
+    this.Event = this.CalId+'-'+Calendae.Event;
+    this.Day   = this.CalId+'-'+Calendae.Day;
     this.data  = data;
     this.Date  = new Date();
 }
@@ -114,8 +114,8 @@ Calendar.prototype.Calendar = function(target, date){
 Calendar.prototype.CalendarPrev = function(e){
     var E = e.currentTarget.id.split("-");
     var target = E[0];
-    for(var i=1; i<E.length-1;i++)
-        target = target + '-' + E[i];
+    //for(var i=1; i<E.length-1;i++)
+    //    target = target + '-' + E[i];
     this.Date = new Date(this.Date.getFullYear(), this.Date.getMonth()-1, 1);
     this.Render(target,this.Date);
 }
@@ -123,8 +123,8 @@ Calendar.prototype.CalendarPrev = function(e){
 Calendar.prototype.CalendarNext = function(e){
     var E = e.currentTarget.id.split("-");
     var target = E[0];
-    for(var i=1; i<E.length-1;i++)
-        target = target + '-' + E[i];
+    //for(var i=1; i<E.length-1;i++)
+    //    target = target + '-' + E[i];
     console.log(target);
     console.log(e.currentTarget.id);
     this.Date = new Date(this.Date.getFullYear(), this.Date.getMonth()+1, 1);
