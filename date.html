@@ -95,7 +95,7 @@
 <script>
     $(document).ready(function() {
         // create new calendar with a callback insertion after loading
-        Calendae.New("MyCal",function(cal){ 
+        Calendae.New("MyCal","data/cal.json",function(cal){ 
             cal.NextDates('mydates',5,new Date());
         });
     });
@@ -109,7 +109,7 @@
 <script>
     $(document).ready(function() {
         // create new calendar with a callback insertion after loading
-        Calendae.New("MyCal",function(cal){ 
+        Calendae.New("MyCal","data/cal.json",function(cal){ 
             cal.Calendar('mycal',new Date());
         });
     });
