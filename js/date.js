@@ -99,6 +99,7 @@ Calendar.prototype.NextDates = function(target, count, date){
 Calendar.prototype.Info = function(target, id){
     var t = $('#'+target);
     console.log('Info >> '+t);
+    console.log(this.data[id]);
     t.html('<h1>'+this.data[id].Title+'</h1>\
             <h6>'+this.data[id].Start.toLocaleDateString(Calendae.Locale)+'-'+this.data[id].End.toLocaleDateString(Calendae.Locale)+'</h6>\
             <h6>'+this.data[id].Location+'</h6>\
