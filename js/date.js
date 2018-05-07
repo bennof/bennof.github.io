@@ -148,8 +148,8 @@ Calendar.prototype.Render = function(target,date){
 
     // head block
     var s = '<ul class="head">\
-             <li id="'+target+this.CalId+'-prev" class="prev">&#10094;</li>\
-             <li id="'+target+this.CalId+'-next" class="next">&#10095;</li>\
+             <li id="'+target+'-prev" class="prev">&#10094;</li>\
+             <li id="'+target+'-next" class="next">&#10095;</li>\
              <li>'+Calendae.Month[date.getMonth()]+'<br>\
              <span style="font-size:14px">'+date.getFullYear()+'</span></li>\
              </ul>';
