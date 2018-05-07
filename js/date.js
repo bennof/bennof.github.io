@@ -98,7 +98,7 @@ Calendar.prototype.NextDates = function(target, count, date){
 // create info about date id at target
 Calendar.prototype.Info = function(target, id){
     var t = $('#'+target);
-    console.log('Info >> '+t);
+    console.log('Info >> '+target);
     console.log(this.data[id]);
     t.html('<h1>'+this.data[id].Title+'</h1>\
             <h6>'+this.data[id].Start.toLocaleDateString(Calendae.Locale)+'-'+this.data[id].End.toLocaleDateString(Calendae.Locale)+'</h6>\
@@ -109,7 +109,7 @@ Calendar.prototype.Info = function(target, id){
 Calendar.prototype.Calendar = function(target, date){
     this.Date = date;
     var t = $('#'+target);
-    console.log('Calendar >> '+t);
+    console.log('Calendar >> '+target);
     t.html('<h1>'+Calendae.Calendar+'</h1>\
             <div id="'+target+this.CalId+'" class="calendar"></div>\
             <div id="'+target+this.CalId+'-info"></div>');
