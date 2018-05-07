@@ -30,7 +30,8 @@ var Calendae = {
     New: function (name, src, callback) {
         $.getJSON(src, function(result){
             $.each(result, function(i, obj){
-                obj.Start = new Date(obj.Start)
+                obj.Start = new Date(obj.Start);
+                obj.End = new Date(obj.End);
             });
             var cal = new Calendar(name, result);
             callback(cal);
