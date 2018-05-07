@@ -106,10 +106,10 @@ Calendar.prototype.Calendar = function(target, date){
             <div id="'+target+this.CalId+'" class="calendar"></div>\
             <div id="'+target+this.CalId+'-info"></div>');
     this.Render(target,date);
-    $(document).off('click','#'+target+this.CalId+'-prev');
-    $(document).on('click','#'+target+this.CalId+'-prev',this.CalendarPrev.bind(this));
-    $(document).off('click','#'+target+this.CalId+'-next');
-    $(document).on('click','#'+target+this.CalId+'-next',this.CalendarNext.bind(this));
+    $(document).off('click','#'+target+'-prev');
+    $(document).on('click','#'+target+'-prev',this.CalendarPrev.bind(this));
+    $(document).off('click','#'+target+'-next');
+    $(document).on('click','#'+target+'-next',this.CalendarNext.bind(this));
 }
 // prev month
 Calendar.prototype.CalendarPrev = function(e){
@@ -148,8 +148,8 @@ Calendar.prototype.Render = function(target,date){
 
     // head block
     var s = '<ul class="head">\
-             <li id="'+target+this.CalId+'-prev" class="prev">&#10094;</li>\
-             <li id="'+target+this.CalId+'-next" class="next">&#10095;</li>\
+             <li id="'+target+'-prev" class="prev">&#10094;</li>\
+             <li id="'+target+'-next" class="next">&#10095;</li>\
              <li>'+Calendae.Month[date.getMonth()]+'<br>\
              <span style="font-size:14px">'+date.getFullYear()+'</span></li>\
              </ul>';
