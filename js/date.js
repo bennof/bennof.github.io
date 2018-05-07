@@ -49,7 +49,7 @@ Calendar.prototype.PopUp = function(e){
         $(document.body).append('<div id="overlay-'+this.CalId+'" class="overlay"></div>\
              <div id="popup-'+this.CalId+'" class="popup">\
              <div class="right"><a id="'+this.CalId+'-closePopUp" href="#">'+Calendae.Close+'</a></div>\
-             <div id="'+this.CalId+'-popupcontent"></div>\
+             <div id="'+this.CalId+'-popupcontent" class="CalendaePopup"></div>\
              </div>');
         $(document).on('click','#'+this.CalId+'-closePopUp',function(){console.log('#popup-'+this.CalId);$('#overlay-'+this.CalId).remove();$('#popup-'+this.CalId).remove();}.bind(this));
     }
