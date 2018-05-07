@@ -23,7 +23,11 @@ var Calendae = {
             callback(cal);
             Calendae.Cals.push(cal);
         });
+    },
+    
+    NewStatic: function (name, data, callback) {
     }
+    
 }
 
 // Calendar Data
@@ -111,6 +115,7 @@ Calendar.prototype.Calendar = function(target, date){
 Calendar.prototype.CalendarPrev = function(e){
     var E = e.currentTarget.id.split("-");
     var target = E[0];
+    console.log('Calendar Prev >> '+target);
     //for(var i=1; i<E.length-1;i++)
     //    target = target + '-' + E[i];
     this.Date = new Date(this.Date.getFullYear(), this.Date.getMonth()-1, 1);
@@ -120,6 +125,7 @@ Calendar.prototype.CalendarPrev = function(e){
 Calendar.prototype.CalendarNext = function(e){
     var E = e.currentTarget.id.split("-");
     var target = E[0];
+    console.log('Calendar Next >> '+target);
     //for(var i=1; i<E.length-1;i++)
     //    target = target + '-' + E[i];
     console.log(target);
