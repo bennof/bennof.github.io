@@ -40,7 +40,7 @@ function Calendar(name, data) {
 //
 Calendar.prototype.PopUp = function(e){
     var E = e.currentTarget.id.split("-")
-    console.log(E[0]+E[4]);
+    console.log('Popup handler:'+E[0]+E[4]);
     console.log(e.currentTarget.id);
 
     if( $('#popup-'+this.CalId).length ) { //exists
