@@ -1,20 +1,6 @@
 // Copyright 2018 Benjamin 'Benno' Falkner. All rights reserved.
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
-var testdata =[
-    {ID: 2, Start: new Date('2018-04-02T03:24:00'), Title: "Event 1", Info: "Event 1 text info"},
-    {ID: 3, Start: new Date('2018-04-17T03:24:00'), Title: "Event 2", Info: "Event 2 text info"},
-    {ID: 4, Start: new Date('2018-05-21T03:24:00'), Title: "Event 3", Info: "Event 3 text info"},
-    {ID: 5, Start: new Date('2018-06-02T03:24:00'), Title: "Event 4", Info: "Event 4 text info"},
-    {ID: 6, Start: new Date('2018-07-17T03:24:00'), Title: "Event 5", Info: "Event 5 text info"},
-    {ID: 7, Start: new Date('2018-08-21T03:24:00'), Title: "Event 6", Info: "Event 6 text info"},
-    {ID: 8, Start: new Date('2018-09-02T03:24:00'), Title: "Event 7", Info: "Event 7 text info"},
-    {ID: 9, Start: new Date('2018-09-17T03:24:00'), Title: "Event 8", Info: "Event 8 text info"},
-    {ID: 10, Start: new Date('2018-10-21T03:24:00'), Title: "Event 9", Info: "Event 9 text info"}
-];
-
-
-
 
 var Calendae = {
     Cals:      [],
