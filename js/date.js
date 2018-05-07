@@ -115,9 +115,9 @@ Calendar.prototype.Calendar = function(target, date){
 Calendar.prototype.CalendarPrev = function(e){
     var E = e.currentTarget.id.split("-");
     var target = E[0];
+    for(var i=1; i<E.length-1;i++)
+        target = target + '-' + E[i];
     console.log('Calendar Prev >> '+target);
-    //for(var i=1; i<E.length-1;i++)
-    //    target = target + '-' + E[i];
     this.Date = new Date(this.Date.getFullYear(), this.Date.getMonth()-1, 1);
     this.Render(target,this.Date);
 }
@@ -125,14 +125,14 @@ Calendar.prototype.CalendarPrev = function(e){
 Calendar.prototype.CalendarNext = function(e){
     var E = e.currentTarget.id.split("-");
     var target = E[0];
+    for(var i=1; i<E.length-1;i++)
+        target = target + '-' + E[i];
     console.log('Calendar Next >> '+target);
-    //for(var i=1; i<E.length-1;i++)
-    //    target = target + '-' + E[i];
-    console.log(target);
     console.log(e.currentTarget.id);
     this.Date = new Date(this.Date.getFullYear(), this.Date.getMonth()+1, 1);
     this.Render(target,this.Date);
 }
+
 // render the calendar
 Calendar.prototype.Render = function(target,date){
     var today = new Date();
