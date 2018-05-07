@@ -58,7 +58,7 @@ Calendar.prototype.PopUp = function(e){
         this.Calendar(this.CalId+'-popupcontent',new Date());
     }
     else {
-        this.Info(this.CalId+'-popupcontent',E[4]);
+        this.Info(this.CalId+'-popupcontent',E[E.length-1]);
     }
 }
 // draw next dates list to target count events from date
