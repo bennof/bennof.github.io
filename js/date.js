@@ -40,7 +40,7 @@ function Calendar(name, data) {
 //
 Calendar.prototype.PopUp = function(e){
     var E = e.currentTarget.id.split("-")
-    console.log('Popup handler:'+E[0]+E[4]);
+    console.log('Popup handler:'+E[0]+E[E.length-1]);
     console.log(e.currentTarget.id);
 
     if( $('#popup-'+this.CalId).length ) { //exists
@@ -65,6 +65,7 @@ Calendar.prototype.PopUp = function(e){
 Calendar.prototype.NextDates = function(target, count, date){
     this.Date = date;
     var t = $('#'+target);
+    console.log('NextDates >> '+target);
     t.empty(); // clear
     t.append('<p><button id="'+target+this.Event+'all" >'+Calendae.Calendar+'</button></p>');
     t.off('click','#'+target+this.Event+'all');
