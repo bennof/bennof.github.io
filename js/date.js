@@ -88,9 +88,9 @@ Calendar.prototype.Info = function(target, id){
     console.log('Info >> '+target);
     console.log(this.data[id]);
     t.html('<h1>'+this.data[id].Title+'</h1>\
-            <h6>'+this.data[id].Start.toLocaleDateString(Calendae.Locale)+'-'+this.data[id].End.toLocaleDateString(Calendae.Locale)+'</h6>\
-            <h6>'+this.data[id].Location+'</h6>\
-            <p>'+this.data[id].Info+'</p>');
+            <h6>'+this.data[id].Start.toLocaleDateString(Calendae.Locale)+' - '+this.data[id].End.toLocaleDateString(Calendae.Locale)+'</h6>\
+            <b>'+this.data[id].Location+'</b>\
+            <div>'+this.data[id].Info+'</div>');
 }
 // create a calendar at target with date as selector
 Calendar.prototype.Calendar = function(target, date){
