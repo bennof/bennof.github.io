@@ -62,16 +62,16 @@ Calendar.prototype.PopUp = function(e){
         $(document.body).append('<div id="overlay-'+this.CalId+'" class="overlay"></div>\
              <div id="popup-'+this.CalId+'" class="popup">\
              <div class="right"><a id="'+this.CalId+'-closePopUp" href="#">'+Calendae.Close+'</a></div>\
-             <div id="popupcontent"></div>\
+             <div id="'+this.CalId+'-popupcontent"></div>\
              </div>');
         $(document).on('click','#'+this.CalId+'-closePopUp',function(){console.log('#popup-'+this.CalId);$('#overlay-'+this.CalId).remove();$('#popup-'+this.CalId).remove();}.bind(this));
     }
 
     if(E[4] == 'all'){
-        this.Calendar('popupcontent',new Date());
+        this.Calendar(this.CalId+'-popupcontent',new Date());
     }
     else {
-        this.Info('popupcontent',E[4]);
+        this.Info(this.CalId+'-popupcontent',E[4]);
     }
 }
 // draw next dates list to target count events from date
@@ -98,6 +98,7 @@ Calendar.prototype.NextDates = function(target, count, date){
 // create info about date id at target
 Calendar.prototype.Info = function(target, id){
     var t = $('#'+target);
+    console.log('Info >> '+t);
     t.html('<h1>'+this.data[id].Title+'</h1>\
             <h6>'+this.data[id].Start.toLocaleDateString(Calendae.Locale)+'-'+this.data[id].End.toLocaleDateString(Calendae.Locale)+'</h6>\
             <h6>'+this.data[id].Location+'</h6>\
@@ -107,6 +108,7 @@ Calendar.prototype.Info = function(target, id){
 Calendar.prototype.Calendar = function(target, date){
     this.Date = date;
     var t = $('#'+target);
+    console.log('Calendar >> '+t);
     t.html('<h1>'+Calendae.Calendar+'</h1>\
             <div id="'+target+this.CalId+'" class="calendar"></div>\
             <div id="'+target+this.CalId+'-info"></div>');
