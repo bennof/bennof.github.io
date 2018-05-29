@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <title>Benjamin Benno Falkner</title> 
+    <meta name="description" content="my personal github index page">
+    <meta name="author" content="Benjamin Benno Falkner">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,600" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/tabularrasa.css"> 
+
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="js/recall.js"></script>
+
+    <style>
+        /* add your style here */
+        .has-docked-menubar #menubar {position: fixed; top: 0; left: 0; right:0;z-index: 9999;  background: white; margin: 0 auto; max-width: 800px;}
+        
+    </style>
+
+    <script>
+        $(document).ready(function() {
+            ReCall.FixedToolbar('#menubar');
+            ReCall.CleanCode('.clean-code');
+            ReCall.Autocomplete('#search','#url', '#urlupdate');
+        });
+    </script>
+</head>
+<body>
+    <div class="container tabular">
+        <div class="header">
+            <img src="images/Logo256.png" style="padding-top:10px;">
+            <h1>Benjamin 'Benno' Falkner</h1>
+            <h6>GitHub</h6>
+            <div class="tabular">
+                <div class="box four indent bottom">
+                    <img class="img64" src="images/Erlang_logo.svg">
+                    <p>Stable, simple, fast Webservices.</p>
+                </div>
+                <div class="box four indent bottom ">
+                    <img class="img64" src="images/TeX_logo.svg">
+                    <p>What u want is what u get.</p>
+                </div>
+                <div class="box four indent bottom">
+                    <img class="img64" src="images/Visual_Studio_2013_Logo.svg">
+                    <p>Office 356 + C# for Education.</p>
+                </div>
+            </div>
+            <div style="height: 5rem;"></div>
+        </div>
+    
+        <div id="menubar" class="toolbar clear">
+            <label for="show_menu" class="show media"><i class="fa fa-bars"></i> Benno</label>
+            <input type="checkbox" id="show_menu" class="show media" role="button">
+            <ul class="menu hidden media fleft clear">
+                <li><a href="index.html"><i class="fa fa-home"></i></a></li>
+                <li><a href="/index.html">Index</a></li>
+                <li><a href="#projects">Article</a>
+                    <ul>
+                        <li><a href="#mountain">Ama Dablam</a></li>
+                        <li><a href="#rail">Railway</a></li>
+                        <li><a href="#lion">Lion</a></li>
+                    </ul>
+                </li>
+                <li><a href="#ot">Other Tools</a>
+                    <ul>
+                        <li><a href="tabularrasa.html">Tabular Rasa Css</a></li>
+                        <li><a href="recall.html">ReCall JS</a></li>
+                    </ul>
+                </li>
+                <li><a href="https://github.com/bennof">GitHub</a></li>
+            </ul>
+            <ul class="menu info">
+                <li><a href="#null">
+                    <i class="fa fa-bell" data-count="15"></i>
+                </a></li>
+                <li><a href="#null"><i class="fa fa-envelope" data-count="4"></i></a></li>
+                <li><a href="#null"><img src="images/User.png" /><span> Username</span></a>
+                    <ul><li><a href="#null">logout</a></li></ul>
+                </li>
+            </ul>
+        </div>
+    
+        <div id="content" class="section">
+            <div class="tabular mcollapse">
+                <div class="box eight indent">
+                    <div id="mountain" class="card">
+                        <img src="images/ama-dablam.jpg" alt="Ama Dablam Mountain">
+                        <h1>Some Text</h1>
+                        <div class="clear">
+                            <i class="fleft">Date info</i>
+                            <div class="fright right dropdown">
+                                <i class="fa fa-ellipsis-v"></i>
+                                <ul class="hidden left fright">
+                                    <li><a href="#null"><i class="fa fa-share"></i>Share</a></li>
+                                    <li><a href="#null"><i class="fa fa-edit"></i>Edit</a></li>
+                                <ul>
+                            </div>
+                        </div>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut luctus nec felis sed euismod. Curabitur ut mattis leo, eget venenatis quam. Nunc blandit mauris at lectus pharetra tincidunt. Curabitur euismod tempus dignissim. Aenean placerat, magna efficitur facilisis vehicula, ante mi sollicitudin ex, vitae gravida est ipsum et sem. </p>
+                        <a href="#null">Read More...</a>
+                    </div>
+                    <div id="rail" class="card">
+                        <img src="images/railway.jpg" alt="Railway">
+                        <h1>Some other Text</h1>
+                        <div class="clear">
+                            <i class="fleft">Date info</i>
+                            <div class="fright right dropdown">
+                                <i class="fa fa-ellipsis-v"></i>
+                                <ul class="hidden left fright">
+                                    <li><a href="#null"><i class="fa fa-share"></i>Share</a></li>
+                                    <li><a href="#null"><i class="fa fa-edit"></i>Edit</a></li>
+                                <ul>
+                            </div>
+                        </div>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut luctus nec felis sed euismod. Curabitur ut mattis leo, eget venenatis quam. Nunc blandit mauris at lectus pharetra tincidunt. Curabitur euismod tempus dignissim. Aenean placerat, magna efficitur facilisis vehicula, ante mi sollicitudin ex, vitae gravida est ipsum et sem. </p>
+                        <hr>
+                        <div>
+                            <small>User wrote (04.03.2018):</small>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut luctus nec felis sed euismod.</p>
+                        </div>
+                        <form action="#" method="post" class="indent">
+                            <small>You write:</small><br>
+                            <label for="name">Name:</label>
+                            <input type="text" id="name" placeholder="Enter your full name" />
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" placeholder="Enter your email address" />
+                            <label for="message">Message:</label>
+                            <textarea id="message" placeholder="What's on your mind?"></textarea> 
+                            <input type="submit" value="Send message" />
+                        </form>
+                    </div>
+                    <div id="lion" class="card">
+                        <img src="images/lion.jpg" alt="lion">
+                        <h1>Some much longer Text as heading</h1>
+                        <div class="clear">
+                            <i class="fleft">Date info</i>
+                            <div class="fright right dropdown">
+                                <i class="fa fa-ellipsis-v"></i>
+                                <ul class="hidden left fright">
+                                    <li><a href="#null"><i class="fa fa-share"></i>Share</a></li>
+                                    <li><a href="#null"><i class="fa fa-edit"></i>Edit</a></li>
+                                <ul>
+                            </div>
+                        </div>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut luctus nec felis sed euismod. Curabitur ut mattis leo, eget venenatis quam. Nunc blandit mauris at lectus pharetra tincidunt. Curabitur euismod tempus dignissim. Aenean placerat, magna efficitur facilisis vehicula, ante mi sollicitudin ex, vitae gravida est ipsum et sem. </p>
+                        <a href="#null">Read More...</a>
+                    </div>
+                    <div class="pagination">
+                        <a href="#">1</a>
+                        <a href="#">2</a>
+                        <a href="#">3</a>
+                        <a href="#">4</a>
+                        <a href="#">5</a>
+                        ...
+                        <a href="#">Last</a>
+                    </div>
+                </div>
+                <div class="box four indent">
+                    <div class="card">
+                        <h2>Search</h2>
+                        <form action="#" method="post" class="search" autocomplete="off">
+                            <input id="search" type="text"  placeholder="Search ..."><button type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>
+                    <div class="card">
+                        <h2>New Articles</h2>
+                        <ul>
+                            <li>Element 1</li>
+                            <li>Element 2</li>
+                            <li>Element 3</li>
+                            <li>Element 4</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h2>Topics</h2>
+                        <ul>
+                            <li>Element 1</li>
+                            <li>Element 2</li>
+                            <li>Element 3</li>
+                            <li>Element 4</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h2>Authors</h2>
+                        <ul>
+                            <li>Element 1</li>
+                            <li>Element 2</li>
+                            <li>Element 3</li>
+                            <li>Element 4</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        
+        <div class="footer">
+            <p>Copyright © 2018 <a href="mailto:benno.falkner@gmail.com">Benjamin 'Benno' Falkner</a>. All Rights reserved.</p>
+        </div>  
+    </div>
+</body>
+</html>
