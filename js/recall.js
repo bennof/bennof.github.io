@@ -204,17 +204,20 @@ var ReCall = (function() {
     
             // loop data
             var inner = "<ul>";
+            var count = 0;
             for (i = 0; i < this.data.length; i++) {
                 if (this.data[i].substr(0, val.length).toLowerCase() == val.toLowerCase()) {
                     inner += "<li><a href=\""+this.url+this.data[i]+"\"><strong>" + this.data[i].substr(0, val.length) + "</strong>"+this.data[i].substr(val.length)+"</li>";
+                    count++;
                 }
             }
-            inner += "</ul>";
-    
-            this.AC.html(inner);
-        } else {
-            this.delete();
+            if(count>0) {
+                inner += "</ul>";
+                this.AC.html(inner);
+                return 
+            }
         }
+        this.delete();
     }
     
     Autocomplete.prototype.delete = function(e){
@@ -224,6 +227,62 @@ var ReCall = (function() {
         }
     }
  
+
+    var Table = function (name, edit){
+        this.table = $(name)[0];
+        this.hasHeader = true;
+        this.cell = null;
+        this.data = null;
+        this.edit = edit;
+        this.table.onclick = this.clicked.bind(this);
+    }
+
+    Table.prototype.Clear = function (){
+        while (this.table.firstChild) {
+            this.table.removeChild(this.table.firstChild);
+        }
+    } 
+
+    Table.prototype.clicked = function(e){
+        var target = e.target;
+        if (target.tagName == "TH" || target.tagName == "TD"){
+            var cell = {col: target.cellIndex, row: target.parentElement.rowIndex};
+            if (this.hasHeader && cell.row == 0) {
+                return;
+            } 
+            // check if edit -- missing
+            var content = e.target.innerText;
+            while (target.firstChild) {
+                target.removeChild(target.firstChild);
+            }
+            var input = document.createElement("input");
+            input.type = "text"; // set the CSS class
+            input.value = content;
+            input.onblur = this.release.bind(this);
+            input.onkeypress = (function(e){if(e.charCode==13){input.blur()}});
+            target.appendChild(input); // put it into the DOM
+            this.cell = cell;
+            input.focus();
+        }
+    }
+
+    Table.prototype.release = function(){
+        console.log("realease "+this.cell.row+" "+this.cell.col)
+        if (this.cell != null) {
+            var cell = this.cell;
+            this.cell = null;
+            var target = this.table.rows[cell.row].cells[cell.col];
+           
+            var content = target.firstChild.value;
+            if(target.firstChild)
+                target.removeChild(target.firstChild);
+            target.innerText = content;
+        }
+    }
+
+    Table.prototype.redraw = function(){}
+    Table.prototype.Save = function(){}
+    Table.prototype.Load = function(){}
 
     var Class = function(i){
         this.id=i;
@@ -245,6 +304,10 @@ var ReCall = (function() {
         Autocomplete : function(name,url,urlupdate){
             return new Autocomplete(name,url,urlupdate)
         },
+        Table: function(name) {
+            return new Table(name)
+        },
+
         Class: Class
     };  
 })(); 

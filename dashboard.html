@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <title>Benjamin Benno Falkner</title> 
+    <meta name="description" content="my personal github index page">
+    <meta name="author" content="Benjamin Benno Falkner">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,600" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/tabularrasa.css"> 
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <script src='https://cloud.tinymce.com/stable/tinymce.min.js'></script>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+    <script src="js/recall.js"></script>
+
+    <style>
+        /* add your style here */
+        
+        
+    </style>
+
+    <script>
+        $(document).ready(function() {
+            //ReCall.FixedToolbar('#menubar');
+            ReCall.CleanCode('.clean-code');
+            ReCall.Autocomplete('#search','#url', '#urlupdate');
+            ReCall.Table('#table');
+
+            tinymce.init({
+                selector: '#html_edit',
+                height: 500,
+                theme: 'modern',
+                plugins: 'print preview fullpage  searchreplace autolink directionality  visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists textcolor wordcount   imagetools    contextmenu colorpicker textpattern help',
+                toolbar1: 'formatselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat',
+                image_advtab: true,
+                templates: [
+                    { title: 'Test template 1', content: 'Test 1' },
+                    { title: 'Test template 2', content: 'Test 2' }
+                ],
+                content_css: [
+                    'http://fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+                    'http://www.tinymce.com/css/codepen.min.css'
+                ],
+                init_instance_callback: function (editor) {
+                    editor.on('Change', function (e) {
+                        tinymce.activeEditor.dom.setAttrib(tinymce.activeEditor.dom.select('table'), 'border', null);
+                    })
+                },
+            });
+
+            var ctx = document.getElementById('chart').getContext('2d');
+            
+            $('#chart').width($('#div_chart').parent().width()-10)
+            $('#chart').height($('#div_chart').parent().width()*0.6)           
+            var chart = new Chart(ctx, {
+                // The type of chart we want to create
+                type: 'line',
+
+                // The data for our dataset
+                data: {
+                    labels: ["January", "February", "March", "April", "May", "June", "July"],
+                    datasets: [{
+                        label: "My First dataset",
+                        backgroundColor: 'rgb(255, 99, 132)',
+                        borderColor: 'rgb(255, 99, 132)',
+                        data: [0, 10, 5, 2, 20, 30, 45],
+                    }]
+                },
+
+                // Configuration options go here
+                options: {
+                    animation: false,
+                    responsive: false,
+                    maintainAspectRatio: false,
+                    onResize: function(a, size){
+                        $('#chart').width($('#div_chart').parent().width()-10)
+                        $('#chart').height($('#div_chart').parent().width()*0.6)
+                    }
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <!--side effect geek-->
+    <div class="sidebar">
+        <div class="sidebar-head"><img src="images/Logo128.png" /><span> Admin</span> </div>
+        <ul class="sidebar-menu scrollable pos-r ps ps--active-y">
+            <li><a href="#null"><i class="fa fa-home"></i><span> Dashboard</span></a></li>
+            <li><a href="#null"><i class="fa fa-envelope-o"></i><span> Email</span></a></li>
+            <li><a href="#null"><i class="fa fa-edit"></i><span> Compose</span></a></li>
+            <li><a href="#null"><i class="fa fa-calendar"></i><span> Calendar</span></a></li>
+            <li><a href="#null"><i class="fa fa-commenting-o"></i><span> Chat</span></a></li>
+            <li><a href="#null"><i class="fa fa-line-chart"></i><span> Charts</span></a></li>
+            <li><a href="#null"><i class="fa fa-pencil"></i><span> Forms</span></a></li>
+            <li><a href="#null"><i class="fa fa-home"></i><span> UI Elements</span></a></li>
+            <li><a href="#null"><i class="fa fa-table"></i><span> Tables</span></a>
+                <ul class="dropdown-menu">
+                    <li><a class="sidebar-link" href="basic-table.html">Basic Table</a></li>
+                    <li><a class="sidebar-link" href="datatable.html">Data Table</a></li>
+                </ul></li>
+            <li><a href="#null"><i class="fa fa-map-o"></i><span> Maps</span> <span class="arrow"><i class="ti-angle-right"></i></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="google-maps.html">Google Map</a></li>
+                    <li><a href="vector-maps.html">Vector Map</a></li>
+                </ul></li>
+            <li><a href="#null"><i class="fa fa-files-o"></i><span> Pages</span> <span class="arrow"><i class="ti-angle-right"></i></span></a>
+                <ul class="dropdown-menu">
+                    <li><a class="sidebar-link" href="404.html">404</a></li>
+                    <li><a class="sidebar-link" href="500.html">500</a></li>
+                    <li><a class="sidebar-link" href="signin.html">Sign In</a></li>
+                    <li><a class="sidebar-link" href="signup.html">Sign Up</a></li>
+                </ul></li>
+            <li><a href="#null"><i class="fa fa-server"></i><span> Multiple Levels</span> <span class="arrow"></span><i class="ti-angle-right"></i></span></a>
+                <ul class="dropdown-menu">
+                    <li class="nav-item dropdown"><a href="javascript:void(0);"><span>Menu Item</span></a></li>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- Container -->
+<div class="container tabular has-fixed-menubar">
+    <div class="header">
+        <div class="tabular">
+            <div class="box three indent ">
+                <div class="card vfill indent">
+                    <img src="images/Logo256.png" style="padding-top:10px;max-width: 200px; height:200px; object-fit: contain;">
+                    <h1>Benjamin 'Benno' Falkner</h1>
+                    <h6>GitHub</h6>
+                </div>
+            </div>
+            <div class="box three indent ">
+                <div class="card vfill indent">
+                    <img src="images/Erlang_logo.svg" style="padding-top:10px;max-width: 200px; height:200px; object-fit: contain;">
+                    <h1>Stable, simple, fast Webservices.</h1>
+                    <h6>Functional Servers</h6>
+                </div>
+            </div>
+            <div class="box three indent  ">
+                <div class="card vfill">
+                    <img src="images/TeX_logo.svg" style="padding-top:10px;max-width: 200px; height:200px; object-fit: contain;">
+                    <h1>What u want is what u get.</h1>
+                    <h6>Nice Text</h6>
+                </div>
+            </div>
+            <div class="box three indent ">
+                <div class="card vfill">
+                    <img src="images/Visual_Studio_2013_Logo.svg" style="padding-top:10px;max-width: 200px; height:200px; object-fit: contain;">
+                    <h1>Office 356 + C# for Education.</h1>
+                    <h6>Microsoft as Default</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <div id="menubar" class="fixed toolbar clear">
+            <label for="show_menu" class="show media"><i class="fa fa-bars"></i> Benno</label>
+            <input type="checkbox" id="show_menu" class="show media" role="button">
+            <ul class="menu hidden media fleft clear">
+                <li><a href="index.html"><i class="fa fa-home"></i></a></li>
+                <li><a href="/index.html">Index</a></li>
+                <li><a href="#projects">Article</a>
+                    <ul>
+                        <li><a href="#mountain">Ama Dablam</a></li>
+                        <li><a href="#rail">Railway</a></li>
+                        <li><a href="#lion">Lion</a></li>
+                    </ul>
+                </li>
+                <li><a href="#ot">Other Tools</a>
+                    <ul>
+                        <li><a href="tabularrasa.html">Tabular Rasa Css</a></li>
+                        <li><a href="recall.html">ReCall JS</a></li>
+                    </ul>
+                </li>
+                <li><a href="https://github.com/bennof">GitHub</a></li>
+            </ul>
+            <ul class="menu info">
+                <li><a href="#null">
+                    <i class="fa fa-bell" data-count="15"></i>
+                </a></li>
+                <li><a href="#null"><i class="fa fa-envelope" data-count="4"></i></a></li>
+                <li><a href="#null"><img src="images/User.png" /><span> Username</span></a>
+                    <ul><li><a href="#null">logout</a></li></ul>
+                </li>
+            </ul>
+        </div>
+    
+        <div id="content" class="section">
+            <div class="tabular mcollapse">
+                <div class="box six indent">
+                    <div class="card">
+                        <h2>Search</h2>
+                        <form action="#" method="post" class="search" autocomplete="off">
+                            <input id="search" type="text"  placeholder="Search ..."><button type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>
+                    <div class="card">
+                        <h2>Chart</h2>
+                        <div id="div_chart" style="width:100%;"><canvas id="chart" ></canvas></div>
+                    </div>
+                    <div class="card">
+                        <h2>Editor</h2>
+                        <div><textarea id="html_edit"></textarea></div>
+                    </div>
+                    <div class="card">
+                        <h2>Table</h2>
+                        <table id="table" class="data">
+                            <tr>
+                                <th>Entry Header 1</th>
+                                <th>Entry Header 2</th>
+                                <th>Entry Header 3</th>
+                                <th>Check Box</th>
+                            </tr>
+                            <tr>
+                                <td>Entry First Line 1</td>
+                                <td>Entry First Line 2</td>
+                                <td>Entry First Line 3</td>
+                                <td><input type="checkbox"></td>
+                            </tr>
+                            <tr>
+                                <td>Entry Line 1</td>
+                                <td>Entry Line 2</td>
+                                <td>Entry Line 3</td>
+                                <td><input type="checkbox"></td>
+                            </tr>
+                            <tr>
+                                <td>Entry Last Line 1</td>
+                                <td>Entry Last Line 2</td>
+                                <td>Entry Last Line 3</td>
+                                <td><input type="checkbox"></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="card">
+                        <h2>Bars</h2>
+                        <div>
+                            <div class="clear"><h5 class="fleft">Bar 1</h5><h5 class="fright">65%</h5></div>
+                            <div class="bar"><div style="width: 65%"></div></div>
+                        </div>
+                        <div>
+                            <div class="clear"><h5 class="fleft">Bar 2</h5><h5 class="fright">15%</h5></div>
+                            <div class="bar"><div style="width: 15%"></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box six indent">
+                    <div id="mountain" class="card">
+                        <img src="images/ama-dablam.jpg" alt="Ama Dablam Mountain">
+                        <h1>Some Text</h1>
+                        <div class="clear">
+                            <i class="fleft">Date info</i>
+                            <div class="fright right dropdown">
+                                <i class="fa fa-ellipsis-v"></i>
+                                <ul class="hidden left fright">
+                                    <li><a href="#null"><i class="fa fa-share"></i>Share</a></li>
+                                    <li><a href="#null"><i class="fa fa-edit"></i>Edit</a></li>
+                                <ul>
+                            </div>
+                        </div>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut luctus nec felis sed euismod. Curabitur ut mattis leo, eget venenatis quam. Nunc blandit mauris at lectus pharetra tincidunt. Curabitur euismod tempus dignissim. Aenean placerat, magna efficitur facilisis vehicula, ante mi sollicitudin ex, vitae gravida est ipsum et sem. </p>
+                        <a href="#null">Read More...</a>
+                    </div>
+                    <div id="rail" class="card">
+                        <img src="images/railway.jpg" alt="Railway">
+                        <h1>Some other Text</h1>
+                        <div class="clear">
+                            <i class="fleft">Date info</i>
+                            <div class="fright right dropdown">
+                                <i class="fa fa-ellipsis-v"></i>
+                                <ul class="hidden left fright">
+                                    <li><a href="#null"><i class="fa fa-share"></i>Share</a></li>
+                                    <li><a href="#null"><i class="fa fa-edit"></i>Edit</a></li>
+                                <ul>
+                            </div>
+                        </div>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut luctus nec felis sed euismod. Curabitur ut mattis leo, eget venenatis quam. Nunc blandit mauris at lectus pharetra tincidunt. Curabitur euismod tempus dignissim. Aenean placerat, magna efficitur facilisis vehicula, ante mi sollicitudin ex, vitae gravida est ipsum et sem. </p>
+                        <hr>
+                        <div>
+                            <small>User wrote (04.03.2018):</small>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut luctus nec felis sed euismod.</p>
+                        </div>
+                        <form action="#" method="post" class="indent">
+                            <small>You write:</small><br>
+                            <label for="name">Name:</label>
+                            <input type="text" id="name" placeholder="Enter your full name" />
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" placeholder="Enter your email address" />
+                            <label for="message">Message:</label>
+                            <textarea id="message" placeholder="What's on your mind?"></textarea> 
+                            <input type="submit" value="Send message" />
+                        </form>
+                    </div>
+                    <div id="lion" class="card">
+                        <img src="images/lion.jpg" alt="lion">
+                        <h1>Some much longer Text as heading</h1>
+                        <div class="clear">
+                            <i class="fleft">Date info</i>
+                            <div class="fright right dropdown">
+                                <i class="fa fa-ellipsis-v"></i>
+                                <ul class="hidden left fright">
+                                    <li><a href="#null"><i class="fa fa-share"></i>Share</a></li>
+                                    <li><a href="#null"><i class="fa fa-edit"></i>Edit</a></li>
+                                <ul>
+                            </div>
+                        </div>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut luctus nec felis sed euismod. Curabitur ut mattis leo, eget venenatis quam. Nunc blandit mauris at lectus pharetra tincidunt. Curabitur euismod tempus dignissim. Aenean placerat, magna efficitur facilisis vehicula, ante mi sollicitudin ex, vitae gravida est ipsum et sem. </p>
+                        <a href="#null">Read More...</a>
+                    </div>
+                    <div class="pagination">
+                        <a href="#">1</a>
+                        <a href="#">2</a>
+                        <a href="#">3</a>
+                        <a href="#">4</a>
+                        <a href="#">5</a>
+                        ...
+                        <a href="#">Last</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        
+        <div class="footer">
+            <p>Copyright © 2018 <a href="mailto:benno.falkner@gmail.com">Benjamin 'Benno' Falkner</a>. All Rights reserved.</p>
+        </div>  
+    </div>
+</body>
+</html>
