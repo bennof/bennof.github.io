@@ -94,6 +94,7 @@ var ReCall = (function() {
     AutoComplete.prototype.receive = function(){
         if (this.httpRequest.readyState === XMLHttpRequest.DONE) {
             if (this.httpRequest.status === 200) {
+                console.log(this.httpRequest.responseText);
                 this.data = JSON.parse(this.httpRequest.responseText);
                 this.draw(this.Search.value);
             }
