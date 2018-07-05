@@ -95,7 +95,7 @@ var ReCall = (function() {
         if (this.httpRequest.readyState === XMLHttpRequest.DONE) {
             if (this.httpRequest.status === 200) {
                 console.log(this.httpRequest.responseText);
-                this.data = JSON.parse(this.httpRequest.responseText);
+                this.Data = JSON.parse(this.httpRequest.responseText);
                 this.draw(this.Search.value);
             } else {
                 console.log(this.httpRequest.status);
