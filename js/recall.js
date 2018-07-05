@@ -120,7 +120,7 @@ var ReCall = (function() {
             inner += "</ul>";
             if(this.AC == null ) { // if no frame exists
                 var elem = document.createElement("div");
-                elem.id = this.name.substr(1)+"autocomplete";
+                elem.id = this.Name.substr(1)+"autocomplete";
                 elem.classList.add("autocomplete");
 
                 this.Search.parentElement.appendChild(elem);//("<div id=\""+this.name.substr(1)+"autocomplete\" class=\"autocomplete\"></div>");
