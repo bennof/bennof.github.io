@@ -119,8 +119,12 @@ var ReCall = (function() {
         if(count>0) {
             inner += "</ul>";
             if(this.AC == null ) { // if no frame exists
-                this.Search.parent().append("<div id=\""+this.name.substr(1)+"autocomplete\" class=\"autocomplete\"></div>");
-                this.AC = $(this.name+"autocomplete");
+                var elem = document.createElement("div");
+                elem.id = this.name.substr(1)+"autocomplete";
+                elem.classList.add("autocomplete");
+
+                this.Search.parentElement.appendChild(elem);//("<div id=\""+this.name.substr(1)+"autocomplete\" class=\"autocomplete\"></div>");
+                this.AC = elem;//$(this.name+"autocomplete");
             }
             this.AC.html(inner);
             return 
