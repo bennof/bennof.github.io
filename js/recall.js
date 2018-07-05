@@ -58,11 +58,12 @@ var ReCall = (function() {
     }
 
     // Create an Autocomplete handler
-    var AutoComplete = function (name, url) {
+    var AutoComplete = function (name, url, link) {
         this.Name = name;
         this.Search = document.querySelector(name);
         this.AC = null;
         this.Data = null;
+        this.Link = link;
         this.url = url;
         this.httpRequest = null;
 
@@ -111,7 +112,7 @@ var ReCall = (function() {
         if (this.Data != null){
             for (i = 0; i < this.Data.length; i++) {
                 if (this.Data[i].substr(0, val.length).toLowerCase() == val.toLowerCase()) {
-                    inner += "<li><a href=\""+this.url+this.Data[i]+"\"><strong>" + this.Data[i].substr(0, val.length) + "</strong>"+this.Data[i].substr(val.length)+"</li>";
+                    inner += "<li><a href=\""+this.Link+this.Data[i]+"\"><strong>" + this.Data[i].substr(0, val.length) + "</strong>"+this.Data[i].substr(val.length)+"</li>";
                     count++;
                 }
             }
