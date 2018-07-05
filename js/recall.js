@@ -126,7 +126,7 @@ var ReCall = (function() {
                 this.Search.parentElement.appendChild(elem);//("<div id=\""+this.name.substr(1)+"autocomplete\" class=\"autocomplete\"></div>");
                 this.AC = elem;//$(this.name+"autocomplete");
             }
-            this.AC.html(inner);
+            this.AC.innerHTML=inner;
             return 
         }
         this.delete();
