@@ -64,7 +64,7 @@ var ReCall = (function() {
         this.AC = null;
         this.Data = null;
         this.url = url;
-        this.request = null;
+        this.httpRequest = null;
 
         this.Search.onkeyup  = this.update.bind(this);
         document.onclick = this.delete.bind(this);
@@ -80,32 +80,34 @@ var ReCall = (function() {
             if (this.httpRequest == null){ 
                 this.httpRequest = new XMLHttpRequest();
                 this.httpRequest.onreadystatechange = this.receive.bind(this);
-                console.log(this.httpRequest);
                 this.httpRequest.open('GET', this.url,true);
-                console.log(this.httpRequest);
                 this.httpRequest.send(null);
             }
-            this.draw(val);
+            if(this.Data != null){
+                this.draw(val);
+            }
             return ;
         }
         this.delete();
     }
 
     AutoComplete.prototype.receive = function(){
-        if (this.httpRequest.readyState === XMLHttpRequest.DONE && this.httpRequest.status === 200) {
-            this.data = JSON.parse(this.httpRequest.responseText);
-            this.draw(this.Search.value);
+        if (this.httpRequest.readyState === XMLHttpRequest.DONE) {
+            if (this.httpRequest.status === 200) {
+                this.data = JSON.parse(this.httpRequest.responseText);
+                this.draw(this.Search.value);
+            }
+            this.httpRequest = null;
         }
-        this.httpRequest = null;
     }
 
     AutoComplete.prototype.draw = function(val) {
         // loop data
         var inner = "<ul>";
         var count = 0;
-        for (i = 0; i < this.data.length; i++) {
-            if (this.data[i].substr(0, val.length).toLowerCase() == val.toLowerCase()) {
-                inner += "<li><a href=\""+this.url+this.data[i]+"\"><strong>" + this.data[i].substr(0, val.length) + "</strong>"+this.data[i].substr(val.length)+"</li>";
+        for (i = 0; i < this.Data.length; i++) {
+            if (this.Data[i].substr(0, val.length).toLowerCase() == val.toLowerCase()) {
+                inner += "<li><a href=\""+this.url+this.Data[i]+"\"><strong>" + this.Data[i].substr(0, val.length) + "</strong>"+this.data[i].substr(val.length)+"</li>";
                 count++;
             }
         }
