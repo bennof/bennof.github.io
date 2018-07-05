@@ -105,10 +105,12 @@ var ReCall = (function() {
         // loop data
         var inner = "<ul>";
         var count = 0;
-        for (i = 0; i < this.Data.length; i++) {
-            if (this.Data[i].substr(0, val.length).toLowerCase() == val.toLowerCase()) {
-                inner += "<li><a href=\""+this.url+this.Data[i]+"\"><strong>" + this.Data[i].substr(0, val.length) + "</strong>"+this.data[i].substr(val.length)+"</li>";
-                count++;
+        if (this.Data != null){
+            for (i = 0; i < this.Data.length; i++) {
+                if (this.Data[i].substr(0, val.length).toLowerCase() == val.toLowerCase()) {
+                    inner += "<li><a href=\""+this.url+this.Data[i]+"\"><strong>" + this.Data[i].substr(0, val.length) + "</strong>"+this.data[i].substr(val.length)+"</li>";
+                    count++;
+                }
             }
         }
         if(count>0) {
