@@ -97,6 +97,8 @@ var ReCall = (function() {
                 console.log(this.httpRequest.responseText);
                 this.data = JSON.parse(this.httpRequest.responseText);
                 this.draw(this.Search.value);
+            } else {
+                console.log(this.httpRequest.status);
             }
             this.httpRequest = null;
         }
