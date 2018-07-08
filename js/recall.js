@@ -78,7 +78,8 @@ var ReCall = (function() {
         if (val.length > 0) {
             // get data
             
-            AJAX.Request(this.url,{onSuccess: this.receive.bind(this), timeout: 5})
+
+            AJAX.Request(this.url+val,{onSuccess: this.receive.bind(this), timeout: 5})
 
 
             /*if (this.httpRequest == null){ 
