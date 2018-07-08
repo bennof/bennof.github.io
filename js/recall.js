@@ -95,8 +95,11 @@ var ReCall = (function() {
     }
 
     AutoComplete.prototype.receive = function(msg){
-        console.log(msg)
-        this.Data = JSON.parse(msg);
+        if(this.Method == JSONP) {
+            this.Data = msg;
+        } else {
+            this.Data = JSON.parse(msg);
+        }
         this.draw(this.Search.value);
         
     }
