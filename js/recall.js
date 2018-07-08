@@ -178,7 +178,7 @@ var ReCall = (function() {
                 on_error = options.onError || function(){};
                 
             var http = new XMLHttpRequest();
-            http.timeout = options.timeout || 10*1000; // sec
+            http.timeout = options.timeout*1000 || 10*1000; // sec
             http.ontimeout = options.onTimeout || function(e){};
             http.onreadystatechange = function () {
                 if (http.readyState === XMLHttpRequest.DONE) {
