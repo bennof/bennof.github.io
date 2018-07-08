@@ -77,8 +77,6 @@ var ReCall = (function() {
 
         if (val.length > 0) {
             // get data
-            
-
             AJAX.Request(this.url+val,{onSuccess: this.receive.bind(this), timeout: 5})
 
 
@@ -97,6 +95,7 @@ var ReCall = (function() {
     }
 
     AutoComplete.prototype.receive = function(msg){
+        console.log(msg)
         this.Data = JSON.parse(msg);
         this.draw(this.Search.value);
         
