@@ -58,14 +58,14 @@ var ReCall = (function() {
     }
 
     // Create an Autocomplete handler
-    var AutoComplete = function (name, url, link, options) {
+    var AutoComplete = function (name, options) {
         this.Name = name;
         this.Search = document.querySelector(name);
         this.AC = null;
         this.Data = null;
-        this.Link = link;
-        this.url = url;
-        this.httpRequest = null;
+        this.Link = options.url || '';
+        this.url = options.hint || '';
+        this.Method = options.Method || JSONP,
 
         this.Search.onkeyup  = this.update.bind(this);
         document.onclick = this.delete.bind(this);
@@ -77,7 +77,7 @@ var ReCall = (function() {
 
         if (val.length > 0) {
             // get data
-            AJAX.Request(this.url+val,{onSuccess: this.receive.bind(this), timeout: 5})
+            this.Method.Request(this.url+val,{onSuccess: this.receive.bind(this), timeout: 5})
 
 
             /*if (this.httpRequest == null){ 

@@ -27,7 +27,7 @@
         $(document).ready(function() {
             ReCall.FixedToolbar('#menubar');
             ReCall.CleanCode('.clean-code');
-            ReCall.AutoComplete('#search','data/autocomplete.json?hint=', 'blog.html?s=');
+            ReCall.AutoComplete('#search',{hint: 'data/autocomplete.jsonp?hint=', url: 'blog.html?s='});
         });
     </script>
 </head>
