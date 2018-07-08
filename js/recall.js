@@ -96,16 +96,10 @@ var ReCall = (function() {
         this.delete();
     }
 
-    AutoComplete.prototype.receive = function(){
-        if (this.httpRequest.readyState === XMLHttpRequest.DONE) {
-            if (this.httpRequest.status === 200) {
-                this.Data = JSON.parse(this.httpRequest.responseText);
-                this.draw(this.Search.value);
-            } else {
-                console.log(this.httpRequest.status);
-            }
-            this.httpRequest = null;
-        }
+    AutoComplete.prototype.receive = function(msg){
+        this.Data = JSON.parse(msg);
+        this.draw(this.Search.value);
+        
     }
 
     AutoComplete.prototype.draw = function(val) {
