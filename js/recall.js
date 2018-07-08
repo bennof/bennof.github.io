@@ -5,9 +5,9 @@
 
 
 var ReCall = (function() {
-    var Body = $('body');
     var body = document.getElementsByTagName("BODY")[0];
-    var Window = $(window);
+    var popups = []; 
+
     var EntityMap = {
         "&": "&amp;",
         "<": "&lt;",
@@ -58,7 +58,7 @@ var ReCall = (function() {
     }
 
     // Create an Autocomplete handler
-    var AutoComplete = function (name, url, link) {
+    var AutoComplete = function (name, url, link, options) {
         this.Name = name;
         this.Search = document.querySelector(name);
         this.AC = null;
@@ -74,16 +74,19 @@ var ReCall = (function() {
     AutoComplete.prototype.update = function(e){
         // request data
         var val = this.Search.value;
-        console.log('update: '+ val)
 
         if (val.length > 0) {
             // get data
-            if (this.httpRequest == null){ 
+            
+            AJAX.Request(this.url,{onSuccess: this.receive.bind(this), timeout: 5})
+
+
+            /*if (this.httpRequest == null){ 
                 this.httpRequest = new XMLHttpRequest();
                 this.httpRequest.onreadystatechange = this.receive.bind(this);
                 this.httpRequest.open('GET', this.url,true);
                 this.httpRequest.send(null);
-            }
+            }*/
             if(this.Data != null){
                 this.draw(val);
             }
@@ -95,7 +98,6 @@ var ReCall = (function() {
     AutoComplete.prototype.receive = function(){
         if (this.httpRequest.readyState === XMLHttpRequest.DONE) {
             if (this.httpRequest.status === 200) {
-                console.log(this.httpRequest.responseText);
                 this.Data = JSON.parse(this.httpRequest.responseText);
                 this.draw(this.Search.value);
             } else {
@@ -140,7 +142,128 @@ var ReCall = (function() {
         }
     }
 
-    
+    // JSONP Request
+    var JSONP = (function (){
+        var req = {};
+        req.Request = function(src, options) {
+            //setup internal data
+            var callback_name = options.callbackName || 'callback',
+                on_success = options.onSuccess || function(){},
+                on_timeout = options.onTimeout || function(){},
+                timeout = options.timeout || 10; // sec
+            // handle timeout
+            var timeout_trigger = window.setTimeout(function(){
+                window[callback_name] = function(){};
+                on_timeout();
+            }, timeout * 1000);
+
+            // handle success
+            window[callback_name] = function(data){
+                window.clearTimeout(timeout_trigger);
+                on_success(data);
+            }
+
+            // create the script element
+            var script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.async = true;
+            script.src = src;
+
+            document.getElementsByTagName('head')[0].appendChild(script);
+        }
+        return req;
+    })();
+
+    // AJAX Request
+    var AJAX = (function() { 
+        var req = {}; 
+        req.Request = function(src, options){
+            //setup internal data
+            var callback_name = 
+                on_success = options.onSuccess || function(){},
+                on_error = options.onError || function(){};
+                
+            var http = new XMLHttpRequest();
+            http.timeout = options.timeout || 10*1000; // sec
+            http.ontimeout = options.onTimeout || function(e){};
+            http.onreadystatechange = function () {
+                if (http.readyState === XMLHttpRequest.DONE) {
+                    if (http.status === 200) {
+                        on_success(http.responseText)
+                    } else {
+                        on_error(http.responseText,http.status);
+                    }
+                }
+            }
+            http.open('GET', src,true);
+            http.send(null);
+        }
+
+        return req;
+    })();
+
+    // PopUp HAndler
+    var PopUp = (function(){
+        var pu = {
+            id: "ReCallPopUp_0x0001"
+        }
+        pu.Open = function(html){
+            if(popups.length == 0 ){ // create new popup
+                background = document.createElement('div');
+                background.classList.add("popup_background")
+                pop = document.createElement('div');
+                pop.id = this.id;
+                pop.classList.add("popup");
+                background.appendChild(pop);
+                pop.innerHTML(html);
+            } else { // push on stack
+                pop = document.getElementById(this.id);
+                pop.innerHTML = html;
+                popups.push(html);
+            } 
+            popups.push();
+        }
+
+        pu.Replace = function(html){
+            if(popups.length > 0) {
+                pop = document.getElementById(this.id);
+                pop.innerHTML = html;
+                popups.pop();
+                popups.push(html);
+            }else {
+                pu.Open(html);
+            }
+        }
+
+        pu.Close = function(){
+            if(popups.length == 0 ) {
+                return;
+            }
+            else if(popups.length > 1 ){ // take next in stack
+                pop = document.getElementById(this.id);
+                pop.innerHTML(popups.pop());
+            } else { // remove popup
+                pop = document.getElementById(this.id);
+                background = pop.parentElement;
+                document.removeChild(pop);
+                document.removeChild(background);
+                popups.pop();
+            }
+        }
+
+        pu.CloseAll = function() {
+            if(popups.length == 0 ) {
+                return;
+            } else {
+                pop = document.getElementById(this.id);
+                background = pop.parentElement;
+                document.removeChild(pop);
+                document.removeChild(background);
+                popups = [];
+            } 
+        }
+        return pu;
+    })();
  
 
     // create a Table handler
@@ -201,8 +324,6 @@ var ReCall = (function() {
     Table.prototype.Load = function(){}
 
     
-
-
     return {
         escapeHtml:  escapeHtml,
         CleanCode:   CleanCode,
@@ -211,13 +332,12 @@ var ReCall = (function() {
             return new FixedToolbar(name)
         },
 
-        Autocomplete : function(name,url,urlupdate){
-            return new Autocomplete(name,url,urlupdate)
-        },
-
         AutoComplete : function(name,url,urlupdate){
             return new AutoComplete(name,url,urlupdate)
         },
+
+        JSONP : JSONP, 
+        AJAX : AJAX,
 
         Table: function(name) {
             return new Table(name)
