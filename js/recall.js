@@ -122,7 +122,7 @@ var ReCall = (function() {
                 var elem = document.createElement("div");
                 elem.id = this.Name.substr(1)+"autocomplete";
                 elem.classList.add("autocomplete");
-
+                elem.classList.add("indent");
                 this.Search.parentElement.appendChild(elem);//("<div id=\""+this.name.substr(1)+"autocomplete\" class=\"autocomplete\"></div>");
                 this.AC = elem;//$(this.name+"autocomplete");
             }
@@ -198,6 +198,53 @@ var ReCall = (function() {
 
         return req;
     })();
+
+    // Ready function
+    var docReady = (function(){
+        var readyList = [];
+        var readyFired = false;
+        var readyEventHandlers = false;
+
+        var r = function (callback, context) {
+            if (typeof callback !== "function") { throw new TypeError("callback for Ready(fn) must be a function"); }
+            if (readyFired) { // execute function 
+                setTimeout(function() {callback(context);}, 1);
+                return;
+            } else { // schedule for document ready
+                readyList.push({func: callback, ctx: context});
+            }
+
+            if (document.readyState === "complete") {
+                setTimeout(ready, 1);
+            } else if (!readyEventHandlers) { // add handler if missing
+                if (document.addEventListener) {
+                    document.addEventListener("DOMContentLoaded", run, false);
+                    window.addEventListener("load", run, false);
+                } else {
+                    document.attachEvent("onreadystatechange", readyStateChange);
+                    window.attachEvent("onload", run);
+                }
+                readyEventHandlersInstalled = true;
+            }
+        }
+
+        function run(){
+            if (!readyFired) {
+                readyFired = true;
+                // loop list
+                for (var i = 0; i < readyList.length; i++) {
+                    readyList[i].func.call(window, readyList[i].ctx); //execute
+                }
+                readyList = []; // clear
+            } 
+        }
+    
+        function readyStateChange() {
+            if ( document.readyState === "complete" ) { run();}
+        }
+        return r;
+    })();
+
 
     // PopUp HAndler
     var PopUp = (function(){
@@ -335,6 +382,8 @@ var ReCall = (function() {
 
         JSONP : JSONP, 
         AJAX : AJAX,
+
+        Ready: docReady,
 
         Table: function(name) {
             return new Table(name)

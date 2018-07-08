@@ -111,7 +111,7 @@ th { /*color: #4484ce;*/ border-bottom: 1px solid #ddd;}
 .dropdown ul{list-style-type: none;}
 .dropdown ul li {white-space: nowrap;}
 /* sections */
-.container{ margin: 0 auto; width:100%; max-width: 800px; position: relative;}
+.container{ margin: 0 auto;  max-width: 800px; position: relative;}
 .container.has-fixed-menubar {padding-top: 50px;}
 /*.section, section {}*/
 /*.toolbar {}*/

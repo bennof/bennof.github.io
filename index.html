@@ -12,19 +12,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/tabularrasa.css"> 
-
     <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="js/recall.js"></script>
 
     <style>
         /* add your style here */
         .has-docked-menubar #menubar {position: fixed; top: 0; left: 0; right:0;z-index: 9999;  background: white; margin: 0 auto; max-width: 800px;}
-        
     </style>
 
     <script>
-        $(document).ready(function() {
+        ReCall.Ready(function() {
             ReCall.FixedToolbar('#menubar');
             ReCall.CleanCode('.clean-code');
         });
@@ -85,16 +82,15 @@
             <h4>Projects</h4>
             <em>missing ...</em>
             <pre class="code-example">
-                <code class="clean-code prettyprint"><!-- HTML Sample -->
-<a class="button" href="#">Anchor button</a></code>
-            </pre>
-
-            <h5 id="edoWinTools">edoWinTools</h5>
-            <p>This is a small collecrion of libraries and applications for 
-                administration of a school network. Focusing the infrastructure 
-                of NRW Germany it will mix up Office365 and SchildNRW tools to 
-                improve and simplify the use of educational mutlimedia assest.</p>
-            <a href="#">missing ...</a>
+                <code class="clean-code prettyprint">universal_server() ->
+    receive
+        {become, F} ->
+            F()
+    end.</code></pre><em>by Joe Armstrong</em>
+            <h5 id="Pinkserver">PinkServer</h5>
+            <p>Pink Server is a small webserver in C# to access .NET libraries on a windows platform. 
+            It contains a simple HTML template engine, database access and more ...</p>
+            <a href="https://github.com/bennof/pinkserver">PinkServer on GitHub</a>
             
             <h5 id="calendae">Calendae</h5>
             <p>To add a calendat to a static homepage using javascript. Can be used with 

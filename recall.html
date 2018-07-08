@@ -12,19 +12,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/tabularrasa.css"> 
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
     <script src="js/recall.js"></script>
 
     <style>
         /* add your style here */
-        .has-docked-menubar #menubar {position: fixed; top: 0; left: 0; right:0;z-index: 9999;  background: white; margin: 0 auto; max-width: 800px;}
+        .has-docked-menubar #menubar {position: fixed; top: 0; left: 0; right:0;z-index: 9999;  background: white; margin: 0 auto;}
     </style>
 
     <script>
-        $(document).ready(function() {
+        ReCall.Ready(function() {
             ReCall.FixedToolbar('#menubar');
             ReCall.CleanCode('.clean-code');
+            ReCall.AutoComplete('#search_example',{hint: 'data/autocomplete.jsonp?hint=', url: 'recall.html?s='});
         });
     </script>
 </head>
@@ -32,7 +32,7 @@
     <div class="container tabular">
         <div class="header">
             <h1>ReCall JS</h1>
-            <h6>version 0.02a</h6>
+            <h6>version 0.03a</h6>
         </div>
     
         <div id="menubar" class="toolbar">
@@ -41,10 +41,13 @@
             <ul class="menu hidden media">
                 <li><a href="index.html"><i class="fa fa-home"></i></a></li>
                 <li><a href="#about">About</a></li>
-                <li><a href="#">Elements</a>
+                <li><a href="#">Functions</a>
                     <ul>
-                        <li><a href="#CleanCode">Grid/Tabular</a></li>
-                        <li><a href="#FixedToolbar">Typography</a></li>
+                        <li><a href="#Ready">Ready</a></li>
+                        <li><a href="#CleanCode">CleanCode</a></li>
+                        <li><a href="#FixedToolbar">FixedToolbar</a></li>
+                        <li><a href="#AutoComplete">AutoComplete</a></li>
+                        <li><a href="#AJAXJSONP">AJAX / JSONP</a></li>
                         <li><a href="#Table">Table</a></li>
                     </ul>
                 </li>
@@ -59,23 +62,85 @@
     
         <div id="about" class="section">
             <h4>About</h4>
-            <em>missing ...</em>
+            <h6>ReCall is a simple functional JS lib</h6>
+            <p>The main goal ist to keep it simple and small.</p>
             <ul>
                 <li><a href="https://raw.githubusercontent.com/bennof/bennof.github.io/master/js/recall.js">recall.js</a></li>
             </ul>
         </div>
+  
+        <div id="Ready" class="section">
+            <h4>Ready</h4>
+            <h6>Execute javascript after document is loaded.</h6>
+            <p>Here is a simple example:</p>
+            <pre class="code-example"> <code class="clean-code prettyprint">ReCall.Ready(function() {
+    ReCall.FixedToolbar('#menubar');
+    ReCall.CleanCode('.clean-code');
+});</code></pre>
+        </div>
+    
         <div id="CleanCode" class="section">
-            <h4>CleanCode</h4>
-            <em>missing ...</em>
+            <h4>Clean Code</h4>
+            <h6>Escape symbols for code view.</h6>
+            <p>Here is a simple example:</p>
+            <pre class="code-example"><code class="clean-code prettyprint"><!-- Embedding Code -->
+<pre class="code-example">
+    <code class="clean-code prettyprint">
+        <!-- HTML Sample -->
+        <a class="button" href="#">Anchor button</a>
+    </code>
+</pre></code></pre>
         </div>
+    
         <div id="FixedToolbar" class="section">
-            <h4>FixedToolbar</h4>
-            <em>missing ...</em>
+                <h4>Fixed Toolbar</h4>
+                <h6>Create a Toolbar that stays on top</h6>
+                <p>The example is this Page itself.</p>
+                <pre class="code-example"><code class="clean-code prettyprint">ReCall.FixedToolbar('#menubar');</code></pre>
         </div>
+    
+    
+    
+        <div id="AutoComplete" class="section">
+            <h4>Auto Complete</h4>
+            <h6>AutoComplete for search fields etc.</h6>
+            <p>Try to keep ist as simple as possible. Search for some countries.</p>
+            <form action="#" method="post" class="search" autocomplete="off">
+                <input id="search_example" type="text"  placeholder="Search ..."><button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+            <p>Html:</p>
+            <pre class="code-example"><code class="clean-code prettyprint"><form action="#" method="post" class="search" autocomplete="off">
+    <input id="search_example" type="text"  placeholder="Search ...">
+</form></code></pre>
+            <p>Javascript:</p>
+            <pre class="code-example"><code class="clean-code prettyprint">ReCall.AutoComplete('#search_example',{
+    hint: 'data/autocomplete.jsonp?hint=', 
+    url: 'recall.html?s='
+});</code></pre>
+        </div>      
+
+        <div id="AJAXJSONP" class="section">
+            <h4>AJAX / JSONP</h4>
+            <h6>Unified Interface</h6>
+            <p>AJAX and JSONP can be replaced by each other.</p>
+            <pre class="code-example"><code class="clean-code prettyprint">//JSONP
+ReCall.JSONP.Request(url,{
+    onSuccess: function(msg){ ... }, 
+    timeout: 5
+});
+
+//AJAX
+ReCall.AJAX.Request(url,{
+    onSuccess: function(msg){ ... }, 
+    timeout: 5
+});</code></pre>
+        </div>
+
         <div id="Table" class="section">
             <h4>Table</h4>
             <em>missing ...</em>
         </div>
+
         <div class="footer">
             <p>Copyright © 2018 <a href="#">Benjamin 'Benno' Falkner</a>. All Rights reserved.</p>
         </div>  

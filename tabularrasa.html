@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="css/tabularrasa.css"> 
 
     <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="js/recall.js"></script>
 
     <style>
@@ -23,7 +22,7 @@
     </style>
 
     <script>
-        $(document).ready(function() {
+        Ready.Ready(function() {
             ReCall.FixedToolbar('#menubar');
             ReCall.CleanCode('.clean-code');
         });
@@ -33,38 +32,38 @@
     <div class="container tabular">
         <div class="header">
             <h1>Tabular Rasa Css</h1>
-            <h6>version 0.02</h6>
+            <h6>version 0.03a</h6>
         </div>
 
         <div id="menubar" class="toolbar">
-                <label for="show_menu" class="show media"><i class="fa fa-bars"></i> Tabular Rasa</label>
-                <input type="checkbox" id="show_menu" class="show media" role="button">
-                <ul class="menu hidden media">
-                    <li><a href="index.html"><i class="fa fa-home"></i></a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#">Elements</a>
-                        <ul>
-                            <li><a href="#grid">Grid/Tabular</a></li>
-                            <li><a href="#typo">Typography</a></li>
-                            <li><a href="#page">Page Elements</a></li>
-                            <li><a href="#forms">Forms</a></li>
-                            <li><a href="#table">Table</a></li>
-                            <li><a href="#menu">Menu</a></li>
-                            <li><a href="#utils">Utils</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#">Other Tools</a>
-                        <ul>
-                            <li><a href="recall.html">ReCall JS</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="https://github.com/bennof">GitHub</a></li>
-                </ul>
+            <label for="show_menu" class="show media"><i class="fa fa-bars"></i> Tabular Rasa</label>
+            <input type="checkbox" id="show_menu" class="show media" role="button">
+            <ul class="menu hidden media">
+                <li><a href="index.html"><i class="fa fa-home"></i></a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#">Elements</a>
+                    <ul>
+                        <li><a href="#grid">Grid/Tabular</a></li>
+                        <li><a href="#typo">Typography</a></li>
+                        <li><a href="#page">Page Elements</a></li>
+                        <li><a href="#forms">Forms</a></li>
+                        <li><a href="#table">Table</a></li>
+                        <li><a href="#menu">Menu</a></li>
+                        <li><a href="#utils">Utils</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Other Tools</a>
+                    <ul>
+                        <li><a href="recall.html">ReCall JS</a></li>
+                    </ul>
+                </li>
+                <li><a href="https://github.com/bennof">GitHub</a></li>
+            </ul>
         </div>
 
         <div id="about" class="section">
             <h4>About</h4>
-            <em>A minimal CSS collection using tables.</em>
+            <h6>A minimal CSS collection using tables.</h6>
             <p>Tabula Rasa is a simple solution for webpages. It has less than 14kb unkompressed and just offers a minimal 
                 but sufficient set of definitions to create a homepage.</p>
             <ul>
