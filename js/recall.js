@@ -252,20 +252,23 @@ var ReCall = (function() {
             id: "ReCallPopUp_0x0001"
         }
         pu.Open = function(html){
+            var pop;
             if(popups.length == 0 ){ // create new popup
                 background = document.createElement('div');
+                background.id = this.id+"background"
                 background.classList.add("popup_background")
                 pop = document.createElement('div');
                 pop.id = this.id;
                 pop.classList.add("popup");
-                background.appendChild(pop);
-                pop.innerHTML(html);
+                pop.innerHTML = html;
+                body.appendChild(background);
+                body.appendChild(pop);
             } else { // push on stack
                 pop = document.getElementById(this.id);
                 pop.innerHTML = html;
                 popups.push(html);
             } 
-            popups.push();
+            popups.push(pop);
         }
 
         pu.Replace = function(html){
@@ -288,9 +291,9 @@ var ReCall = (function() {
                 pop.innerHTML(popups.pop());
             } else { // remove popup
                 pop = document.getElementById(this.id);
-                background = pop.parentElement;
-                document.removeChild(pop);
-                document.removeChild(background);
+                background = document.getElementById(this.id+"background");
+                body.removeChild(pop);
+                body.removeChild(background);
                 popups.pop();
             }
         }
@@ -300,7 +303,7 @@ var ReCall = (function() {
                 return;
             } else {
                 pop = document.getElementById(this.id);
-                background = pop.parentElement;
+                background = document.getElementById(this.id+"background");
                 document.removeChild(pop);
                 document.removeChild(background);
                 popups = [];
@@ -384,6 +387,8 @@ var ReCall = (function() {
         AJAX : AJAX,
 
         Ready: docReady,
+
+        PopUp: PopUp,
 
         Table: function(name) {
             return new Table(name)

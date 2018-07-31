@@ -17,7 +17,7 @@
 
     <style>
         /* add your style here */
-        .has-docked-menubar #menubar {position: fixed; top: 0; left: 0; right:0;z-index: 9999;  background: white; margin: 0 auto;}
+        .has-docked-menubar #menubar {position: fixed; top: 0; left: 0; right:0;z-index: 980;  background: white; margin: 0 auto;}
     </style>
 
     <script>
@@ -134,6 +134,15 @@ ReCall.AJAX.Request(url,{
     onSuccess: function(msg){ ... }, 
     timeout: 5
 });</code></pre>
+        </div>
+
+        <div id="PopUp" class="section">
+            <h4>PopUp</h4>
+            <h6>Create PopUp</h6>
+            <p>missing ...</p>
+            <button onclick="ReCall.PopUp.Open('<div class=\'right\'><button onclick=\'ReCall.PopUp.Close()\'>Close</button></div>')">click Me!</button>
+            <pre class="code-example"><code class="clean-code prettyprint">
+<button onclick="ReCall.PopUp.Open('hello')">click Me!</button></code></pre>
         </div>
 
         <div id="Table" class="section">

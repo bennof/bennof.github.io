@@ -1,0 +1,61 @@
+/* written by Benno Falkner */
+@charset "UTF-8";
+* { box-sizing: border-box; }
+html {font-family:'Roboto', Helvetica, Arial; color: #eee; font-size: 16px; } 
+html, body {height: 100%; width: 100%; background-color: #333; padding: 0; margin: 0; }
+
+
+/* cell width */
+.one    {width: 8.33%;}
+.two    {width: 16.66%;}
+.three  {width: 25%;}
+.four   {width: 33.33%;}
+.five   {width: 41.66%;}
+.six    {width: 49%;}
+.seven  {width: 58.33%;}
+.eight  {width: 66.66%;}
+.nine   {width: 75%;}
+.ten    {width: 83.33%;}
+.eleven {width: 91.66%;}
+.twelve {width: 100%;}
+
+.head, .foot {position: relative; height: 80px; width: 100%; background-color: steelblue; margin:0; padding: 10px; line-height: 60px; box-shadow: 0px 2px 24px 10px #222;}
+.head * {display: inline;}
+.foot * {display: inline-block;}
+.foot {bottom: 0px; position: absolute;}
+.foot .team {font-size: 24px;}
+.grid {display:table; width:100%; height: calc(100% - 160px)}
+.grid > *  {display: table-row;}
+.grid .box {display: table-cell; text-align:center; vertical-align: middle; }
+.grid .box .large {font-size: 32px; font-weight: bold; }
+.grid .box.hsmall,
+.grid .box.small{font-size: 16px; font-weight: bold;}
+.grid .box.hsmall { background-color:  slategray; color: white;}
+.grid .box.small:hover {background-color:  lightslategray;}
+.grid .box .result_ctl {display: block;}
+.grid .box.small.done {color: #888;}
+
+input[type='file'] + label ,
+button {
+    border: none;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+    background-color: white; 
+    color: black; 
+    background-color: lightslategray; /* Green */
+
+}
+
+input[type='file'] {width: 0.1px; height: 0.1px; opacity: 0; overflow: hidden; position: absolute;z-index: -1;}
+input[type='file'] + label:hover,
+button:hover {background-color: slategray; color: white; box-shadow: inset 0px 2px 12px 5px #555;}
+button.ok:hover {background-color: green;}
+button.false:hover {background-color: crimson;}
+

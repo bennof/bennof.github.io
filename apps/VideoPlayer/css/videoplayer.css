@@ -1,0 +1,41 @@
+/* written by Benno Falkner */
+@charset "UTF-8";
+@font-face { font-family: Lato; src: url(font/Lato-Regular.ttf);}
+* { box-sizing: border-box; -webkit-transition: .2s; transition: opacity .2s;}
+html {font-family:'Lato', Helvetica, Arial; color: #eee; font-size: 16px; } 
+html, body, .background {height: 100%; width: 100%; background-color: #333; padding: 0; margin: 0; }
+span {color: darkorange;}
+video {min-width: 100%;min-height: 100%; margin: 0; padding: 0; }
+.background {position: absolute; top: 0; left:0; z-index: 0;background-image: url("img/landscape.jpg");background-repeat: no-repeat; background-size: cover;}
+.menu, .player {position: fixed; width: 100%; height: 80px; line-height: 80px; color: white; background-color: rgba(0,0,0,0.4);}
+.menu {top: 0; left: 0; right: 0; z-index: 600;}
+.menu > *, .player > * {margin: 0; padding: 0 10px; display: inline-block;}
+.player {bottom: 0; left: 0; right: 0; z-index: 400; opacity: 0.0; display: none;}
+.player:hover, .player:active {opacity: 1.0;}
+.player ul { display: inline-block;}
+.player ul li { display: inline-block; width: 80px; padding: 0px 10px; font-size: 32px;background-color: rgba(0,0,0,0.4); text-align: center; cursor: pointer; }
+.player ul li:hover, .player ul li:active { background-color: rgba(40,40,40,0.6); color: darkorange; }
+.player input[type="range"] {-webkit-appearance: none; display: inline-block; height: 1px; background: white; outline: none;}
+.player input[type="range"]:hover { background-color: darkorange; }
+.player input[type="range"]::-webkit-slider-thumb{-webkit-appearance: none; appearance: none; width: 15px; height: 15px; background: darkorange; border-radius: 50%; cursor: pointer;}
+.player input[type="range"]::-moz-range-thumb{appearance: none; width: 15px; height: 15px; background: darkorange; border-radius: 50%; cursor: pointer;}
+
+
+.selector{position: fixed; display: block; left: 0; top: 0; bottom: 0; height: 100%; width: 20px; z-index: 300; font-size: 18px; background-color: rgba(0,0,0,0.8); opacity: 0.0; padding-top: 80px;}
+.selector:hover, .selector:active {width: 100%; opacity: 1.0;}
+.selector > * {display: inline-block; padding: 10px; height: 100%; overflow-x: hidden; overflow-y: auto;}
+.selector li {cursor: pointer; padding: 4px 0;}
+.selector li:hover, .selector li:active {color: darkorange;}
+.selector button {height: 48px; cursor: pointer; background: darkorange; color:white; border: none;font-size: 18px;margin-right: 10px; padding: 10px;}
+.selector button:hover, .selector button:active {background: #ccc;}
+
+.search { width: 100%; }
+.search > * {height: 48px; font-size: 24px; border: none; color: lightgrey;}
+.search input[type=text] { width: 100%; border: none; background: rgba(50,50,50,0.4); padding-left: 5px; padding-right: 50px;} 
+.search button {float: right; width: 48px; position: relative; top: -48px; cursor: pointer; background: darkorange; color:white;}
+.search button:hover, search button:active { background: #ccc; }
+
+.movbox {display: inline-block; width: 200px; height: 300px; overflow: hidden; margin: 5px; padding: 5px; background-color: rgba(0,0,0,0.6); text-align: center;}
+.movbox:hover, .movbox:active {border: 1px solid darkorange;}
+.movbox img { width: 100%; max-height: 250px;}
+.movbox p {position: relative; bottom: 4px; left:0; right: 0; text-align: center;}

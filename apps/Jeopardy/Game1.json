@@ -1,0 +1,72 @@
+{
+    "Name": "Game 1",
+    "Colums": [
+        {   
+            "Top": "Mathematik",
+            "Questions": [
+                {"Q": "Was ist der Satz des Pythagoras?", "A":"Er besagt, dass in allen ebenen rechtwinkligen Dreiecken die Summe der Flächeninhalte der Kathetenquadrate gleich dem Flächeninhalt des Hypotenusenquadrates ist."},
+                {"Q": "Wie stellt man fest, ob eine Zahl durch 5 teilbar ist?", "A":"Die letzte Ziffer muss eine 5 oder 0 sein."},
+                {"Q": "Welcher geometrische Körper hat fünf Flächen?", "A":"Pyramide."},
+                {"Q": "Welche Zahl ist eine Primzahl und gerade?", "A":"2"},
+                {"Q": "Was ist pi?", "A":"Die Kreiszahl pi gibt das Verhältnis von Umfang zu Durchmesser einer Kreises an."},
+                {"Q": "Wie viele Kanten hat ein Würfel?", "A":"12"}
+            ]
+        },
+        {   
+            "Top": "Deutschland",
+            "Questions": [
+                {"Q": "Wie viele Bundesländer hat Deutschland?", "A":"16"},
+                {"Q": "Wie hieß der erste Bundeskanzler der Bundesrepublik Deutschland, der im Jahr 1949 ins Amt gewählt wurde?", "A":"Konrad Adenauer (CDU)"},
+                {"Q": "Wie heißt der längste Fluss Deutschlands?", "A":"Rhein"},
+                {"Q": "Wo sitzt das Bundesverfassungsgericht?", "A":"Karlsruhe"},
+                {"Q": "Welcher deutsche Fürst hat in Deutschland den Kartoffelanbau durchgesetzt?", "A":"Friederich der Große, unter anderem mit dem berühmten Kartoffelbefehl."},
+                {"Q": "Der Berliner Amtssitz des Bundespräsidenten ist...", "A":"Schloss Bellevue"}
+            ]
+        },
+        {   
+            "Top": "In der Küche",
+            "Questions": [
+                {"Q": "Was braucht Feuer zum Brennen?", "A":"Sauerstoff und einen Brennstoff."},
+                {"Q": "Was sagt das Mindesthaltbarkeitsdatum aus?", "A":"Bis zu diesem Datum garantiert der Hersteller einwandfreie Qualität."},
+                {"Q": "Wo wurde der erste Döner in Deutschland verkauft?", "A":"Berlin"},
+                {"Q": "Was ist Gin?", "A":"Eine meist farblose Spirituose mit Wacholder (Wacholderschnaps)"},
+                {"Q": "Was ist falscher Hase?", "A":"ist ein Braten aus Hackfleisch"},
+                {"Q": "Woraus wird Grappa gemacht", "A":"Aus den Resten der Trauben bei der Weinproduktion."}
+            ]
+        },
+        {   
+            "Top": "Geschichte",
+            "Questions": [
+                {"Q": "Wann endete der 2. Weltkrieg?", "A":"1945"},
+                {"Q": "Worum ging es beim 30-jährigen Krieg?", "A":"Im 30-jährigen Krieg kämpften Protestanten gegen Katholiken in Europa."},
+                {"Q": "Seit wann bezahlen wir mit Euro?", "A":"2002"},
+                {"Q": "Welcher englische König ließ zwei seiner Ehefrauen hinrichten und löste sich von der katholischen Kirche?", "A":"Heinrich VIII."},
+                {"Q": "Wie hieß der erste Präsident der USA?", "A":"George Washington"},
+                {"Q": "Wer badete der Legende nach gerne in Eselsmilch?", "A":"Kleopatra"}
+            ]
+        },
+        {   
+            "Top": "Künstler",
+            "Questions": [
+                {"Q": "Wer malte die Mona Lisa?", "A":"Leonardo da Vinci"},
+                {"Q": "Wer schrieb Faust?", "A":"Goethe"},
+                {"Q": "Welcher Maler hat sich selbst ein Ohr abgeschnitten?", "A":"Vincent van Gogh"},
+                {"Q": "Welcher bekannte Violinist kommt aus Aachen?", "A":"David Garrett"},
+                {"Q": "&bdquo;Die Leiden des jungen Werther&ldquo; heißt ein Roman von ...", "A":"Goethe"},
+                {"Q": "Als er seinen bekannten Roman &bdquo;Effi Briest&ldquo; schrieb, war er 75 Jahre alt. Wie heißt er?", "A":"Theodor Fontane"}
+            ]
+        },
+        {   
+            "Top": "Filme",
+            "Questions": [
+                {"Q": "Welcher Agent steht im Zusammenhang mit der &bdquo;Lizenz zum Töten&ldquo;?", "A":"James Bond"},
+                {"Q": "Was bringt uns Dolby Digital im Kino?", "A":"Dolby Digital ist ein Tonsystem mit bis zu sechs Kanälen."},
+                {"Q": "In welcher Stadt lebte der Detektiv Sherlock Holmes?", "A":"London"},
+                {"Q": "Welcher bekannte Mann steht hinter Krieg der Sterne?", "A":"George Lucas"},
+                {"Q": "Wie hieß der erste, vollständig am Computer erstellte, Kinofilm?", "A":"Toy Story "},
+                {"Q": "Welcher britische Regisseur hatte in vielen seiner Filme einen kurzen Auftritt?", "A":"Alfred Hitchcock"}
+            ]
+        }
+        
+    ]
+}

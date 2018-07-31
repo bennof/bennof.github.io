@@ -1,0 +1,72 @@
+{
+    "Name": "Game 1",
+    "Colums": [
+        {   
+            "Top": "Erdkunde",
+            "Questions": [
+                {"Q": "Welches Wahrzeichen ist in Paris zu bewundern?", "A":"Der Eiffelturm."},
+                {"Q": "wischen welchen beiden Ländern liegt der Ärmelkanal?", "A":"Frankreich und Großbritannien."},
+                {"Q": "Welches Gebirge liegt nicht in Europa: die Anden, die Karpaten oder die Pyrenäen?", "A":"Die Anden."},
+                {"Q": "An welchem Fluß liegt Wien?", "A":"Donau"},
+                {"Q": "Wie heißt der höchste Berg Europas?", "A":" Mont Blanc 4810m (oder Elbrus 5642m)"},
+                {"Q": "Welches Bundesland wird aus Erfurt regiert?", "A":"Thüringen"}
+            ]
+        },
+        {   
+            "Top": "Märchen",
+            "Questions": [
+                {"Q": "Aus welchem Märchen stammt der Satz &bdquo;Die guten ins Töpfchen, die schlechten ins Kröpfchen&ldquo;?", "A":"Aschenputtel"},
+                {"Q": "Wie lautet der magische Satz, mit dem Ali Baba die Höhle der 40 Räuber öffnen kann?", "A":"Sesam, öffne dich!"},
+                {"Q": "Welche Märchenfigur ist für ihre besonders langen Haare bekannt?", "A":"Rapunzel"},
+                {"Q": "Womit vergiftet die böse Königin Schneewittchen?", "A":"Mit einem Apfel."},
+                {"Q": "Als welches Tier entpuppt sich das „hässliche Entlein“ später in Wahrheit?", "A":"Eine Schwan."},
+                {"Q": "Welches Tier verwandelt sich im Märchen „Schneeweißchen und Rosenrot“ später in einen Prinzen?", "A":"Ein Bär."}
+            ]
+        },
+        {   
+            "Top": "Physik",
+            "Questions": [
+                {"Q": "Warum leuchtet der Mond?", "A":"Der Mond reflektiert das Sonnenlicht."},
+                {"Q": "Welcher Planet unseres Sonnensystems wird als roter Planet bezeichnet?", "A":"Mars"},
+                {"Q": "Was ist die tiefstmögliche Temperatur, die überhaupt möglich ist?", "A":"-273,15 Grad Celsius"},
+                {"Q": "Was wird in Ampere gemessen?", "A":"die Stromstärke"},
+                {"Q": "Wie lautet der zweite Planet in unserem Sonnensystem?", "A":"Venus"},
+                {"Q": "Welches &bdquo;Tierexperiment&ldquo; gehört zur Quantenphysik?", "A":"Der Versuch, eine Katze zu vergiften."}
+            ]
+        },
+        {   
+            "Top": "Religion",
+            "Questions": [
+                {"Q": "Wie heißt das heilige Buch der Muslime?", "A":"Koran"},
+                {"Q": "Was feiern Christen am Ostersonntag?", "A":"Jesu Auferstehung."},
+                {"Q": "Welche Religion glaubt an das Nivana?", "A":"Buddhismus"},
+                {"Q": "Wer gehört zu den vier Evangelisten?", "A":"Matheus, Markus, Lukas und Johannes."},
+                {"Q": "Wie bezeichnet man Menschen, denen es egal ist, ob Gott existiert?", "A":"Agnostiker."},
+                {"Q": "Wo offenbarte Gott Moses die zehn Gebote?", "A":"Auf dem Berg Sinai"}
+            ]
+        },
+        {   
+            "Top": "Musik",
+            "Questions": [
+                {"Q": "Aus wie vielen Linien bestehen Notenzeilen?", "A":"5"},
+                {"Q": "Was gehört nicht in die Oper, die Arie, die Sinfonie oder die Ouvertüre?", "A":"Die Sinfonie ist ein Orchesterstück in mehreren Sätzen, meist ohne Gesang."},
+                {"Q": "Aus welchem Material bestehen die Bogenhaare bei der Geige?", "A":"Pferdehaar"},
+                {"Q": "Welches Mitglied stieg 2015 bei One Direction aus?", "A":"Zyan"},
+                {"Q": "Wer singt das Lied &bdquo;Keine Maschine&ldquo;? ", "A":"Tim Bendzko"},
+                {"Q": "In welcher Band spielte Kurt Cobain? (", "A":"Nirvana."}
+            ]
+        },
+        {   
+            "Top": "Biologie",
+            "Questions": [
+                {"Q": "Welche sind die größten Fleisch fressenden Tiere der Erde?", "A":"Bären."},
+                {"Q": "Was ist ein Ozelot?", "A":"eine Wildkatze"},
+                {"Q": "Wie viele Nieren hat ein Mensch im Normalfall?", "A":"2"},
+                {"Q": "Wofür braucht der Körper Galle?", "A":"zur Fettverdauung"},
+                {"Q": "Wie viele Milchzähne bekommt ein Kind normalerweise?", "A":"20"},
+                {"Q": "Woher hat das Zika-Virus seinen Namen?", "A":"Vom Zikawald in Uganda, wo es bei Affen entdeckt wurde (Region in Afrika)"}
+            ]
+        }
+        
+    ]
+}

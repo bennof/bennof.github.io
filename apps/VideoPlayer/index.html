@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>VideoPlayer</title>
+  <meta name="description" content="HTML5 VideoPlayer">
+  <meta name="author" content="Benjamin Benno Falkner">
+  <link rel="stylesheet" href="css/videoplayer.css">
+</head>
+
+<body>
+    <div id="screen" class="background"></div>
+    <div class="menu"><h1><span>Video</span> Player</h1><i>The Movie</i></div>
+    <div id="controls" class="player">
+        <ul>
+            <li onclick="VideoPlayer.RW()" >&lt;&lt;</li>
+            <li onclick="VideoPlayer.Stop()">[]</li>
+            <li onclick="VideoPlayer.Play()">&gt;</li>
+            <li onclick="VideoPlayer.FF()">&gt;&gt;</li>
+        </ul>
+        <input type="range" id="seek-bar" value="0" onchange="VideoPlayer.Slider()">
+        <ul style="float: right;">
+            <li onclick="VideoPlayer.Unload()">X</li>
+        </ul>
+    </div>
+    <div id="selector" class="selector">
+        <div style="width: 33%; background-color: rgba(100,100,100,0.6);">
+            <h1>Library</h1>
+            <form class="search" action="javascript:VideoPlayer.Request()">
+                <input id="search_video" type="text" placeholder="Search.." name="search">
+                <button id="search_video_submit" type="submit">Q</button>
+            </form>
+            <ul id="hint_video">
+            </ul>
+            <h1 id="s_video_header"></h1>
+            <ul id="s_video">
+            </ul>
+        </div>
+        <div id="preview_video" style="width: 66%;">
+            <h1>Preview</h1>
+        </div>
+    </div>
+  <script src="js/video.js"></script>
+  <script>
+      VideoPlayer.Ready(function(){
+        VideoPlayer.Target = document.getElementById("screen");
+        VideoPlayer.SearchURL = "data/all.jsonp";
+        document.getElementById("search_video").onkeyup = VideoPlayer.Request;
+        document.getElementById("selector").onclick = VideoPlayer.Selection;;
+        VideoPlayer.Request();
+      })
+  </script>
+</body>
+</html>

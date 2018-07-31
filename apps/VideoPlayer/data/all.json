@@ -1,0 +1,15 @@
+{
+    "Mode":"full",
+    "Movies":[
+        {"title":"Agent 327", "url":"", "img": "data/agent_327_barbershop.jpg", "genre":"", "duration": ""},
+        {"title":"BigBuckBunny", "url":"", "img": "data/poster-bigbuckbunny.jpg", "genre":"", "duration": ""},
+        {"title":"Caminandes Grandillama", "url":"", "img": "data/poster-caminandes_grandillama.jpg", "genre":"", "duration": ""},
+        {"title":"Caminandes Llamigos", "url":"", "img": "data/poster-caminandes_llamigos.jpg", "genre":"", "duration": ""},
+        {"title":"Cosmoslaundromat", "url":"", "img": "data/poster-cosmoslaundromat.jpg", "genre":"", "duration": ""},
+        {"title":"Elephants Dream", "url":"", "img": "data/poster-elephantsdream.jpg", "genre":"", "duration": ""},
+        {"title":"Glass half", "url":"", "img": "data/poster-glasshalf.jpg", "genre":"", "duration": ""},
+        {"title":"Sintel", "url":"", "img": "data/poster-sintel.jpg", "genre":"", "duration": ""},
+        {"title":"Tears of Steel", "url":"", "img": "data/poster-tearsofsteel.jp", "genre":"", "duration": ""}
+    ],
+    "Recent":[1,2,6]
+}
