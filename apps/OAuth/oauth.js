@@ -5,8 +5,8 @@ var OAuth = (function (){
 
     var init = function (options){
         console.log('inti ...');
-        config = options.Config || {};
-        url = options.URL || "";
+        OAuth.config = options.Config || {};
+        OAuth.url = options.URL || "";
 
         // Parse hash
         var hash = location.hash.substring(1);
@@ -30,7 +30,7 @@ var OAuth = (function (){
         // check for success
         if(params['state'] && params['access_token'] && params['token_type']){
             console.log('success')
-            data = params; 
+            OAuth.data = params; 
             if(options && options.onSuccess) {
                 options.onSuccess();
             }
@@ -70,12 +70,12 @@ var OAuth = (function (){
         console.log('login ...');
         var form = document.createElement('form');
         form.setAttribute('method', 'GET'); 
-        form.setAttribute('action', url);
-        for (var p in config) {
+        form.setAttribute('action', OAuth.url);
+        for (var p in OAuth.config) {
             var input = document.createElement('input');
             input.setAttribute('type', 'hidden');
             input.setAttribute('name', p);
-            input.setAttribute('value', config[p]);
+            input.setAttribute('value', OAuth.config[p]);
             form.appendChild(input);
         }
         document.body.appendChild(form);
