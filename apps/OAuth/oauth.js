@@ -13,6 +13,7 @@ var OAuth = (function (){
         console.log('hash: '+hash)
         var params = {}; var regex = /([^&=]+)=([^&]*)/g, elem;
         while (elem = regex.exec(hash)) {
+            console.log('>>> '+ decodeURIComponent(elem[1]) + ': '+ decodeURIComponent(elem[2]))
             params[decodeURIComponent(elem[1])] = decodeURIComponent(elem[2]);
         }
         console.log('params: '+params)
