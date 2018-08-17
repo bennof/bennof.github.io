@@ -30,7 +30,7 @@ var OAuth = (function (){
         // check for success
         if(params['state'] && params['access_token'] && params['token_type']){
             console.log('success')
-            OAuth.data = params; 
+            OAuth.Data = params; 
             if(options && options.onSuccess) {
                 options.onSuccess();
             }
