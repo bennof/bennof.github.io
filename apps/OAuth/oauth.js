@@ -11,12 +11,14 @@ var OAuth = (function (){
         // Parse hash
         var hash = location.hash.substring(1);
         console.log('hash: '+hash)
-        var params = {}; var regex = /([^&=]+)=([^&]*)/g, elem;
+        var params = {}; 
+        var regex = /([^&=]+)=([^&]*)/g, elem;
         while (elem = regex.exec(hash)) {
             console.log('>>> '+ decodeURIComponent(elem[1]) + ': '+ decodeURIComponent(elem[2]))
             params[decodeURIComponent(elem[1])] = decodeURIComponent(elem[2]);
+            console.log(params[decodeURIComponent(elem[1])])
         }
-        console.log('params: '+params)
+        console.log('params: '+ params)
 
         // check for error
         if(params['error']) {
