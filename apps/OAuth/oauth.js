@@ -11,7 +11,7 @@ var OAuth = (function (){
         // Parse hash
         var hash = location.hash.substring(1);
         console.log('hash: '+hash)
-        var params = {}, regex = /([^&=]+)=([^&]*)/g, elem;
+        var params = {}; var regex = /([^&=]+)=([^&]*)/g, elem;
         while (elem = regex.exec(hash)) {
             params[decodeURIComponent(elem[1])] = decodeURIComponent(elem[2]);
         }
