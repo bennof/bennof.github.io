@@ -382,14 +382,11 @@ var ReCall = (function() {
         AutoComplete : function(name,url,urlupdate){
             return new AutoComplete(name,url,urlupdate)
         },
-
+        
         JSONP : JSONP, 
         AJAX : AJAX,
-
         Ready: docReady,
-
         PopUp: PopUp,
-
         Table: function(name) {
             return new Table(name)
         }
