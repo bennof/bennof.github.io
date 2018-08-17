@@ -16,7 +16,6 @@ var OAuth = (function (){
         while (elem = regex.exec(hash)) {
             console.log('>>> '+ decodeURIComponent(elem[1]) + ': '+ decodeURIComponent(elem[2]))
             params[decodeURIComponent(elem[1])] = decodeURIComponent(elem[2]);
-            console.log(params[decodeURIComponent(elem[1])])
         }
         console.log(params)
 
@@ -30,6 +29,7 @@ var OAuth = (function (){
 
         // check for success
         if(params['state'] && params['access_token'] && params['token_type']){
+            console.log('success')
             data = params; 
             if(options && options.onSuccess) {
                 options.onSuccess();
