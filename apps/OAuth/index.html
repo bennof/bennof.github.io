@@ -5,26 +5,32 @@
     <title>Benjamin Benno Falkner</title> 
     <script src="oauth.js"></script>
 
-    <script>
-        OAuth.Init({
-            onSuccess: function(){
-                var s = "";
-                for (var k in OAuth.Data) {
-                    s += "<p><strong>"+k+":</strong>"+OAuth.Data[k]+"</p>";
-                }
-                document.getElementById('data').innerHTML = s;
-            },
-            URL: "",
-            Config: {
-
-            }
-        });
-    </script>
+    
 </head>
 <body>
     <button onclick="OAuth.Login()">Login</button>
     <div id="data">
         ... please press Login
     </div>
+    <script>
+            OAuth.Init({
+                onSuccess: function(){
+                    var s = "";
+                    for (var k in OAuth.Data) {
+                        s += "<p><strong>"+k+":</strong>"+OAuth.Data[k]+"</p>";
+                    }
+                    document.getElementById('data').innerHTML = s;
+                },
+                URL: "https://accounts.google.com/o/oauth2/v2/auth",
+                Config: {
+                    client_id: '1024293454168-ikbvflsfn167j16ubsso5d1cq1778bo9.apps.googleusercontent.com',
+                    redirect_uri: 'https://bennof.github.io/apps/OAuth/index.html',
+                    response_type: 'token',
+                    scope: 'profile email openid',
+                    include_granted_scopes: true,
+                    state: 'pass-through value'
+                }
+            });
+        </script>
 </body>
 </html>
