@@ -10,10 +10,12 @@ var OAuth = (function (){
 
         // Parse hash
         var hash = location.hash.substring(1);
+        console.log('hash: '+hash)
         var params = {}, regex = /([^&=]+)=([^&]*)/g, elem;
         while (elem = regex.exec(hash)) {
             params[decodeURIComponent(elem[1])] = decodeURIComponent(elem[2]);
         }
+        console.log('params: '+params)
 
         // check for error
         if(params['error']) {
