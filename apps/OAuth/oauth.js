@@ -34,7 +34,9 @@ var OAuth = (function (){
             if(options && options.onSuccess) {
                 options.onSuccess();
             }
+            return
         }
+        console.log('failed')
     }
 
     var request = (function(src,options){
