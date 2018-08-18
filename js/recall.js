@@ -318,6 +318,7 @@ var ReCall = (function() {
         this.table = document.querySelector(name);
         this.hasHeader = true;
         this.cell = null;
+        this.header = null;
         this.data = null;
         this.edit = edit;
         this.table.onclick = this.clicked.bind(this);
@@ -327,6 +328,8 @@ var ReCall = (function() {
         while (this.table.firstChild) {
             this.table.removeChild(this.table.firstChild);
         }
+        this.header = null;
+        this.data = null;
     } 
 
     Table.prototype.clicked = function(e){
@@ -335,7 +338,7 @@ var ReCall = (function() {
             var cell = {col: target.cellIndex, row: target.parentElement.rowIndex};
             if (this.hasHeader && cell.row == 0) {
                 return;
-            } 
+            }
             // check if edit -- missing
             var content = e.target.innerText;
             while (target.firstChild) {
@@ -362,13 +365,133 @@ var ReCall = (function() {
             var content = target.firstChild.value;
             if(target.firstChild)
                 target.removeChild(target.firstChild);
+            this.data[cell.row][cell.col] = content;
             target.innerText = content;
         }
     }
 
-    Table.prototype.redraw = function(){}
-    Table.prototype.Save = function(){}
-    Table.prototype.Load = function(){}
+    Table.prototype.ReadCSV = function(text, FS){
+        var p = "", field = "", Obj = [""], i = 0, r = 0, nq = !0, c, j, fr = !0;
+        this.header = [];
+        this.data = [Obj];
+        this.hasHeader = true;
+        for (j = 0; j < text.length; j++) {
+            c = text[j]; //get current char
+            if ("\"" === c) {
+                if (nq && c === p)
+                    field += c; // if previous was a quote add quote to field string
+                nq = !nq; // switch boolean
+            }
+            else if (FS === c && nq) {
+                if (fr) {
+                    this.header[i++] = field;
+                }
+                else {
+                    Obj[i++] = field;
+                }
+                c = field = "";
+            }
+            else if ("\n" === c && nq) {
+                if ("\r" === p)
+                    field = field.slice(0, -1); //remove carriage return
+                if (fr) {
+                    fr = !fr;
+                    this.header[i] = field;
+                    c = field = "";
+                }
+                else {
+                    Obj[i] = field;
+                    this.data[++r] = Obj = [];
+                }
+                c = field = "";
+                i = 0;
+            }
+            else {
+                field += c;
+            }
+            p = c;
+        }
+        if (i != 0) {
+            Obj[i] = field;
+        }
+    }
+
+    Table.prototype.WriteCSV = function(FS) {
+        var txt = "";
+        if (this.hasHeader) {
+            for (var i = 0; i < this.header.length; i++) {
+                if (i > 0)
+                    txt += FS;
+                txt += escape_csv(this.header[i], FS);
+            }
+            txt += "\r\n";
+        }
+        for (var i = 0; i < this.data.length; i++) {
+            var row = this.data[i];
+            for (var j = 0; j < row.length; j++) {
+                if (i > 0)
+                    txt += FS;
+                txt += escape_csv(row[j], FS);
+            }
+            txt += "\r\n";
+        }
+        return txt;
+    }
+
+    function escape_csv(value, FS) {
+        var r = "";
+        var esc = false;
+        for (var j = 0; j < value.length; j++) {
+            var c = value[j];
+            if (c == "\"") {
+                r += c;
+                r += c;
+                esc = true;
+            }
+            else if (c == "\n" || c == "\r" || c == FS) {
+                r += c;
+                esc = true;
+            }
+            else {
+                r += c;
+            }
+        }
+        if (esc) {
+            return "\"" + r + "\"";
+        }
+        else {
+            return r;
+        }
+    }
+
+    Table.prototype.redraw = function(){
+        while (this.table.firstChild) { // clear all content
+            this.table.removeChild(this.table.firstChild);
+        }
+
+        if(this.hasHeader) { // write header
+            var tr = document.createElement('tr');
+            for (h in this.header) {
+                var th = document.createElement('th');
+                th.innerText = h;
+                tr.appendChild(th);
+            }
+            this.table.appendChild(tr);
+        }
+        for (row in this.data) { // write data
+            var tr = document.createElement('tr');
+            for (c in row) {
+                var th = document.createElement('td');
+                th.innerText = c;
+                tr.appendChild(th);
+            }
+            this.table.appendChild(tr);
+        }
+    }
+
+    Table.prototype.WriteCSV_BOM = function(FS){
+        return "\uefbbbf"+ this.WriteCSV(FS);
+    }
 
     
     return {
@@ -382,7 +505,7 @@ var ReCall = (function() {
         AutoComplete : function(name,url,urlupdate){
             return new AutoComplete(name,url,urlupdate)
         },
-        
+
         JSONP : JSONP, 
         AJAX : AJAX,
         Ready: docReady,
