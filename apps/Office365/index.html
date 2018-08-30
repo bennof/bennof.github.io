@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Benjamin Benno Falkner</title> 
+    <script src="oauth.js"></script>
+    <script src="edu365.js"></script>
+    <script src="_.js"></script>
+
+    
+</head>
+<body>
+    <div style="background: lightblue; color: white;">
+    <h1>Edu365 Shell</h1> <button onclick="Edu365.Login()">Login</button>
+    </div>
+    <div id="data" style="overflow-y: scroll; height: 500px; width: 100%">
+        ... please press Login
+    </div>
+    <input id="input" type="text"  style="width: 100%">
+    <script>
+            Edu365.Init({
+                URL: 'https://login.microsoftonline.com/26f7432b-b6b6-4291-adc0-090590f363cf/oauth2/v2.0/authorize',
+                Config: _js.Config,
+                onLogin: function(){
+                    document.getElementById('data').innerHTML += '<p>Login as '+Edu365.Username+'</p>'; 
+                }
+            });
+            
+
+            function Print (result){document.getElementById('data').innerHTML += JSON.stringify(result) + '<br>';}
+            function PError (result){document.getElementById('data').innerHTML += '<strong style="color: red">ERROR: '+result+'</strong>';}
+            function getuser(givenname, surname){Edu365.User.Get(givenname, surname,Print,Error);}
+            function getteam(name){Edu365.Team.Get(name,Print,PError);}
+            function newteam(name){Edu365.Team.Create(name,Print,PError);}
+            function rmteam(teamname){Edu365.Team.Get(teamname,function(team){Edu365.Team.Delete(team,Print,PError);},PError);}
+            function getmember(teamname){Edu365.Team.Get(teamname,function(team){Edu365.Team.GetMember(team,Print,PError);},PError);}
+            function getowner(teamname){Edu365.Team.Get(teamname,function(team){Edu365.Team.GetOwner(team,Print,PError);},PError);}
+            function addmember(teamname,fusername,lusername){Edu365.Team.Get(teamname,function(team){Edu365.User.Get(fusername,lusername,function(user){Edu365.Team.AddMember(team,user,Print,PError);},PError);},PError);}
+            function addowner(teamname,fusername,lusername){Edu365.Team.Get(teamname,function(team){Edu365.User.Get(fusername,lusername,function(user){Edu365.Team.AddOwner(team,user,Print,PError);},PError);},PError);}
+            function rmmember(teamname,fusername,lusername){Edu365.Team.Get(teamname,function(team){Edu365.User.Get(fusername,lusername,function(user){Edu365.Team.RmMember(team,user,Print,PError);},PError);},PError);}
+            function rmowner(teamname,fusername,lusername){Edu365.Team.Get(teamname,function(team){Edu365.User.Get(fusername,lusername,function(user){Edu365.Team.RmOwner(team,user,Print,PError);},PError);},PError);}
+
+
+
+
+            document.getElementById("input").addEventListener("keyup", function(event) {
+                event.preventDefault();
+                if (event.keyCode === 13) {
+                    var input = document.getElementById('input').value;
+                    document.getElementById('data').innerHTML += '<p> ::: '+"Edu365."+input.trim()+'</p>';
+                    eval(input.trim());
+                }
+            });
+        </script>
+</body>
+</html>

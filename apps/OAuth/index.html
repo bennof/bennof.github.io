@@ -8,16 +8,26 @@
     
 </head>
 <body>
-    <button onclick="OAuth.Login()">Login</button>
-    <div id="data">
+    <div style="background: lightblue; color: white;">
+    <h1>OAuth 365 Shell</h1> <button onclick="OAuth.Login()">Login</button>
+    </div>
+    <div id="data" style="overflow-y: scroll; height: 500px; width: 100%">
         ... please press Login
     </div>
+    <select id="method" >
+            <option value="GET">GET</option>
+            <option value="POST">POST</option>
+            <option value="PUT">PUT</option>
+            <option value="PATCH">PATCH</option>
+    </select>
+    <input id="input" type="text"  style="width: 100%">
+    <textarea id="json" rows="8" style="width: 100%;" placeholder="JSON Body"></textarea>
     <script>
             OAuth.Init({
                 onSuccess: function(){
                     var s = "";
                     for (var k in OAuth.Data) {
-                        s += "<p><strong>"+k+":</strong>"+OAuth.Data[k]+"</p>";
+                        s += "<p><strong>"+k+":</strong> "+OAuth.Data[k]+"</p>";
                     }
                     document.getElementById('data').innerHTML = s;
                 },
@@ -30,6 +40,47 @@
                     include_granted_scopes: true,
                     state: 'pass-through value'
                 }
+            });
+
+            function exec() {
+                var method = document.getElementById('method').value;
+                var input = document.getElementById('input').value;
+                document.getElementById('data').innerHTML += '<p> ::: '+method+' '+input+'</p>';
+                opt.Method = method;
+                var json = document.getElementById('json').value;
+                if (json != null && json != "") {
+                    opt.Body = json;
+                    opt.Type = 'application/json';
+                }
+                OAuth.Request.Send(input,opt);
+            }
+
+            var opt = {
+                onSuccess: function (txt) {
+                    var obj = JSON.parse(txt)
+                    var s = '';
+                    for (var k in obj) {
+                        
+                        if (Array.isArray(obj[k])) {
+                            s += "<p><strong>"+k+":</strong><br>";
+                            for (i in obj[k]){
+                                s += JSON.stringify(obj[k][i]) + "<br>"; 
+                            }
+                            s+= "</p>";
+                        } else {
+                            s += "<p><strong>"+k+":</strong> "+JSON.stringify(obj[k])+"</p>";
+                        }
+                    }
+                    document.getElementById('data').innerHTML += s;
+                },
+                onError: function (txt, code) {
+                    document.getElementById('data').innerHTML += '<strong style="color: red">'+txt+' ('+code+')</strong>';
+                }
+            }
+
+            document.getElementById("input").addEventListener("keyup", function(event) {
+                event.preventDefault();
+                if (event.keyCode === 13) {exec();}
             });
         </script>
 </body>
