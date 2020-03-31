@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <title>Benjamin Benno Falkner</title> 
+    <meta name="description" content="my personal github index page">
+    <meta name="author" content="Benjamin Benno Falkner">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,600" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/tabularrasa.css"> 
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+    <script src="js/recall.js"></script>
+
+    <style>
+        /* add your style here */
+        .has-docked-menubar #menubar {position: fixed; top: 0; left: 0; right:0;z-index: 9999;  background: white; margin: 0 auto; max-width: 800px;}
+    </style>
+
+    <script>
+        ReCall.Ready(function() {
+            ReCall.FixedToolbar('#menubar');
+            ReCall.CleanCode('.clean-code');
+            
+        });
+    </script>
+</head>
+<body>
+    <div class="container tabular">
+        <div class="header">
+            <img src="images/Logo256.png" style="padding-top:10px;">
+            <h1>Benjamin 'Benno' Falkner</h1>
+            <h6>GitHub</h6>
+            <div class="tabular">
+                <div class="box four indent bottom">
+                    <img class="img64" src="images/Erlang_logo.svg">
+                    <p>Stable, simple, fast Webservices.</p>
+                </div>
+                <div class="box four indent bottom ">
+                    <img class="img64" src="images/TeX_logo.svg">
+                    <p>What u want is what u get.</p>
+                </div>
+                <div class="box four indent bottom">
+                    <img class="img64" src="images/Visual_Studio_2013_Logo.svg">
+                    <p>Office 356 + C# for Education.</p>
+                </div>
+            </div>
+            <div style="height: 5rem;"></div>
+        </div>
+    
+        <div id="menubar" class="toolbar">
+            <label for="show_menu" class="show media"><i class="fa fa-bars"></i> Benno</label>
+            <input type="checkbox" id="show_menu" class="show media" role="button">
+            <ul class="menu hidden media">
+                <li><a href="index.html"><i class="fa fa-home"></i></a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a>
+                    <ul>
+                        <li><a href="#edoWinTools">edoWinTools</a></li>
+                        <li><a href="#calendae">Calendae</a></li>
+                        <li><a href="#edo.tex">edo.tex</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Other Tools</a>
+                    <ul>
+                        <li><a href="tabularrasa.html">Tabular Rasa Css</a></li>
+                        <li><a href="recall.html">ReCall JS</a></li>
+                    </ul>
+                </li>
+                <li><a href="https://github.com/bennof">GitHub</a></li>
+            </ul>
+        </div>
+    
+        <div id="about" class="section">
+            <h4>About</h4>
+            <p>Hi, I'm Benno the author of this site. Currently I'm working in a German secondary / high school near Aachen.</p> 
+        </div>
+
+        <div id="projects" class="section">
+            <h4>Projects</h4>
+            <em>missing ...</em>
+            <pre class="code-example">
+                <code class="clean-code prettyprint">universal_server() -> 
+    receive
+        {become, F} -> 
+            F()
+    end.</code></pre><em>by Joe Armstrong</em>
+            <h5 id="Pinkserver">PinkServer</h5>
+            <p>Pink Server is a small webserver in C# to access .NET libraries on a windows platform. 
+            It contains a simple HTML template engine, database access and more ...</p>
+            <a href="https://github.com/bennof/pinkserver">PinkServer on GitHub</a>
+            
+            <h5 id="calendae">Calendae</h5>
+            <p>To add a calendat to a static homepage using javascript. Can be used with 
+                edoWinTools to extract a calendar from Office365.</p>
+            <a href="https://bennof.github.io/date.html">Example ...</a>
+
+            <h5 id="edo.tex">edo.tex</h5>
+            <p>EdoTex is based on plainTeX and does not support LaTeX extentions. The 
+                minimal.ltx files shound not be used to enable those features. EdoTex 
+                is designed to be minimal and will only offer basic functions (typically 
+                needed for education) like the initial idea of Donald Knuth.</p>
+            <a href="https://github.com/bennof/edo.tex">GitHub page ...</a>
+        </div>
+        
+        <div class="footer">
+            <p>Copyright © 2018 <a href="mailto:benno.falkner@gmail.com">Benjamin 'Benno' Falkner</a>. All Rights reserved.</p>
+        </div>  
+    </div>
+</body>
+</html>

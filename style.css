@@ -1,0 +1,21 @@
+html {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #666;
+}
+
+.main{max-width: 800px; margin: 0 auto;}
+
+div.hblock {
+    width:100%;
+    overflow-x: auto;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th, td {
+    border-bottom: 1px solid #ddd;
+    padding: 2px 5px;
+}
+tr:nth-child(even) {background-color: #f2f2f2;}
