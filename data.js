@@ -1,4 +1,4 @@
-var data_count = 31;
+var data_count = 33;
 var data = [
     {date: "04.03.2020", cases:   262, deaths:  0},
     {date: "05.03.2020", cases:   400, deaths:  0},
@@ -32,8 +32,8 @@ var data = [
     {date: "02.04.2020", cases: 73522, deaths: 872},
     {date: "03.04.2020", cases: 79696, deaths: 1017},
     {date: "04.04.2020", cases: 85778, deaths: 1158},
-    {date: "05.04.2020"},
-    {date: "06.04.2020"},
+    {date: "05.04.2020", cases: 91714, deaths: 1342},
+    {date: "06.04.2020", cases: 95391, deaths: 1434},
     {date: "07.04.2020"},
     {date: "08.04.2020"},
     {date: "09.04.2020"},

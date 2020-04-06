@@ -22,11 +22,12 @@
             <h4>Daten:</h4>
             <p>Zur Kontrolle, die vom RKI zusammengeschriebenen Daten aus den täglichen Berichten.</p>
             <table id="data_table"></table>
-	    <p> <b>Achtung!</b> Anzahl der Tests ändert sich pro Woche. Leider liegen vom RKI nur in Lagebericht vom 26.03. Zahlen vor:</p>
+	    <p> <b>Achtung!</b> Anzahl der Tests ändert sich pro Tag. Leider liegen vom RKI nur in Lagebericht vom 26.03. und 01.04. Zahlen pro Woche vor:</p>
 	    <table>
 		<tr><th>Woche</th><th>Tests</th><th>Positiv</th></tr>
 		<tr><td>11 (09.03. - 15.03.)</td><td>127.457</td><td>5,9%</td></tr>
-		<tr><td>12 (16.03. - 22.03.)</td><td>348.619</td><td>6,8%</td></tr>
+        <tr><td>12 (16.03. - 22.03.)</td><td>348.619</td><td>6,8%</td></tr>
+        <tr><td>13 (23.03. - 29.03.)</td><td>354.521</td><td>8,7%</td></tr>
 	    </table>
 	    <p> Wahrscheinlich ist die erhöhte Steigerung in der 12. Woche auf die fast Verdreifachung der Tests zurückzuführen.</p> 
         </div>
@@ -70,7 +71,7 @@
         <div>
             <h4>Fallzahlen:</h4>
             <p>Die Fallzahlen folgen der Annahme mit einem Wachstum von 
-                <span id="cases_a"></span>%. Die letzten beiden Werte weichen
+                <span id="cases_a"></span>%(7% entspricht einer Verdopplung in 10 Tagen). Die letzten beiden Werte weichen
                 signifikant von der Annahme ab.
             </p>
             <canvas id="data_chart_cases" width="200" height="200"></canvas>
@@ -109,7 +110,8 @@
         </div>
     </div>
     <div>
-<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons Lizenzvertrag" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />Dieses Werk ist lizenziert unter einer <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Namensnennung 4.0 International Lizenz</a>.
+        <p>Copyright 2020 <a href="mailto:benno.falkner@gmail.com">Benjamin Falkner</a></p>
+        <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons Lizenzvertrag" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />Dieses Werk ist lizenziert unter einer <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Namensnennung 4.0 International Lizenz</a>.
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
     <script src="index.js"></script>
