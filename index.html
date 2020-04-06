@@ -72,7 +72,7 @@
             <h4>Fallzahlen:</h4>
             <p>Die Fallzahlen folgen der Annahme mit einem Wachstum von 
                 <span id="cases_a"></span>%(7% entspricht einer Verdopplung in 10 Tagen). Die letzten beiden Werte weichen
-                signifikant von der Annahme ab.
+                signifikant von der Annahme ab. In den Kommenden Tagen kann man ab dem 28.03. eine lineare Entwicklung prüfen.
             </p>
             <canvas id="data_chart_cases" width="200" height="200"></canvas>
         </div>
@@ -81,17 +81,22 @@
             <h4>Verstorben:</h4>
             <p>Die Anzahl an Verstorbenen folgt der Annahme mit einem Wachstum von 
                 <span id="deaths_a"></span>%. Diese Daten sind verzögert zu den 
-                Fallzahlen. Bei der Anzahl an Verstorbenen ist wegen des Alters zu überlegen, wie viele über eine Patientenverfügung verfügten. In der Studie aus Aachen waren es über 50% der Verstorbenen. Dies beeinflusst die Sterberate und erhöht sie durch u. U. medizinisch unnötige Todesfälle. 
+                Fallzahlen. Bei der Anzahl an Verstorbenen ist wegen des Alters zu 
+                überlegen, wie viele über eine Patientenverfügung verfügten. In der 
+                Studie aus Aachen waren es über 50% der Verstorbenen. Dies beeinflusst 
+                die Sterberate und erhöht sie durch u. U. medizinisch unnötige Todesfälle. 
             </p>
+            <p>Auch hier ist der erste signifikant abweichende Wert aufgetreten.</p>
             <canvas id="data_chart_deaths" width="200" height="200"></canvas>
         </div>
 
         <div>
             <h4>Wachstum:</h4>
             <p>Das Wachstum der Fallzahlen folgt der Annahme mit einem Wachstum von 
-                <span id="growth_a"></span>%. Die letzten drei Werte weichen
+                <span id="growth_a"></span>%. Die letzten zwei Werte weichen
                 signifikant von der Annahme nach unten ab. Auch vorher gab es Werte 
-                außerhalb des Signifikanzbereichs. An dieser Stelle muss eine exponentieller
+                außerhalb des Signifikanzbereichs. Im Zeitraum vom 19.03. bis 28.03. scheint das
+                Wachstum signifikant größer gewesen zu sein. An dieser Stelle muss ein exponentieller
                 Zusammenhang abgelehnt werden. Dies bedeutet nicht, dass kein exponentielles 
                 Wachstum vorliegen kann, sondern der Wachstumsfaktor muss sich massiv 
                 verändert haben und darf als Trend interpretiert werden.
