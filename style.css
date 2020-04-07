@@ -16,7 +16,7 @@ html {
 a { color: #33658A; }
 a:hover { color: #364156; }
 
-
+.container,
 .main {
     max-width: 800px; 
     margin: 0 auto;
@@ -40,7 +40,7 @@ tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 
-div.footer {
+.footer {
     font-size: 9pt;
     background-color: #f2f2f2;
 }
