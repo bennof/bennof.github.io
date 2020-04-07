@@ -1,4 +1,4 @@
-var data_count = 33;
+var data_count = 35;
 var data = [
     {date: "04.03.2020", cases:   262, deaths:  0},
     {date: "05.03.2020", cases:   400, deaths:  0},
