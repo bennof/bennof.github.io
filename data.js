@@ -34,7 +34,7 @@ var data = [
     {date: "04.04.2020", cases: 85778, deaths: 1158},
     {date: "05.04.2020", cases: 91714, deaths: 1342},
     {date: "06.04.2020", cases: 95391, deaths: 1434},
-    {date: "07.04.2020"},
+    {date: "07.04.2020", cases: 99225, deaths: 1607, recovered: 33300},
     {date: "08.04.2020"},
     {date: "09.04.2020"},
     {date: "10.04.2020"}
