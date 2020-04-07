@@ -147,6 +147,7 @@ Array.prototype.plot = function(id, xlabels, ycols, models){
         }
         plot.datasets.push(r);
     }
+    console.log(plot.datasets);
 
     for (i = 0; i < models.length; i++){
         r = {};
