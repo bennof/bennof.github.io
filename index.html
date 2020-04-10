@@ -160,7 +160,8 @@
 
         document.getElementById("cases_a").innerHTML = ((model_cases.a-1)*100).toFixed(1);
         data.plot("data_chart_cases","date", [
-            {name: "Fälle", col: "cases", color: "#3e95cd"}
+            {name: "Fälle", col: "cases", color: "#3e95cd"},
+            {name: "Genesen", col: "recovered", color: "#5DA399"}
         ], [ model_cases, model_cases_sm1, model_cases_sp1 ]);
 
         document.getElementById("deaths_a").innerHTML = ((model_deaths.a-1)*100).toFixed(1);
