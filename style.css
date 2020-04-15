@@ -6,6 +6,11 @@
 * #364156
 */
 
+.blue { color: #33658A; }
+.grey { color: #35393C; }
+.green { color: #5DA399; }
+.greyblue { color: #364156; }
+.red { color: #af5431; }
 
 
 html, body  {
