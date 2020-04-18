@@ -1,4 +1,4 @@
-var data_count = 38;
+var data_count = 46;
 var data = [
     {date: "04.03.2020", cases:   262, deaths:  0},
     {date: "05.03.2020", cases:   400, deaths:  0},
@@ -26,8 +26,8 @@ var data = [
     {date: "27.03.2020", cases: 42288, deaths: 253},
     {date: "28.03.2020", cases: 48582, deaths: 325},
     {date: "29.03.2020", cases: 52547, deaths: 389},
-    {date: "30.03.2020", cases: 57298, deaths: 455},
-    {date: "31.03.2020", cases: 61913, deaths: 583},
+    {date: "30.03.2020", cases: 57298, deaths: 455, recovered: 13500},
+    {date: "31.03.2020", cases: 61913, deaths: 583, recovered: 16100},
     {date: "01.04.2020", cases: 67366, deaths: 732, recovered: 18700},
     {date: "02.04.2020", cases: 73522, deaths: 872, recovered: 21400},
     {date: "03.04.2020", cases: 79696, deaths: 1017, recovered: 23800},
@@ -42,6 +42,12 @@ var data = [
     {date: "12.04.2020", cases: 120479, deaths: 2673, recovered: 60300},
     {date: "13.04.2020", cases: 123016, deaths: 2799, recovered: 64300},
     {date: "14.04.2020", cases: 125098, deaths: 2969, recovered: 68100},
-    {date: "15.04.2020"},
-    {date: "16.04.2020"},
+    {date: "15.04.2020", cases: 127584, deaths: 3254, recovered: 72600},
+    {date: "16.04.2020", cases: 130450, deaths: 3569, recovered: 77000},
+    {date: "17.04.2020", cases: 133830, deaths: 3868, recovered: 81800},
+    {date: "18.04.2020", cases: 137439, deaths: 4110, recovered: 85400},
+    {date: "19.04.2020"},
+    {date: "20.04.2020"},
+    {date: "21.04.2020"},
+    {date: "22.04.2020"},
 ];
