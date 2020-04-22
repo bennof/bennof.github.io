@@ -1,0 +1,53 @@
+{
+  "name": "bennof.github.io",
+  "version": "0.3.2",
+  "description": "Git Homepage",
+  "main": "index.js",
+  "scripts": {
+    "watch": "webpack --config webpack.config.js --watch",
+    "serve": "npm run watch & serve .",
+    "wp": "webpack --config webpack.config.js",
+    "build": "webpack --config webpack.config.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bennof/bennof.github.io.git"
+  },
+  "author": "Benjamin Benno Falkner",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bennof/bennof.github.io/issues"
+  },
+  "homepage": "https://github.com/bennof/bennof.github.io#readme",
+  "dependencies": {
+    "chart.js": "^2.9.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "autoprefixer": "^9.7.6",
+    "babel-loader": "^8.1.0",
+    "copy-webpack-plugin": "^5.1.1",
+    "css-loader": "^3.5.2",
+    "mini-css-extract-plugin": "^0.9.0",
+    "node-sass": "^4.13.1",
+    "postcss-loader": "^3.0.0",
+    "sass": "^1.26.3",
+    "sass-loader": "^8.0.2",
+    "serve": "^11.3.0",
+    "uglify-js": "^3.8.1",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "babelify",
+        {
+          "comments": false
+        }
+      ]
+    ]
+  }
+}

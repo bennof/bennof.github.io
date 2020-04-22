@@ -1,0 +1,124 @@
+$page_font_size: 12pt !default;
+$page_font_weight: 100 !default;
+
+$page_color: #35393C !default;
+$page_color_bg_2: #f2f2f2 !default;
+$page_color_hl: #f1cf0b !default;
+$page_color_link: #33658A !default;
+$page_color_table_border: #ddd !default;
+
+$page_content_width: 800px !default;
+
+.page {
+    color: $page_color;
+    font-size: $page_font_size;
+    font-weight: $page_font_weight;
+
+    counter-reset: tabCounter;
+    counter-reset: figCounter;
+    counter-reset: listingCounter;
+
+    [contenteditable] {
+        outline: 0px solid transparent;
+    }
+
+    a {
+        color: $page_color_link;
+        &:hover {
+            color: lighten($page_color_link, 20);
+        }
+    }
+
+    button {
+        background-color: $page_color_hl;
+        color: $page_color_bg_2;
+        border-radius: 2px;
+        border: none;
+        padding: 15px 32px;
+        font-size: $page_font_size;
+        text-align: center;
+        text-decoration: none;
+
+        &:hover {
+            background-color: lighten($page_color_hl, 20); 
+        }
+    }
+
+    table {
+        margin: 0 auto;
+        text-align:center;
+        border-collapse: collapse;
+        caption-side: bottom;
+        counter-increment: tabCounter;
+
+        th, td {
+            border-bottom: 1px solid $page_color_table_border;
+            padding: 2px 5px;
+        }
+        
+        tr:nth-child(even) {
+            background-color: $page_color_bg_2;
+        }
+
+        caption {
+            padding-top: 4px;
+            font-size: #{$page_font_size *0.8};
+
+            &::before {
+                font-weight: bold;
+                content: "Tab " counter(tabCounter) ": ";
+            }
+        }
+    }
+
+    figure {
+        text-align: center;
+        caption-side: bottom;
+        counter-increment: figCounter;
+
+        figcaption {
+            padding-top: 4px;
+            font-size: #{$page_font_size *0.8};
+
+            &::before {
+                font-weight: bold;
+                content: "Fig " counter(figCounter) ": ";
+            }
+        }
+    }
+    
+    .pre {
+        counter-increment: listingCounter;
+        code {
+            white-space: pre;
+            font-size: #{ $page_font_size * 0.8 };
+            overflow-x: auto;
+        }
+        .caption {
+            text-align: center;
+            padding-top: 4px;
+            font-size: #{$page_font_size *0.8};
+
+            &::before {
+                font-weight: bold;
+                content: "Listing " counter(listingCounter) ": ";
+            }
+        }
+    }
+
+    .content {
+        max-width: $page_content_width; 
+        margin: 0 auto;
+    }
+
+    .vblock {
+        width:100%;
+        overflow-x: auto;
+    }
+
+    .refecrences {
+        & > ol, ul, p {
+            font-size: #{$page_font_size *0.8}; 
+        }
+    }
+}

@@ -1,0 +1,51 @@
+/*
+*
+* #33658A
+* #35393C
+* #5DA399
+* #364156
+*/
+
+
+
+$blue: #33658A; 
+$grey: #35393C; 
+$green: #5DA399; 
+$greyblue: #364156; 
+$red: #af5431; 
+$yellow: #f1cf0b;
+$l: #8b61ad;
+
+
+html, body  {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #35393C;
+    min-height: 1vh;
+    min-width: 1vw;
+}
+
+a { color: #33658A; }
+a:hover { color: #364156; }
+
+.container,
+.main {
+    max-width: 800px; 
+    margin: 0 auto;
+}
+
+div.hblock {
+    width:100%;
+    overflow-x: auto;
+}
+
+
+
+.content {
+    max-width: 800px; 
+    margin: 0 auto;
+}
+
+@import "./header";
+@import "./footer";
+@import "./page";

@@ -1,0 +1,223 @@
+<!-- Data -->
+<script id="data" type="application/json" src="/content/covid19data.json"></script>
+
+<script id="code">
+   
+</script>
+
+
+<!-- head -->
+<div class="vblock">
+    <div class="content">
+        <h1>Covid-19 Data</h1>
+        <h3>Unabhängige Analyse zur besseren Interpretation</h3>
+        <h6>(Daten vom <a href="https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Situationsberichte/Gesamt.html">RKI</a>)</h6>
+    </div>
+</div>
+
+<!-- Data Block -->
+<div class="vblock">
+    <div class="content">
+        <h4>Daten:</h4>
+        <p> <b>Achtung!</b> Anzahl der Tests ändert sich pro Tag. Leider liegen vom RKI (jeden Mittwoch) 
+            nur Zahlen pro Woche vor.</p>
+        <table>
+            <tr><th>Woche</th><th>Tests</th><th>Positiv</th></tr>
+            <tr><td>11 (09.03. - 15.03.)</td><td>127.457</td><td>5,9%</td></tr>
+            <tr><td>12 (16.03. - 22.03.)</td><td>348.619</td><td>6,8%</td></tr>
+            <tr><td>13 (23.03. - 29.03.)</td><td>361.374</td><td>8,7%</td></tr>
+            <tr><td>14 (30.03. - 05.04.)</td><td>406.052</td><td>9.1%</td></tr>
+            <tr><td>15 (06.03. - 12.04.)</td><td>360.139</td><td>8.1%</td></tr>
+            <tr><td>15 (13.03. - 19.04.)</td><td>323.449</td><td>6.7%</td></tr>
+            <caption> Anzahl der Tests pro Woch mit dem Anteil der positiven Tests.</caption>
+        </table>
+        <p> Wahrscheinlich ist die erhöhte Steigerung in der 12. Woche auf die fast Verdreifachung 
+            der Tests zurück zuführen.</p> 
+        <script>
+            var c19 = new TR.data.table.Table("RKI Daten",["date","cases","deaths","recovered"]);
+            c19.read_json(document.getElementById('data').innerText);
+            var idx = TR.math.seq(c19.length()); // index list
+        </script>
+        <p>
+            <button onclick=" alert('Verwendete Daten (.csv):\n' + c19.write_csv(','));">Daten anzeigen</button>
+        </p>
+    </div>
+</div>
+
+<div class="vblock">
+    <div class="content">
+        <h4>Wichtige Termine</h4>
+        <p>16.03. Schulschließungen</p>
+        <p>23.03. Shutdown</p>
+    </div>
+</div>
+
+<div class="vblock">
+    <div class="content">
+        <h4>Herdenimmunität</h4>
+        <p>Herdenimmunität wird erreicht, wenn 70% der Bevölkerung immun sind. Das bedeutet:</p>
+        \[80 \cdot 10^6 \cdot 70\% = 56.000.000 \]
+        <p>Bei den heuteigen Infetionszahlen von großzügig geschätzten 6000 Personen, was weit über 
+            den Daten des RKI liegt, kann man die Dauer bestimmen: </p>
+        \[80 \cdot 10^6 \cdot 70\% : 6000 = 9333 \]
+        <p> Das bedeutet wir müssen die Isolation für 9333 Tage oder  25 Jahre aufrecht erhalten.</p>
+    </div>
+</div>
+
+<div class="vblock">
+    <div class="content">
+        <h4>Sterberate</h4>
+        <p>Die Sterberate (Case fatility rate) wird zur Zeit pessimistisch auf ca. 1% geschätzt (Frankreich, China, Berlin, Heinsberg). Dies
+            bedeutet für die deutsche Bevölkerung ganz einfach bei (70% für Herdenimmunität): 
+        </p>
+        \[80 \cdot 10^6 \cdot 70\% \cdot 1\% = 560.000 \]
+        <p>Also werden an Covid-19 ca. 560.000 Menschen in Deutschland versterben. Ein Ausweg wäre nur dann gegeben, wenn eine Impfung 
+            oder ein Medikament zur Verfügung steht.</p>
+    </div>
+</div>
+
+<div class="vblock">
+    <div class="content">
+        <h4>Modell:</h4>
+        <p>Als Modell wird das "worst case" Szenario angenommen, welches ein 
+            exponentielles Wachstum annimmt.
+        </p>
+        <p>Die eingehenden Daten werden als normalverteilt angenommen, da keine
+            Informationen über Verteilung und sonstige Einflußgrößen vorliegen.
+        </p>
+    </div>
+</div>
+
+<!--
+<div class="vblock">
+    <div class="content">
+        <h4>Fehler (Six Sigma):</h4>
+        <p>Die 6 Sigma Umgebung ist eine Abweichung von den Messwerten, 
+            mit 6-facher Standartabweichung. Dies entspricht bei normalverteilten
+            Varianzen in den Daten, das \(99.99966\)% der Daten, bei richtigem Modell
+            innerhalb dieses Bereichs liegen sollen.
+        </p>
+        <p>Um die Fehler an die Darstellung anzupassen wird der Fehler mittels Tylorreihe
+            fortgepflanzt. Hierbei soll die erste Stufe genügen, da der Fehler hinreichend 
+            klein sein sollte (ergibt sich aus den Daten, wird unten in Zukunft angegeben). 
+        </p>
+    </div>
+</div>-->
+
+<div class="vblock">
+    <div class="content">
+        <h4>Berechnung:</h4>
+        <p>
+            Die Berechnung erfolgt durch die lineare Regression \(f_R(x)=ax+b\) unter der Annahme, dass 
+            ein Exponentielles Wachstum vorliegt: \(f(x)=A \cdot p^x = A\cdot \exp^{ln(p)\cdot x}\). Dies 
+            wird möglich durch \(f_R(x)=\ln(f(x))=\ln(A)+\ln(p)\cdot x\). 
+        </p>
+        <p>
+            Es gilt \(a=\ln(p)\), \(b=\ln(A)\)
+            und \(y=\ln(f(x))\).
+        </p>
+    </div>
+</div>
+
+<div class="vblock">
+    <div class="content">
+        <h4>Fallzahlen:</h4>
+        <p>Die Fallzahlen folgen der Annahme nicht mehr. Als wichtige Grenze ist die Anzahl an 
+            Intensivbetten (ICU) zu betrachten. Sie wird auf Basis der Zahlen vom 22.04. des RKI 
+            geschätzt.
+        </p>
+        <figure>
+            <canvas id="data_chart_cases" style="width: 100%; height: 75vh;"></canvas>
+            <figcaption>Fallzahlen mit exponentieller Vorhersage und Anzahl der Gesunden. </figcaption>
+        </figure>
+        <!--<div class="pre">
+            <code script="cases_js"></code>
+            <div class="caption">Some code</div>
+        </div>-->
+        <script id="cases_js">
+// calaculate sick people
+c19.add_colum("sick");
+c19.map2((d,i) => {return (c19.data[i][3]) ? c19.data[i][1]-c19.data[i][3]: c19.data[i][1];},"sick",0);
+// regression
+var f_cases = TR.math.stat.exponential_regression(idx,c19.get_colum("cases"))
+var pcases = new TR.math.plot.Plot("Fallzahlen");
+pcases.x(c19.get_colum("date"));
+pcases.fline(c19.get_colum("sick"),"z.Z. Kranke","#3e95cd");
+pcases.fline(c19.get_colum("cases"),"Genesen und Infizierte","#5DA399");
+pcases.line(f_cases.seq(c19.length()-12),f_cases.toString(),"#af5431");
+pcases.x_marker(12,"Schulschließungen","#f1cf0b");
+pcases.x_marker(19,"Shutdown","#8b61ad");
+pcases.y_marker(258083,"Obergrenze ICU 22.04.","#22aa22");
+pcases.draw("data_chart_cases");
+        </script>
+    </div>
+</div>
+
+<div class="vblock">
+    <div class="content">
+        <h4>Verstorben:</h4>
+        <p>Die Anzahl an Verstorbenen folgt der Annahme nicht mehr. Bei der Anzahl an Verstorbenen ist wegen des Alters zu 
+            überlegen, wie viele über eine Patientenverfügung verfügten. In der 
+            Studie aus Aachen waren es über 50% der Verstorbenen. Dies beeinflusst 
+            die Sterberate und erhöht sie durch u. U. medizinisch unnötige Todesfälle. 
+        </p>
+        <p>Nach Angaben des RKI versterben die meisten 19 Tage nach der Infektion. Hierdurch 
+            können die Einschränkungen (Schulschließung, Shutdown) passend zur Kurve verschoben werden.
+            Hierbei werden die kleinsten Gernzen angenommen, also der frühste Moment, wann es hätte Wirkung 
+            zeigen können</p>
+        <p>Auffallend ist, dass nach den Schulschließungen eine Linearisierung eingesetzt hat.
+        </p>
+        <figure>
+            <canvas id="data_chart_deaths" style="width: 100%; height: 75vh;"></canvas>
+            <figcaption>Anzahl der Verstorbenen mit exponentieller Vorhersage.</figcaption> 
+        </figure>
+        <script>
+            var f_deaths = TR.math.stat.exponential_regression(idx,c19.get_colum("deaths"));
+            var pdeaths = new TR.math.plot.Plot("Verstorbene");
+            pdeaths.x(c19.get_colum("date"));
+            pdeaths.fline(c19.get_colum("deaths"),"Verstorben","#3e95cd");
+            pdeaths.line(f_deaths.seq(c19.length()-14),f_deaths.toString(),"#af5431");
+            pdeaths.x_marker(31,"Schulschließungen","#f1cf0b");
+            pdeaths.x_marker(38,"Shutdown","#8b61ad");
+            pdeaths.draw("data_chart_deaths");
+        </script>
+    </div>
+</div>
+
+<div class="vblock">
+    <div class="content">
+        <h4>Wachstum:</h4>
+        <p>Das Wachstum der Fallzahlen folgt der Annahme nicht. 
+        </p>
+        <figure>
+            <canvas id="data_chart_growth" style="width: 100%; height: 75vh;" ></canvas>
+            <figcaption>Täglicher Zuwachs</figcaption>
+        </figure>
+        <script>
+            c19.add_colum("growth");
+            c19.map2((d,i) => {return c19.data[i][1]-c19.data[i-1][1];},"growth",1);
+            var f_growth = TR.math.stat.exponential_regression(idx,c19.get_colum("growth"));
+            var pgrowth = new TR.math.plot.Plot("Zuwachs");
+            pgrowth.x(c19.get_colum("date"));
+            pgrowth.fline(c19.get_colum("growth"),"Zuwachs","#3e95cd");
+            pgrowth.line(f_growth.seq(c19.length()),f_growth.toString(),"#af5431");
+            pgrowth.draw("data_chart_growth");
+        </script>
+    </div>
+</div>
+
+<!-- foot -->
+<div class="vblock">
+    <div class="content refecrences">
+        <h4>Literatur:</h4>
+        <ol>
+            <li><a href="http://euromomo.eu/">Mortality monitoring in Europe</a></li>
+            <li><a href="https://grippeweb.rki.de/">RKI GrippeWeb: Statistik der akuten Atemwegserkrankungen</a></li>
+            <li><a href="https://www.divi.de/register/intensivregister">Verfügbare Intensivbetten nach Krankenhäusern</a></li>
+            <li><a href="https://www.aerzteblatt.de/archiv/213454/Charakteristik-von-50-hospitalisierten-COVID-19-Patienten-mit-und-ohne-ARDS">Ärzteblatt über die ersten 50 Fälle im UK Aachen</a></li>
+            <li><a href="https://www.stress.org/stanford-professor-data-indicates-were-severely-overreacting-to-coronavirus">Stellungnahme John Ioannidis</a></li>
+            <li><a href="https://www.ifo.de/DocDL/Coronavirus-Pandemie-Strategie-Fuest-Lohse-etal-2020-04.pdf">IFO Empfehlung für den Ausstieg</a></li>
+        </ol>
+        <p>Wird immer wieder ergänzt ...</p>
+    </div>
+</div>
