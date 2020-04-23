@@ -107,7 +107,8 @@ $page_content_width: 800px !default;
     }
 
     .content {
-        max-width: $page_content_width; 
+        max-width: #{$page_content_width + 10px};
+        padding: 0 5px; 
         margin: 0 auto;
     }
 

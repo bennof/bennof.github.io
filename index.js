@@ -1488,34 +1488,12 @@ function query_map(URL) {
 
 /***/ }),
 
-/***/ "./src/math/func.js":
-/*!**************************!*\
-  !*** ./src/math/func.js ***!
-  \**************************/
-/*! exports provided: Func, Model, Linear_Model, Exponential_Model */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Func", function() { return Func; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Model", function() { return Model; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Linear_Model", function() { return Linear_Model; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Exponential_Model", function() { return Exponential_Model; });
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+/***/ "./src/math/filter/index.js":
+/*!**********************************!*\
+  !*** ./src/math/filter/index.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1523,7 +1501,7 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-/* Tabular Rasa JS Math Func
+/* Tabular Rasa JS Math Filter
 ** Copyright (c) 2018-2020 Benjamin Benno Falkner
 **
 ** Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -1546,204 +1524,274 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 */
 
 /** 
-* @module io/file
+* @module math/filter
 */
-var Func = /*#__PURE__*/function () {
-  function Func(Str, _Func) {
-    _classCallCheck(this, Func);
+var RFFT = /*#__PURE__*/function () {
+  function RFFT(size) {
+    _classCallCheck(this, RFFT);
 
-    this.str = Str;
-    this.func = _Func;
-  }
+    this.size = size;
 
-  _createClass(Func, [{
-    key: "toString",
-    value: function toString() {
-      return this.str;
+    if ((size & size - 1) == 0) {
+      this.mode = 'Cooley-Tukey';
+      this.p_radix2(size);
+    } else {
+      this.mode = 'Bluestein';
+      this.p_bluestein(size);
     }
-  }]);
-
-  return Func;
-}();
-;
-var Model = /*#__PURE__*/function (_Func2) {
-  _inherits(Model, _Func2);
-
-  var _super = _createSuper(Model);
-
-  function Model(Str, Func) {
-    _classCallCheck(this, Model);
-
-    return _super.call(this, Str, Func);
   }
 
-  return Model;
-}(Func);
-;
-var Linear_Model = /*#__PURE__*/function (_Model) {
-  _inherits(Linear_Model, _Model);
-
-  var _super2 = _createSuper(Linear_Model);
-
-  // linear model f(x)=a*x+b
-  function Linear_Model(X, Y, length, offset) {
-    var _this;
-
-    _classCallCheck(this, Linear_Model);
-
-    if (Array.isArray(X)) _this.lin_reg(X, Y, length, offset);else _this.lin_reg_idx(Y, length, offset);
-    return _this = _super2.call(this, "f(x)=" + _this.a.toFixed(2) + "*x+" + _this.b.toFixed(2), function (x) {
-      return this.a * x + this.b;
-    });
-  }
-
-  _createClass(Linear_Model, [{
-    key: "lin_reg",
-    value: function lin_reg(X, Y, length, offset) {
-      var xm = 0,
-          ym = 0,
-          sx = 0,
-          sy = 0,
-          sxy = 0,
-          h,
-          g;
-      if (length == undefined) length = this.length;
-      if (offset == undefined) offset = 0;
-
-      for (var i = offset; i < length; i++) {
-        g = X[i];
-        xm += g;
-        sx += g * g;
-        h = Y[i];
-        ym += h;
-        sy += h * h;
-        sxy += h * g;
-      }
-
-      length -= offset;
-      xm /= length;
-      ym /= length;
-      sx = sx / length - xm * xm;
-      sy = sy / length - ym * ym;
-      sxy = sxy / length - xm * ym;
-      this.a = sxy / sx;
-      this.b = ym - sxy / sx * xm;
-    }
+  _createClass(RFFT, [{
+    key: "fft",
+    value: function fft() {}
   }, {
-    key: "lin_reg_idx",
-    value: function lin_reg_idx(Y, length, offset) {
-      var xm = 0,
-          ym = 0,
-          sx = 0,
-          sy = 0,
-          sxy = 0,
-          h;
-      if (length == undefined) length = this.length;
-      if (offset == undefined) offset = 0;
+    key: "ifft",
+    value: function ifft() {} //prepare radix-2
 
-      for (var i = offset; i < length; i++) {
-        xm += i;
-        sx += i * i;
-        h = Y[i];
-        ym += h;
-        sy += h * h;
-        sxy += h * i;
+  }, {
+    key: "p_radix2",
+    value: function p_radix2(size) {
+      // Trigonometric tables
+      this.cosTable = new Array(size / 2);
+      this.sinTable = new Array(size / 2);
+
+      for (var i = 0; i < size / 2; i++) {
+        this.cosTable[i] = Math.cos(2 * Math.PI * i / size);
+        this.sinTable[i] = Math.sin(2 * Math.PI * i / size);
       }
+    } //prepare bluestein
 
-      length -= offset;
-      xm /= length;
-      ym /= length;
-      sx = sx / length - xm * xm;
-      sy = sy / length - ym * ym;
-      sxy = sxy / length - xm * ym;
-      this.a = sxy / sx;
-      this.b = ym - sxy / sx * xm;
+  }, {
+    key: "p_bluestein",
+    value: function p_bluestein(size) {
+      this.cosTable = new Array(size);
+      this.sinTable = new Array(size);
+
+      for (var i = 0; i < size; i++) {
+        var j = i * i % (size * 2);
+        this.cosTable[i] = Math.cos(Math.PI * j / size);
+        this.sinTable[i] = Math.sin(Math.PI * j / size);
+      }
+    } //perform radix 2 Cooley-Tukey DFT
+
+  }, {
+    key: "radix2",
+    value: function radix2(data) {
+      //radix 2
+      for (var i = 0; i < this.size; i++) {
+        var j = reverse_bits(i, levels);
+
+        if (j > i) {
+          var temp = real[i];
+          real[i] = real[j];
+          real[j] = temp;
+          temp = imag[i];
+          imag[i] = imag[j];
+          imag[j] = temp;
+        }
+      } // Cooley-Tukey DFT
+
+
+      for (var size = 2; size <= this.size; size *= 2) {
+        var halfsize = size / 2;
+        var tablestep = this.size / size;
+
+        for (var i = 0; i < this.size; i += size) {
+          for (var j = i, k = 0; j < i + halfsize; j++, k += tablestep) {
+            var l = j + halfsize;
+            var tpre = real[l] * this.cosTable[k] + imag[l] * this.sinTable[k];
+            var tpim = -real[l] * this.sinTable[k] + imag[l] * this.cosTable[k];
+            real[l] = real[j] - tpre;
+            imag[l] = imag[j] - tpim;
+            real[j] += tpre;
+            imag[j] += tpim;
+          }
+        }
+      }
     }
   }]);
 
-  return Linear_Model;
-}(Model);
-;
-var Exponential_Model = /*#__PURE__*/function (_Model2) {
-  _inherits(Exponential_Model, _Model2);
+  return RFFT;
+}(); // Helper
+// reverse helper
 
-  var _super3 = _createSuper(Exponential_Model);
 
-  function Exponential_Model(X, Y, length, offset) {
-    _classCallCheck(this, Exponential_Model);
+function reverse_bits(x, bits) {
+  var y = 0;
 
-    return _super3.call(this, "f(x)=(" + b.toFixed(2) + ")*(" + a.toFixed(2) + ")^x", function (x) {
-      return this.b * Math.pow(this.a, x);
-    });
+  for (var i = 0; i < bits; i++) {
+    y = y << 1 | x & 1, x >>>= 1;
   }
 
-  _createClass(Exponential_Model, [{
-    key: "exp_reg_idx",
-    value: function exp_reg_idx(Y, length, offset) {
-      var i, h, hh, n, a, b;
-      var xm = 0.0,
-          ym = 0.0,
-          sx = 0.0,
-          sy = 0.0,
-          sxy = 0.0,
-          sx2;
-      if (length == undefined) length = this.length;
-      if (offset == undefined) offset = 0; // calc cov, var and mean
+  return y;
+} //Array of zeros
 
-      for (i = offset; i < length; i++) {
-        xm += i;
-        sx += i * i;
-        h = Y[i];
-        h = 0.0 == h ? 0.0 : Math.log(h);
-        ym += h;
-        sy += h * h;
-        sxy += h * i;
-      }
 
-      n = length - offset;
-      xm /= n;
-      ym /= n;
-      sx2 = sx;
-      sx = sx / n - xm * xm;
-      sy = sy / n - ym * ym;
-      sxy = sxy / n - xm * ym;
-      a = sxy / sx;
-      b = ym - sxy / sx * xm; //errors
+function new_array_0(n) {
+  var r = new Array(n);
 
-      var err = 0.0;
+  for (var i = 0; i < n; i++) {
+    r[i] = 0.0;
+  }
 
-      for (i = offset; i < length; i++) {
-        h = data[i][coln];
-        h = 0.0 == h ? 0.0 : Math.log(h);
-        hh = b + i * a;
-        h = h - hh;
-        err += h * h;
-      }
+  return r;
+} //////////////////////////// END
 
-      err = Math.sqrt(err / (n - 2));
-      console.log("Error: " + err);
-      this.a = Math.exp(a);
-      this.b = Math.exp(b);
-      this.err = err;
+
+function fft_radix2(real, imag) {
+  // Length variables
+  var n = real.length;
+  if (n != imag.length) throw "Mismatched lengths";
+  if (n == 1) // Trivial transform
+    return;
+  var levels = -1;
+
+  for (var i = 0; i < 32; i++) {
+    if (1 << i == n) levels = i; // Equal to log2(n)
+  }
+
+  if (levels == -1) throw "Length is not a power of 2"; // Trigonometric tables
+
+  var cosTable = new Array(n / 2);
+  var sinTable = new Array(n / 2);
+
+  for (var i = 0; i < n / 2; i++) {
+    cosTable[i] = Math.cos(2 * Math.PI * i / n);
+    sinTable[i] = Math.sin(2 * Math.PI * i / n);
+  } // Bit-reversed addressing permutation
+
+
+  for (var i = 0; i < n; i++) {
+    var j = reverseBits(i, levels);
+
+    if (j > i) {
+      var temp = real[i];
+      real[i] = real[j];
+      real[j] = temp;
+      temp = imag[i];
+      imag[i] = imag[j];
+      imag[j] = temp;
     }
-  }, {
-    key: "get_sigma",
-    value: function get_sigma(n) {
-      // apply exponential (Taylor series: e^x*delta x)
-      var rr = new Func(n + " sigma", function (x) {
-        return this.b * Math.pow(this.a, x) * (1 + this.err * this.n * Math.log(this.a));
-      });
-      rr.a = this.a;
-      rr.b = this.b;
-      rr.n = n;
-      rr.err = this.err;
-      return rr;
-    }
-  }]);
+  } // Cooley-Tukey decimation-in-time radix-2 FFT
 
-  return Exponential_Model;
-}(Model);
-;
+
+  for (var size = 2; size <= n; size *= 2) {
+    var halfsize = size / 2;
+    var tablestep = n / size;
+
+    for (var i = 0; i < n; i += size) {
+      for (var j = i, k = 0; j < i + halfsize; j++, k += tablestep) {
+        var l = j + halfsize;
+        var tpre = real[l] * cosTable[k] + imag[l] * sinTable[k];
+        var tpim = -real[l] * sinTable[k] + imag[l] * cosTable[k];
+        real[l] = real[j] - tpre;
+        imag[l] = imag[j] - tpim;
+        real[j] += tpre;
+        imag[j] += tpim;
+      }
+    }
+  }
+}
+
+function transformBluestein(real, imag) {
+  // Find a power-of-2 convolution length m such that m >= n * 2 + 1
+  var n = real.length;
+  if (n != imag.length) throw "Mismatched lengths";
+  var m = 1;
+
+  while (m < n * 2 + 1) {
+    m *= 2;
+  } // Trignometric tables
+
+
+  var cosTable = new Array(n);
+  var sinTable = new Array(n);
+
+  for (var i = 0; i < n; i++) {
+    var j = i * i % (n * 2); // This is more accurate than j = i * i
+
+    cosTable[i] = Math.cos(Math.PI * j / n);
+    sinTable[i] = Math.sin(Math.PI * j / n);
+  } // Temporary vectors and preprocessing
+
+
+  var areal = newArrayOfZeros(m);
+  var aimag = newArrayOfZeros(m);
+
+  for (var i = 0; i < n; i++) {
+    areal[i] = real[i] * cosTable[i] + imag[i] * sinTable[i];
+    aimag[i] = -real[i] * sinTable[i] + imag[i] * cosTable[i];
+  }
+
+  var breal = newArrayOfZeros(m);
+  var bimag = newArrayOfZeros(m);
+  breal[0] = cosTable[0];
+  bimag[0] = sinTable[0];
+
+  for (var i = 1; i < n; i++) {
+    breal[i] = breal[m - i] = cosTable[i];
+    bimag[i] = bimag[m - i] = sinTable[i];
+  } // Convolution
+
+
+  var creal = new Array(m);
+  var cimag = new Array(m);
+  convolveComplex(areal, aimag, breal, bimag, creal, cimag); // Postprocessing
+
+  for (var i = 0; i < n; i++) {
+    real[i] = creal[i] * cosTable[i] + cimag[i] * sinTable[i];
+    imag[i] = -creal[i] * sinTable[i] + cimag[i] * cosTable[i];
+  }
+}
+/* 
+ * Computes the circular convolution of the given real vectors. Each vector's length must be the same.
+ */
+
+
+function convolveReal(x, y, out) {
+  var n = x.length;
+  if (n != y.length || n != out.length) throw "Mismatched lengths";
+  convolveComplex(x, newArrayOfZeros(n), y, newArrayOfZeros(n), out, newArrayOfZeros(n));
+}
+/* 
+ * Computes the circular convolution of the given complex vectors. Each vector's length must be the same.
+ */
+
+
+function convolveComplex(xreal, ximag, yreal, yimag, outreal, outimag) {
+  var n = xreal.length;
+  if (n != ximag.length || n != yreal.length || n != yimag.length || n != outreal.length || n != outimag.length) throw "Mismatched lengths";
+  xreal = xreal.slice();
+  ximag = ximag.slice();
+  yreal = yreal.slice();
+  yimag = yimag.slice();
+  transform(xreal, ximag);
+  transform(yreal, yimag);
+
+  for (var i = 0; i < n; i++) {
+    var temp = xreal[i] * yreal[i] - ximag[i] * yimag[i];
+    ximag[i] = ximag[i] * yreal[i] + xreal[i] * yimag[i];
+    xreal[i] = temp;
+  }
+
+  inverseTransform(xreal, ximag);
+
+  for (var i = 0; i < n; i++) {
+    // Scaling (because this FFT implementation omits it)
+    outreal[i] = xreal[i] / n;
+    outimag[i] = ximag[i] / n;
+  }
+}
+
+function newArrayOfZeros(n) {
+  var result = [];
+
+  for (var i = 0; i < n; i++) {
+    result.push(0);
+  }
+
+  return result;
+}
 
 /***/ }),
 
@@ -1751,7 +1799,7 @@ var Exponential_Model = /*#__PURE__*/function (_Model2) {
 /*!***************************!*\
   !*** ./src/math/index.js ***!
   \***************************/
-/*! exports provided: Func, seq, stat, func, plot */
+/*! exports provided: Func, seq, stat, filter, plot */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1760,8 +1808,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "seq", function() { return seq; });
 /* harmony import */ var _stat_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./stat/index */ "./src/math/stat/index.js");
 /* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "stat", function() { return _stat_index__WEBPACK_IMPORTED_MODULE_0__; });
-/* harmony import */ var _func__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./func */ "./src/math/func.js");
-/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "func", function() { return _func__WEBPACK_IMPORTED_MODULE_1__; });
+/* harmony import */ var _filter_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./filter/index */ "./src/math/filter/index.js");
+/* harmony import */ var _filter_index__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_filter_index__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "filter", function() { return _filter_index__WEBPACK_IMPORTED_MODULE_1__; });
 /* harmony import */ var _plot__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./plot */ "./src/math/plot.js");
 /* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "plot", function() { return _plot__WEBPACK_IMPORTED_MODULE_2__; });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1796,6 +1845,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 * @module tabularrasa/math
 */
 
+ //import * as func from "./func"
 
 
 
@@ -1821,10 +1871,15 @@ var Func = /*#__PURE__*/function () {
     key: "seq",
     value: function seq(start, end) {
       var step = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
+      var offset = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
       if (end == undefined) end = start, start = 0;
-      var a = new Array(end - start);
+      var a = new Array(end - start + offset);
 
-      for (var i = 0; i < end - start; i++) {
+      for (var i = 0; i < offset; i++) {
+        a[i] = undefined;
+      }
+
+      for (; i < end - start + offset; i++) {
         a[i] = this.func(start + i * step);
       }
 
@@ -2051,7 +2106,7 @@ var Plot = /*#__PURE__*/function () {
 /*!********************************!*\
   !*** ./src/math/stat/index.js ***!
   \********************************/
-/*! exports provided: erf, cnorm, norm, boxmullerrand, dnorm, pnorm, rnorm, linerar_regession, exponential_regression */
+/*! exports provided: erf, cnorm, norm, boxmullerrand, dnorm, pnorm, rnorm, floating_mean, linear_regression, exponential_regression */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2063,7 +2118,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dnorm", function() { return dnorm; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "pnorm", function() { return pnorm; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "rnorm", function() { return rnorm; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "linerar_regession", function() { return linerar_regession; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "floating_mean", function() { return floating_mean; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "linear_regression", function() { return linear_regression; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "exponential_regression", function() { return exponential_regression; });
 /* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../index */ "./src/math/index.js");
 /* Tabular Rasa JS Math Statistics
@@ -2132,7 +2188,30 @@ function rnorm() {
   return mu + sig * boxmullerrand();
 } //export qnorm() = //quartile function
 
-function linerar_regession(X, Y) {
+function floating_mean(Data, n) {
+  var r = new Array(Data.length);
+  var t = Math.floor((n - 1) / 2);
+
+  for (var i = 0; i < t; i++) {
+    r[i] = undefined;
+  }
+
+  for (; i < Data.length - t; i++) {
+    //calc mean
+    var m = 0;
+
+    for (var j = i - t; j < i + n - t; j++) {
+      m += Data[j];
+    }
+
+    r[i] = m / n;
+  }
+
+  return r;
+}
+function linear_regression(X, Y) {
+  var offset = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+  var length = arguments.length > 3 ? arguments[3] : undefined;
   var xm = 0,
       ym = 0,
       sx = 0,
@@ -2142,8 +2221,9 @@ function linerar_regession(X, Y) {
       h,
       g,
       n = 0;
+  if (!length) length = X.length;
 
-  for (var i = 0; i < X.length; i++) {
+  for (var i = offset; i < length; i++) {
     if (X[i] && Y[i]) {
       g = X[i];
       xm += g;
@@ -2167,7 +2247,7 @@ function linerar_regession(X, Y) {
   var err = 0.0,
       hh;
 
-  for (var i = 0; i < X.length; i++) {
+  for (var i = offset; i < length; i++) {
     if (X[i] && Y[i]) {
       g = X[i];
       h = Y[i];
@@ -2189,6 +2269,8 @@ function linerar_regession(X, Y) {
   return f;
 }
 function exponential_regression(X, Y) {
+  var offset = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+  var length = arguments.length > 3 ? arguments[3] : undefined;
   var xm = 0,
       ym = 0,
       sx = 0,
@@ -2198,8 +2280,9 @@ function exponential_regression(X, Y) {
       h,
       g,
       n = 0;
+  if (!length) length = X.length;
 
-  for (var i = 0; i < X.length; i++) {
+  for (var i = offset; i < length; i++) {
     if (typeof X[i] == "number" && Y[i]) {
       g = X[i];
       xm += g;
@@ -2224,7 +2307,7 @@ function exponential_regression(X, Y) {
   var err = 0.0,
       hh;
 
-  for (var i = 0; i < X.length; i++) {
+  for (var i = offset; i < length; i++) {
     if (X[i] && Y[i]) {
       g = X[i];
       h = Y[i];

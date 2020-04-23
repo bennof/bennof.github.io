@@ -39,7 +39,7 @@
             var idx = TR.math.seq(c19.length()); // index list
         </script>
         <p>
-            <button onclick=" alert('Verwendete Daten (.csv):\n' + c19.write_csv(','));">Daten anzeigen</button>
+            <button onclick="TR.dox.file.save('rki_data.csv','text/csv',c19.write_csv(','));">Daten Download</button>
         </p>
     </div>
 </div>
@@ -156,7 +156,7 @@ pcases.draw("data_chart_cases");
 <div class="vblock">
     <div class="content">
         <h4>Verstorben:</h4>
-        <p>Die Anzahl an Verstorbenen folgt der Annahme nicht mehr. Bei der Anzahl an Verstorbenen ist wegen des Alters zu 
+        <p>Die Anzahl an Verstorbenen folgt der exponentiellen Annahme nicht mehr. Bei der Anzahl an Verstorbenen ist wegen des Alters zu 
             überlegen, wie viele über eine Patientenverfügung verfügten. In der 
             Studie aus Aachen waren es über 50% der Verstorbenen. Dies beeinflusst 
             die Sterberate und erhöht sie durch u. U. medizinisch unnötige Todesfälle. 
@@ -165,7 +165,7 @@ pcases.draw("data_chart_cases");
             können die Einschränkungen (Schulschließung, Shutdown) passend zur Kurve verschoben werden.
             Hierbei werden die kleinsten Gernzen angenommen, also der frühste Moment, wann es hätte Wirkung 
             zeigen können</p>
-        <p>Auffallend ist, dass nach den Schulschließungen eine Linearisierung eingesetzt hat.
+        <p>Auffallend ist, dass nach den Schulschließungen eine Linearisierung eingesetzt hat. Diese wird nicht durch den Shutdown beeinflusst.
         </p>
         <figure>
             <canvas id="data_chart_deaths" style="width: 100%; height: 75vh;"></canvas>
@@ -173,10 +173,12 @@ pcases.draw("data_chart_cases");
         </figure>
         <script>
             var f_deaths = TR.math.stat.exponential_regression(idx,c19.get_colum("deaths"));
+            var fl_deaths = TR.math.stat.linear_regression(idx,c19.get_colum("deaths"),26);
             var pdeaths = new TR.math.plot.Plot("Verstorbene");
             pdeaths.x(c19.get_colum("date"));
             pdeaths.fline(c19.get_colum("deaths"),"Verstorben","#3e95cd");
-            pdeaths.line(f_deaths.seq(c19.length()-14),f_deaths.toString(),"#af5431");
+            pdeaths.line(f_deaths.seq(c19.length()-12),f_deaths.toString(),"#af5431");
+            pdeaths.line(fl_deaths.seq(0,c19.length(),1,26),fl_deaths.toString(),"#f1cf0b");
             pdeaths.x_marker(31,"Schulschließungen","#f1cf0b");
             pdeaths.x_marker(38,"Shutdown","#8b61ad");
             pdeaths.draw("data_chart_deaths");
@@ -197,10 +199,12 @@ pcases.draw("data_chart_cases");
             c19.add_colum("growth");
             c19.map2((d,i) => {return c19.data[i][1]-c19.data[i-1][1];},"growth",1);
             var f_growth = TR.math.stat.exponential_regression(idx,c19.get_colum("growth"));
+            var fm_growth = TR.math.stat.floating_mean(c19.get_colum("growth"),7);
             var pgrowth = new TR.math.plot.Plot("Zuwachs");
             pgrowth.x(c19.get_colum("date"));
             pgrowth.fline(c19.get_colum("growth"),"Zuwachs","#3e95cd");
             pgrowth.line(f_growth.seq(c19.length()),f_growth.toString(),"#af5431");
+            pgrowth.fline(fm_growth,"Gleitendes Mittel","#f1cf0b");
             pgrowth.draw("data_chart_growth");
         </script>
     </div>

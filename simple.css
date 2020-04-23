@@ -195,7 +195,8 @@ div.hblock {
         font-weight: bold;
         content: "Listing " counter(listingCounter) ": "; }
   .page .content {
-    max-width: 800px;
+    max-width: 810px;
+    padding: 0 5px;
     margin: 0 auto; }
   .page .vblock {
     width: 100%;

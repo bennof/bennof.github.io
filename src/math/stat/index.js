@@ -68,10 +68,27 @@ export function rnorm(mu=0.0, sig=1.0) {
 
 
 
-export function linerar_regession(X,Y){
-    var xm=0, ym=0, sx=0, sx2, sy=0, sxy=0, h, g, n=0;
 
-    for(var i = 0; i < X.length; i++){
+export function floating_mean(Data, n) {
+    var r = new Array(Data.length);
+    var t = Math.floor((n-1)/2);
+    for(var i = 0; i<t; i++)
+        r[i] = undefined;
+    for(; i<Data.length-t; i++){
+        //calc mean
+        var m = 0;
+        for(var j=i-t; j<i+n-t; j++)
+            m += Data[j];
+        r[i] = m/n;
+    }
+    return r;
+}
+
+
+export function linear_regression(X,Y,offset=0, length){
+    var xm=0, ym=0, sx=0, sx2, sy=0, sxy=0, h, g, n=0;
+    if(!length) length = X.length;
+    for(var i = offset; i < length; i++){
         if(X[i] && Y[i]){
             g = X[i];
             xm += g;
@@ -93,7 +110,7 @@ export function linerar_regession(X,Y){
 
     var a = sxy / sx, b = ym - sxy / sx * xm;
     var err = 0.0, hh;
-    for(var i = 0; i < X.length; i++){
+    for(var i = offset; i < length; i++){
         if(X[i] && Y[i]){
             g = X[i];
             h = Y[i];
@@ -113,10 +130,10 @@ export function linerar_regession(X,Y){
     return f;
 }
 
-export function exponential_regression(X, Y){
+export function exponential_regression(X, Y, offset=0, length){
     var xm=0, ym=0, sx=0, sx2, sy=0, sxy=0, h, g, n=0;
-
-    for(var i = 0; i < X.length; i++){
+    if(!length) length = X.length;
+    for(var i = offset; i < length; i++){
         if(typeof X[i] == "number" && Y[i]){
             g = X[i];
             xm += g;
@@ -139,7 +156,7 @@ export function exponential_regression(X, Y){
 
     var a = sxy / sx, b = ym - sxy / sx * xm;
     var err = 0.0, hh;
-    for(var i = 0; i < X.length; i++){
+    for(var i = offset; i < length; i++){
         if(X[i] && Y[i]){
             g = X[i];
             h = Y[i];

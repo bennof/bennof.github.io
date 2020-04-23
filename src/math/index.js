@@ -24,8 +24,9 @@
 * @module tabularrasa/math
 */
 
-import * as stat from "./stat/index"
-import * as func from "./func"
+import * as stat from "./stat/index";
+import * as filter from "./filter/index";
+//import * as func from "./func"
 import * as plot from "./plot"
 
 class Func{
@@ -42,11 +43,13 @@ class Func{
         this.func.apply(this,args)
     }
 
-    seq(start,end,step=1){
+    seq(start,end,step=1,offset=0){
         if (end == undefined)
-        end = start,start = 0;
-        var a = new Array(end-start);
-        for(var i=0; i<end-start; i++)
+            end = start,start = 0;
+        var a = new Array(end-start+offset);
+        for(var i=0; i<offset; i++)
+            a[i] = undefined;
+        for(; i<end-start+offset; i++)
             a[i] = this.func(start + i*step);
         return a; 
     }
@@ -66,6 +69,6 @@ export {
     Func,
     seq,
     stat,
-    func,
+    filter,
     plot
 };
