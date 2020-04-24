@@ -14,9 +14,9 @@ $page_content_width: 800px !default;
     font-size: $page_font_size;
     font-weight: $page_font_weight;
 
-    counter-reset: tabCounter;
-    counter-reset: figCounter;
-    counter-reset: listingCounter;
+    counter-reset: tab-counter 0 fig-counter 0 listing-counter 0;
+
+    
 
     [contenteditable] {
         outline: 0px solid transparent;
@@ -49,7 +49,7 @@ $page_content_width: 800px !default;
         text-align:center;
         border-collapse: collapse;
         caption-side: bottom;
-        counter-increment: tabCounter;
+        counter-increment: tab-counter;
 
         th, td {
             border-bottom: 1px solid $page_color_table_border;
@@ -66,7 +66,7 @@ $page_content_width: 800px !default;
 
             &::before {
                 font-weight: bold;
-                content: "Tab " counter(tabCounter) ": ";
+                content: "Tab " counter(tab-counter) ": ";
             }
         }
     }
@@ -74,7 +74,7 @@ $page_content_width: 800px !default;
     figure {
         text-align: center;
         caption-side: bottom;
-        counter-increment: figCounter;
+        counter-increment: fig-counter;
 
         figcaption {
             padding-top: 4px;
@@ -82,13 +82,13 @@ $page_content_width: 800px !default;
 
             &::before {
                 font-weight: bold;
-                content: "Fig " counter(figCounter) ": ";
+                content: "Fig " counter(fig-counter) ": ";
             }
         }
     }
     
     .pre {
-        counter-increment: listingCounter;
+        counter-increment: listing-counter;
         code {
             white-space: pre;
             font-size: #{ $page_font_size * 0.8 };
@@ -101,7 +101,7 @@ $page_content_width: 800px !default;
 
             &::before {
                 font-weight: bold;
-                content: "Listing " counter(listingCounter) ": ";
+                content: "Listing " counter(listing-counter) ": ";
             }
         }
     }

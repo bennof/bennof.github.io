@@ -134,9 +134,7 @@ div.hblock {
   color: #35393C;
   font-size: 12pt;
   font-weight: 100;
-  counter-reset: tabCounter;
-  counter-reset: figCounter;
-  counter-reset: listingCounter; }
+  counter-reset: tab-counter 0 fig-counter 0 listing-counter 0; }
   .page [contenteditable] {
     outline: 0px solid transparent; }
   .page a {
@@ -159,7 +157,7 @@ div.hblock {
     text-align: center;
     border-collapse: collapse;
     caption-side: bottom;
-    counter-increment: tabCounter; }
+    counter-increment: tab-counter; }
     .page table th, .page table td {
       border-bottom: 1px solid #ddd;
       padding: 2px 5px; }
@@ -170,19 +168,19 @@ div.hblock {
       font-size: 9.6pt; }
       .page table caption::before {
         font-weight: bold;
-        content: "Tab " counter(tabCounter) ": "; }
+        content: "Tab " counter(tab-counter) ": "; }
   .page figure {
     text-align: center;
     caption-side: bottom;
-    counter-increment: figCounter; }
+    counter-increment: fig-counter; }
     .page figure figcaption {
       padding-top: 4px;
       font-size: 9.6pt; }
       .page figure figcaption::before {
         font-weight: bold;
-        content: "Fig " counter(figCounter) ": "; }
+        content: "Fig " counter(fig-counter) ": "; }
   .page .pre {
-    counter-increment: listingCounter; }
+    counter-increment: listing-counter; }
     .page .pre code {
       white-space: pre;
       font-size: 9.6pt;
@@ -193,7 +191,7 @@ div.hblock {
       font-size: 9.6pt; }
       .page .pre .caption::before {
         font-weight: bold;
-        content: "Listing " counter(listingCounter) ": "; }
+        content: "Listing " counter(listing-counter) ": "; }
   .page .content {
     max-width: 810px;
     padding: 0 5px;

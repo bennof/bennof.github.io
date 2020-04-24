@@ -1542,11 +1542,28 @@ var RFFT = /*#__PURE__*/function () {
   }
 
   _createClass(RFFT, [{
+    key: "new_complx",
+    value: function new_complx() {
+      return Array(2 * (this.size / 2 + 1));
+    }
+  }, {
     key: "fft",
-    value: function fft() {}
+    value: function fft(out, inp) {
+      if (inp.length != this.size || out.length != 2 * (inp.length / 2 + 1)) return "Error: size does not match";
+
+      if (this.mode = 'Cooley-Tukey') {} else if (this.mode = 'Bluestein') {} else return "Error: unkown alg. " + this.mode;
+
+      return 0;
+    }
   }, {
     key: "ifft",
-    value: function ifft() {} //prepare radix-2
+    value: function ifft(out, inp) {
+      if (out.length != this.size || inp.length != 2 * (out.length / 2 + 1)) return "Error: size does not match";
+
+      if (this.mode = 'Cooley-Tukey') {} else if (this.mode = 'Bluestein') {} else return "Error: unkown alg. " + this.mode;
+
+      return 0;
+    } //prepare radix-2
 
   }, {
     key: "p_radix2",
@@ -1781,16 +1798,6 @@ function convolveComplex(xreal, ximag, yreal, yimag, outreal, outimag) {
     outreal[i] = xreal[i] / n;
     outimag[i] = ximag[i] / n;
   }
-}
-
-function newArrayOfZeros(n) {
-  var result = [];
-
-  for (var i = 0; i < n; i++) {
-    result.push(0);
-  }
-
-  return result;
 }
 
 /***/ }),
