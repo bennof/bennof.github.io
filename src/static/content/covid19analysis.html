@@ -144,7 +144,7 @@ var pcases = new TR.math.plot.Plot("Fallzahlen");
 pcases.x(c19.get_colum("date"));
 pcases.fline(c19.get_colum("sick"),"z.Z. Kranke","#3e95cd");
 pcases.fline(c19.get_colum("cases"),"Genesen und Infizierte","#5DA399");
-pcases.line(f_cases.seq(c19.length()-11),f_cases.toString(),"#af5431");
+pcases.line(f_cases.seq(c19.length()-9),f_cases.toString(),"#af5431");
 pcases.x_marker(12,"Schulschließungen","#f1cf0b");
 pcases.x_marker(19,"Shutdown","#8b61ad");
 pcases.y_marker(258083,"Obergrenze ICU 22.04.","#22aa22");
@@ -156,16 +156,18 @@ pcases.draw("data_chart_cases");
 <div class="vblock">
     <div class="content">
         <h4>Verstorben:</h4>
-        <p>Die Anzahl an Verstorbenen folgt der exponentiellen Annahme nicht mehr. Bei der Anzahl an Verstorbenen ist wegen des Alters zu 
+        <p>Die Anzahl an Verstorbenen folgt der exponentiellen Annahme nicht mehr. Bei der Anzahl an Verstorbenen 
+            ist wegen des Alters zu 
             überlegen, wie viele über eine Patientenverfügung verfügten. In der 
             Studie aus Aachen waren es über 50% der Verstorbenen. Dies beeinflusst 
             die Sterberate und erhöht sie durch u. U. medizinisch unnötige Todesfälle. 
         </p>
-        <p>Nach Angaben des RKI versterben die meisten 19 Tage nach der Infektion. Hierdurch 
+        <p>Nach Angaben des RKI versterben die meisten Erkrankten 19 Tage nach der Infektion. Hierdurch 
             können die Einschränkungen (Schulschließung, Shutdown) passend zur Kurve verschoben werden.
-            Hierbei werden die kleinsten Gernzen angenommen, also der frühste Moment, wann es hätte Wirkung 
-            zeigen können</p>
-        <p>Auffallend ist, dass nach den Schulschließungen eine Linearisierung eingesetzt hat. Diese wird nicht durch den Shutdown beeinflusst.
+            Es werden die kleinsten Grenzen angenommen, also der  kürzeste Zeitraum, ab dem die Maßnahmen hätten Wirkung 
+            zeigen können.</p>
+        <p>Auffallend ist, dass nach den Schulschließungen eine Linearisierung eingesetzt hat. Diese wird nicht durch den 
+            Shutdown beeinflusst.
         </p>
         <figure>
             <canvas id="data_chart_deaths" style="width: 100%; height: 75vh;"></canvas>
@@ -177,8 +179,8 @@ pcases.draw("data_chart_cases");
             var pdeaths = new TR.math.plot.Plot("Verstorbene");
             pdeaths.x(c19.get_colum("date"));
             pdeaths.fline(c19.get_colum("deaths"),"Verstorben","#3e95cd");
-            pdeaths.line(f_deaths.seq(c19.length()-12),f_deaths.toString(),"#af5431");
-            pdeaths.line(fl_deaths.seq(0,c19.length(),1,26),fl_deaths.toString(),"#f1cf0b");
+            pdeaths.line(f_deaths.seq(c19.length()-10),f_deaths.toString(),"#af5431");
+            pdeaths.line(fl_deaths.seq(0,c19.length(),1,28),fl_deaths.toString(),"#f1cf0b");
             pdeaths.x_marker(31,"Schulschließungen","#f1cf0b");
             pdeaths.x_marker(38,"Shutdown","#8b61ad");
             pdeaths.draw("data_chart_deaths");
