@@ -54,7 +54,7 @@
     {"date": "25.04.2020", "cases": 152438, "deaths": 5500, "recovered": 109800},
     {"date": "26.04.2020", "cases": 154175, "deaths": 5640, "recovered": 112000},
     {"date": "27.04.2020", "cases": 155193, "deaths": 5750, "recovered": 114500},
-    {"date": "28.04.2020"},
-    {"date": "29.04.2020"},
+    {"date": "28.04.2020", "cases": 156337, "deaths": 5913, "recovered": 117400},
+    {"date": "29.04.2020", "cases": 157641, "deaths": 6115, "recovered": 120400},
     {"date": "30.04.2020"}
 ]

@@ -132,7 +132,7 @@ class CalcValues{
     }
 
     update(target = document){
-        var i, elem, val, elems = target.querySelectorAll('code['+this.tag+']');
+        var i, elem, val, elems = target.querySelectorAll('['+this.tag+']');
         for ( i=0; i<elems.length; i++ ){
             elem = elems[i];
             val = elem.getAttribute(this.tag);

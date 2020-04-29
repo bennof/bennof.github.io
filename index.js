@@ -1022,7 +1022,7 @@ var CalcValues = /*#__PURE__*/function () {
       var i,
           elem,
           val,
-          elems = target.querySelectorAll('code[' + this.tag + ']');
+          elems = target.querySelectorAll('[' + this.tag + ']');
 
       for (i = 0; i < elems.length; i++) {
         elem = elems[i];
@@ -2109,11 +2109,383 @@ var Plot = /*#__PURE__*/function () {
 
 /***/ }),
 
+/***/ "./src/math/stat/distributions/bernoulli.js":
+/*!**************************************************!*\
+  !*** ./src/math/stat/distributions/bernoulli.js ***!
+  \**************************************************/
+/*! exports provided: pdf, cdf, quantile, expected, variance */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "pdf", function() { return pdf; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cdf", function() { return cdf; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "quantile", function() { return quantile; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "expected", function() { return expected; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "variance", function() { return variance; });
+/* Tabular Rasa JS Math Bernoulli Distribution
+** Copyright (c) 2018-2020 Benjamin Benno Falkner
+**
+** Permission is hereby granted, free of charge, to any person obtaining a copy
+** of this software and associated documentation files (the "Software"), to deal
+** in the Software without restriction, including without limitation the rights
+** to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+** copies of the Software, and to permit persons to whom the Software is
+** furnished to do so, subject to the following conditions:
+**
+** The above copyright notice and this permission notice shall be included in all
+** copies or substantial portions of the Software.
+**
+** THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+** IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+** FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+** AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+** LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+** OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+** SOFTWARE.
+*/
+
+/** 
+* @module math/stat/bernoulli
+*/
+function pdf(k) {
+  var p = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0.5;
+  if (k == 0) return 1 - p;else if (k == 1) return p;else return 0;
+}
+function cdf(k) {
+  var p = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0.5;
+  if (k >= 1) return 1;else if (k <= 0) return 0;else return 1 - p;
+}
+function quantile() {
+  return NaN;
+}
+function expected() {
+  var p = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0.5;
+  return p;
+}
+function variance() {
+  var p = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0.5;
+  return Math.sqrt(p * (1 - p));
+}
+
+/***/ }),
+
+/***/ "./src/math/stat/distributions/binomial.js":
+/*!*************************************************!*\
+  !*** ./src/math/stat/distributions/binomial.js ***!
+  \*************************************************/
+/*! exports provided: choose, pdf, cdf, quantile, expected, variance */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "choose", function() { return choose; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "pdf", function() { return pdf; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cdf", function() { return cdf; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "quantile", function() { return quantile; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "expected", function() { return expected; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "variance", function() { return variance; });
+/* Tabular Rasa JS Math Statistics F Distribution
+** Copyright (c) 2018-2020 Benjamin Benno Falkner
+**
+** Permission is hereby granted, free of charge, to any person obtaining a copy
+** of this software and associated documentation files (the "Software"), to deal
+** in the Software without restriction, including without limitation the rights
+** to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+** copies of the Software, and to permit persons to whom the Software is
+** furnished to do so, subject to the following conditions:
+**
+** The above copyright notice and this permission notice shall be included in all
+** copies or substantial portions of the Software.
+**
+** THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+** IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+** FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+** AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+** LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+** OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+** SOFTWARE.
+*/
+
+/** 
+* @module math/stat/binomial
+*/
+function choose(n, k) {
+  if (k > n) return NaN;else {
+    var r = 1;
+
+    for (var i = 1; i <= k; i++) {
+      r *= n--;
+      r /= i;
+    }
+
+    return r;
+  }
+}
+;
+function pdf(k, n, p) {
+  if (k < 0 || k > n) return 0;else {
+    if (p == 0) return k == 0 ? 1 : 0;else if (p == 1) return k == n ? 1 : 0;else {
+      var c = choose(n, k);
+      var pows = Math.pow(p, k) * Math.pow(1 - p, n - k);
+
+      if (c == 'Infinity') {
+        if (pows == 0) return 0;else return c;
+      } else {
+        return c * pows;
+      }
+    }
+  }
+  ;
+}
+function cdf(k, n, p) {
+  if (k < 0) return 0.0;else if (n < k) return 1.0;else return Array.apply(null, Array(Math.floor(k) + 1)).map(function (_, i) {
+    return choose(n, i) * Math.pow(p, i) * Math.pow(1 - p, n - i);
+  }).reduce(function (prev, next) {
+    return prev + next;
+  }, 0);
+}
+function quantile(u, n, p) {
+  var k,
+      kl,
+      ku,
+      inc = 1;
+  if (u <= 0. || u >= 1.) return NaN;
+  k = Math.max(0, Math.min(n, Int(n * pe)));
+
+  if (p < cdf(k)) {
+    do {
+      k = Math.max(k - inc, 0);
+      inc *= 2;
+    } while (p < cdf(k));
+
+    kl = k;
+    ku = k + inc / 2;
+  } else {
+    do {
+      k = Math.min(k + inc, n + 1);
+      inc *= 2;
+    } while (p > cdf(k));
+
+    ku = k;
+    kl = k - inc / 2;
+  }
+
+  while (ku - kl > 1) {
+    k = (kl + ku) / 2;
+    if (p < cdf(k)) ku = k;else kl = k;
+  }
+
+  return kl;
+}
+function expected(n, p) {
+  return n * p;
+}
+function variance(n, p) {
+  return Math.sqrt(n * p * (1 - p));
+}
+
+/***/ }),
+
+/***/ "./src/math/stat/distributions/chi_squared.js":
+/*!****************************************************!*\
+  !*** ./src/math/stat/distributions/chi_squared.js ***!
+  \****************************************************/
+/*! exports provided: pdf, cdf, quantile, expected, variance */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "pdf", function() { return pdf; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cdf", function() { return cdf; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "quantile", function() { return quantile; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "expected", function() { return expected; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "variance", function() { return variance; });
+/* harmony import */ var _gamma__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../gamma */ "./src/math/stat/gamma.js");
+/* Tabular Rasa JS Math Statistics Chi Squared Distribution
+** Copyright (c) 2018-2020 Benjamin Benno Falkner
+**
+** Permission is hereby granted, free of charge, to any person obtaining a copy
+** of this software and associated documentation files (the "Software"), to deal
+** in the Software without restriction, including without limitation the rights
+** to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+** copies of the Software, and to permit persons to whom the Software is
+** furnished to do so, subject to the following conditions:
+**
+** The above copyright notice and this permission notice shall be included in all
+** copies or substantial portions of the Software.
+**
+** THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+** IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+** FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+** AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+** LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+** OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+** SOFTWARE.
+*/
+
+/** 
+* @module math/stat/chi_squared
+*/
+
+function pdf(x) {
+  var n = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+  if (x < 0) return 0;else if (n == 2) return Math.exp(-x / 2) / 2;else {
+    return Math.exp((n / 2 - 1) * Math.log(x / 2) - x / 2 - Object(_gamma__WEBPACK_IMPORTED_MODULE_0__["lngamma"])(n / 2)) / 2;
+  }
+}
+function cdf(x) {
+  var n = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+  if (x < 0) return 0.0;else if (n == 2) return 1 - Math.exp(-x / 2);else return Object(_gamma__WEBPACK_IMPORTED_MODULE_0__["gamma_inc_lower"])(n / 2, x / 2);
+}
+function quantile(u) {
+  var n = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+  if (p < 0. || p >= 1.) return NaN;
+  return 2. * Object(_gamma__WEBPACK_IMPORTED_MODULE_0__["inv_gamma_inc_lower"])(u, 0.5 * n);
+}
+function expected() {
+  var n = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+  return n;
+}
+function variance() {
+  var n = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+  return 2 * n;
+}
+
+/***/ }),
+
+/***/ "./src/math/stat/gamma.js":
+/*!********************************!*\
+  !*** ./src/math/stat/gamma.js ***!
+  \********************************/
+/*! exports provided: gamma, lngamma, gamma_inc_lower, inv_gamma_inc_lower */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "gamma", function() { return gamma; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "lngamma", function() { return lngamma; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "gamma_inc_lower", function() { return gamma_inc_lower; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "inv_gamma_inc_lower", function() { return inv_gamma_inc_lower; });
+/* Tabular Rasa JS Math Statistics Gamma Function
+** Copyright (c) 2018-2020 Benjamin Benno Falkner
+**
+** Permission is hereby granted, free of charge, to any person obtaining a copy
+** of this software and associated documentation files (the "Software"), to deal
+** in the Software without restriction, including without limitation the rights
+** to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+** copies of the Software, and to permit persons to whom the Software is
+** furnished to do so, subject to the following conditions:
+**
+** The above copyright notice and this permission notice shall be included in all
+** copies or substantial portions of the Software.
+**
+** THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+** IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+** FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+** AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+** LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+** OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+** SOFTWARE.
+*/
+
+/** 
+* @module math/stat/gamma
+*/
+var EPS = Number.EPSILON;
+var FPMIN = Number.MIN_VALUE / EPS; //https://en.wikipedia.org/wiki/Lanczos_approximation
+
+var p = [676.5203681218851, -1259.1392167224028, 771.32342877765313, -176.61502916214059, 12.507343278686905, -0.13857109526572012, 9.9843695780195716e-6, 1.5056327351493116e-7];
+function gamma(z) {
+  if (z < 0.5) return Math.PI / (Math.sin(Math.PI * z) * gamma(1 - z)); // Reflection formula
+  else if (z > 100) return Math.exp(lngamma(z)); // https://github.com/substack/gamma.js/blob/master/index.js
+    else {
+        z -= 1;
+        var h = 0.99999999999980993;
+
+        for (var i = 0; i < 8; i++) {
+          h += p[i] / (z + i);
+        }
+
+        var h2 = z + g + 0.5;
+        return Math.sqrt(2 * Math.PI) * Math.pow(h2, z + 0.5) * Math.exp(-h2) * h;
+      }
+} // https://github.com/substack/gamma.js/blob/master/index.js
+
+var p_ln = [57.156235665862923517, -59.597960355475491248, 14.136097974741747174, -0.49191381609762019978, 0.33994649984811888699e-4, 0.46523628927048575665e-4, -0.98374475304879564677e-4, 0.15808870322491248884e-3, -0.21026444172410488319e-3, 0.21743961811521264320e-3, -0.16431810653676389022e-3, 0.84418223983852743293e-4, -0.26190838401581408670e-4, 0.36899182659531622704e-5];
+function lngamma(z) {
+  if (z < 0) return NaN;
+  var h = 0.99999999999999709182;
+
+  for (var i = 0; i < 14; i++) {
+    h += p_ln[i] / (z + i);
+  }
+
+  var h2 = z + 607 / 128 + 0.5;
+  return 0.5 * Math.log(2 * Math.PI) + (z + .5) * Math.log(h2) - h2 + Math.log(h) - Math.log(z);
+} // https://github.com/lh3/samtools/tree/master/bcftools
+
+function gamma_inc_lower(s, z) {
+  var sum = 1,
+      h = 1;
+
+  for (var i = 1; i < 100; i++) {
+    sum += h *= z / (s + i);
+    if (x / sum < EPS) break;
+  }
+
+  ;
+  return Math.exp(s * Math.log(z) - z - lngamma(s + 1) + Math.log(sum));
+}
+;
+function inv_gamma_inc_lower(p, a) {
+  var j,
+      x,
+      err,
+      t,
+      u,
+      pp,
+      lna1,
+      afac,
+      a1 = a - 1;
+  gln = lngamma(a);
+  if (a <= 0.) return NaN;
+  if (p >= 1.) return Math.max(100., a + 100. * Math.sqrt(a));
+  if (p <= 0.) return 0.0;
+
+  if (a > 1.) {
+    lna1 = Math.log(a1);
+    afac = Math.exp(a1 * (lna1 - 1.) - gln);
+    pp = p < 0.5 ? p : 1. - p;
+    t = Math.sqrt(-2. * Math.log(pp));
+    x = (2.30753 + t * 0.27061) / (1. + t * (0.99229 + t * 0.04481)) - t;
+    if (p < 0.5) x = -x;
+    x = Math.max(1.e-3, a * Math.pow(1. - 1.0 / (9. * a) - x / (3. * Math.sqrt(a)), 3));
+  } else {
+    t = 1.0 - a * (0.253 + a * 0.12);
+    if (p < t) x = Math.pow(p / t, 1. / a);else x = 1. - Math.log(1. - (p - t) / (1. - t));
+  }
+
+  for (j = 0; j < 12; j++) {
+    if (x <= 0.0) return 0.0;
+    err = gamma_inc_lower(x, a) - p;
+    if (a > 1.) t = afac * Math.exp(-(x - a1) + a1 * (Math.log(x) - lna1));else t = Math.exp(-x + a1 * Math.log(x) - gln);
+    u = err / t;
+    x -= t = u / (1. - 0.5 * Math.min(1., u * ((a - 1.) / x - 1)));
+    if (x <= 0.) x = 0.5 * (x + t);
+    if (Math.fabs(t) < EPS * x) break;
+  }
+
+  return x;
+}
+
+/***/ }),
+
 /***/ "./src/math/stat/index.js":
 /*!********************************!*\
   !*** ./src/math/stat/index.js ***!
   \********************************/
-/*! exports provided: erf, cnorm, norm, boxmullerrand, dnorm, pnorm, rnorm, floating_mean, linear_regression, exponential_regression */
+/*! exports provided: erf, cnorm, norm, boxmullerrand, dnorm, pnorm, rnorm, floating_mean, linear_regression, exponential_regression, bernoulli, binomial, chi_squared */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2129,6 +2501,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "linear_regression", function() { return linear_regression; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "exponential_regression", function() { return exponential_regression; });
 /* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../index */ "./src/math/index.js");
+/* harmony import */ var _distributions_bernoulli__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./distributions/bernoulli */ "./src/math/stat/distributions/bernoulli.js");
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "bernoulli", function() { return _distributions_bernoulli__WEBPACK_IMPORTED_MODULE_1__; });
+/* harmony import */ var _distributions_binomial__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./distributions/binomial */ "./src/math/stat/distributions/binomial.js");
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "binomial", function() { return _distributions_binomial__WEBPACK_IMPORTED_MODULE_2__; });
+/* harmony import */ var _distributions_chi_squared__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./distributions/chi_squared */ "./src/math/stat/distributions/chi_squared.js");
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "chi_squared", function() { return _distributions_chi_squared__WEBPACK_IMPORTED_MODULE_3__; });
 /* Tabular Rasa JS Math Statistics
 ** Copyright (c) 2018-2020 Benjamin Benno Falkner
 **
@@ -2154,6 +2532,9 @@ __webpack_require__.r(__webpack_exports__);
 /** 
 * @module math/stat
 */
+
+
+
 
 var tau = 2.0 * Math.PI;
 var sqrt2 = Math.sqrt(2.0);
@@ -2337,6 +2718,7 @@ function exponential_regression(X, Y) {
   f.err_b = f.b * (err * err * sx2 / (n * n * sx));
   return f;
 }
+
 
 /***/ }),
 

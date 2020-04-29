@@ -195,10 +195,12 @@ div.hblock {
   .page .content {
     max-width: 810px;
     padding: 0 5px;
-    margin: 0 auto; }
+    margin: 0 auto;
+    overflow: visible; }
   .page .vblock {
     width: 100%;
-    overflow-x: auto; }
+    overflow-x: auto;
+    overflow-y: visible; }
   .page .refecrences > ol, .page .refecrences ul, .page .refecrences p {
     font-size: 9.6pt; }
 

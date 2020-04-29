@@ -25,10 +25,11 @@
             <tr><th>Woche</th><th>Tests</th><th>Positiv</th></tr>
             <tr><td>11 (09.03. - 15.03.)</td><td>127.457</td><td>5,9%</td></tr>
             <tr><td>12 (16.03. - 22.03.)</td><td>348.619</td><td>6,8%</td></tr>
-            <tr><td>13 (23.03. - 29.03.)</td><td>361.374</td><td>8,7%</td></tr>
-            <tr><td>14 (30.03. - 05.04.)</td><td>406.052</td><td>9.1%</td></tr>
-            <tr><td>15 (06.03. - 12.04.)</td><td>360.139</td><td>8.1%</td></tr>
-            <tr><td>16 (13.03. - 19.04.)</td><td>323.449</td><td>6.7%</td></tr>
+            <tr><td>13 (23.03. - 29.03.)</td><td>361.515</td><td>8,7%</td></tr>
+            <tr><td>14 (30.03. - 05.04.)</td><td>408.348</td><td>9.1%</td></tr>
+            <tr><td>15 (06.04. - 12.04.)</td><td>379.233</td><td>8.1%</td></tr>
+            <tr><td>16 (13.04. - 19.04.)</td><td>330.027</td><td>6.7%</td></tr>
+            <tr><td>17 (20.04. - 26.04.)</td><td>467.137</td><td>5.4%</td></tr>
             <caption> Anzahl der Tests pro Woch mit dem Anteil der positiven Tests.</caption>
         </table>
         <p> Wahrscheinlich ist die erhöhte Steigerung in der 12. Woche auf die fast Verdreifachung 
@@ -57,7 +58,7 @@
         <h4>Herdenimmunität</h4>
         <p>Herdenimmunität wird erreicht, wenn 70% der Bevölkerung immun sind. Das bedeutet:</p>
         \[80 \cdot 10^6 \cdot 70\% = 56.000.000 \]
-        <p>Bei den heuteigen Infetionszahlen von großzügig geschätzten 6000 Personen, was weit über 
+        <p>Bei den heuteigen Infektionszahlen von großzügig geschätzten 6000 Personen, was weit über 
             den Daten des RKI liegt, kann man die Dauer bestimmen: </p>
         \[80 \cdot 10^6 \cdot 70\% : 6000 = 9333 \]
         <p> Das bedeutet wir müssen die Isolation für 9333 Tage oder  25 Jahre aufrecht erhalten.</p>
@@ -83,8 +84,10 @@
             exponentielles Wachstum annimmt.
         </p>
         <p>Die eingehenden Daten werden als normalverteilt angenommen, da keine
-            Informationen über Verteilung und sonstige Einflußgrößen vorliegen.
+            Informationen über Verteilung und sonstige Einflussgrößen vorliegen.
         </p>
+        <p>In Zukunft wird versucht über das SIR Modell die Zusammenhänge zu schätzen.</p>
+        <button onclick="window.location.href='#hash-router=/content/sir_model.html'">SIR Modell</button>
     </div>
 </div>
 
@@ -136,16 +139,19 @@
         </div>-->
         <script id="cases_js">
 // calaculate sick people
+c19.add_colum("sick_or_dead");
+c19.map2((d,i) => {return (c19.data[i][3]) ? c19.data[i][1]-c19.data[i][3]: c19.data[i][1];},"sick_or_dead",0);
 c19.add_colum("sick");
-c19.map2((d,i) => {return (c19.data[i][3]) ? c19.data[i][1]-c19.data[i][3]: c19.data[i][1];},"sick",0);
+c19.map2((d,i) => {return (c19.data[i][2]) ? c19.data[i][4]-c19.data[i][2]: c19.data[i][4];},"sick",0);
 // regression
 var f_cases = TR.math.stat.exponential_regression(idx,c19.get_colum("cases"))
 var pcases = new TR.math.plot.Plot("Fallzahlen");
 pcases.x(c19.get_colum("date"));
-pcases.fline(c19.get_colum("sick"),"z.Z. Kranke","#3e95cd");
-pcases.fline(c19.get_colum("cases"),"Genesen und Infizierte","#5DA399");
-pcases.line(f_cases.seq(c19.length()-9),f_cases.toString(),"#af5431");
-pcases.x_marker(12,"Schulschließungen","#f1cf0b");
+pcases.fline(c19.get_colum("sick"),"z.Z. Kranke","#f1cf0b");
+pcases.line(c19.get_colum("sick_or_dead"),"Verstorben und Infizierte","#af5431");
+pcases.fline(c19.get_colum("cases"),"Genesen, Verstorben und Infizierte","#5DA399");
+pcases.line(f_cases.seq(c19.length()-7),f_cases.toString(),"#3e95cd");
+pcases.x_marker(12,"Schulschließ.","#f1cf0b");
 pcases.x_marker(19,"Shutdown","#8b61ad");
 pcases.y_marker(258083,"Obergrenze ICU 22.04.","#22aa22");
 pcases.draw("data_chart_cases");
@@ -178,10 +184,10 @@ pcases.draw("data_chart_cases");
             var fl_deaths = TR.math.stat.linear_regression(idx,c19.get_colum("deaths"),26);
             var pdeaths = new TR.math.plot.Plot("Verstorbene");
             pdeaths.x(c19.get_colum("date"));
-            pdeaths.fline(c19.get_colum("deaths"),"Verstorben","#3e95cd");
-            pdeaths.line(f_deaths.seq(c19.length()-10),f_deaths.toString(),"#af5431");
+            pdeaths.fline(c19.get_colum("deaths"),"Verstorben","#af5431");
+            pdeaths.line(f_deaths.seq(c19.length()-10),f_deaths.toString(),"#3e95cd");
             pdeaths.line(fl_deaths.seq(0,c19.length(),1,28),fl_deaths.toString(),"#f1cf0b");
-            pdeaths.x_marker(31,"Schulschließungen","#f1cf0b");
+            pdeaths.x_marker(31,"Schulschließ.","#f1cf0b");
             pdeaths.x_marker(38,"Shutdown","#8b61ad");
             pdeaths.draw("data_chart_deaths");
         </script>
@@ -223,6 +229,10 @@ pcases.draw("data_chart_cases");
             <li><a href="https://www.aerzteblatt.de/archiv/213454/Charakteristik-von-50-hospitalisierten-COVID-19-Patienten-mit-und-ohne-ARDS">Ärzteblatt über die ersten 50 Fälle im UK Aachen</a></li>
             <li><a href="https://www.stress.org/stanford-professor-data-indicates-were-severely-overreacting-to-coronavirus">Stellungnahme John Ioannidis</a></li>
             <li><a href="https://www.ifo.de/DocDL/Coronavirus-Pandemie-Strategie-Fuest-Lohse-etal-2020-04.pdf">IFO Empfehlung für den Ausstieg</a></li>
+            <li><a href="http://dipbt.bundestag.de/doc/btd/17/120/1712051.pdf">Bundestag: Bericht zur Risikoanalyse im Bevölkerungsschutz 2012</a></li>
+            <li><a href="https://www.ecdc.europa.eu/en/publications-data/guide-public-health-measures-reduce-impact-influenza-pandemics-europe-ecdc-menu">ECDC: Pandemie Anleitung 2009</a></li>
+            <li><a href="https://www.who.int/influenza/publications/public_health_measures/publication/en/">WHO: Nicht pharmazeutische Maßnahmen bei Epidemien und Pandemien 2019 </a></li>
+            <li><a href="https://www.sciencedirect.com/science/article/pii/S0924857920300972">Roussel et al. SARS-CoV-2: fear versus data März 2020</a></li>
         </ol>
         <p>Wird immer wieder ergänzt ...</p>
     </div>

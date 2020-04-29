@@ -25,11 +25,15 @@
 */
 
 import {Func} from "../index";
+import * as bernoulli from './distributions/bernoulli';
+import * as binomial from './distributions/binomial';
+import * as chi_squared from './distributions/chi_squared';
 
 const tau = 2.0 * Math.PI;
 const sqrt2 = Math.sqrt(2.0);
 const s2pi = Math.sqrt(tau);
 const is2pi = 1.0/s2pi;
+
 
 
 export function erf(x) {
@@ -177,3 +181,13 @@ export function exponential_regression(X, Y, offset=0, length){
     f.err_b = f.b*(err*err*sx2/(n*n*sx));
     return f;
 }
+
+
+export {
+
+
+    // Distributions
+    bernoulli,
+    binomial,
+    chi_squared
+};
