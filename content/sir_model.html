@@ -1,0 +1,185 @@
+<!-- head -->
+<div class="vblock">
+    <div class="content">
+        <h1>SIR Modell</h1>
+        <h3>Ein einfaches mathematisches Modell für Infektionskrankheiten</h3>
+        <h6><a href="https://royalsocietypublishing.org/doi/10.1098/rspa.1927.0118">A contribution to the mathematical theory of epidemics</a> von Kermack und McKendrick </h6>
+    </div>
+</div>
+
+<div class="vblock">
+    <div class="content">
+        <h4>Grundannahmen:</h4>
+        <p>Das SIR Modell besteht aus drei Gruppen, die, die infiziert werden 
+            können, \(S\) (Susceptible), die, die erkrankt sind, \(I\) (Infectious) und die, die 
+            wieder gesund sind (oder verstorben), \(R\) (Recovered). In der letzten Gruppe werden 
+            i.d.R. alle zusammengefasst, die nicht mehr erkranken können oder infektiös sind.
+            Dies beinhaltet auch die Verstorbenen. Die Population wird einfachheitshalber
+            als konstant angenommen. Es ergeben sich die folgenden Gleichungen:
+        </p>
+        <ol>
+            <li>
+                <p>Der gesunde Teil der Bevölkerung \(S\) wird über die Zeit \(t\) kleiner in Abhängigkeit 
+                der Gesunden  \(S\), der Erkrankten \(I\) und einer Übergangsrate \(\beta\). Die Änderung 
+                der Gesunden pro Zeit ist:</p>
+                \[\frac{dS}{dt}=-\beta IS\]
+            </li>
+            <li>
+                <p>Die Erkrankten \(I\) werden natürlich um so viele mehr, wie in der gleichen Zeit erkranken \(\beta IS\).
+                    Wenn jetzt einige gesunden oder versterben, dann nimmt die Zahl der Erkrankten entsprechend ab. 
+                    Diese Gruppe hängt nur von den Erkrankten \(I\) und einem Faktor \(\gamma\) ab. Die Änderung pro Zeit ist 
+                    somit:
+                </p>
+                \[\frac{dI}{dt}=\beta IS - \gamma I\]
+            </li>
+            <li>
+                <p>Die letzte Gruppe wächst genau so, wie die Gruppe der Infizierten sinkt:</p>
+                \[\frac{dR}{dt}=\gamma I\]
+            </li>
+        </ol>
+        <p>Für dies Grundannahme gelten jetzt mehrere Bedingungen:</p>
+        <ol>
+            <li>
+                <p><b>Konstante Population:</b> Insgesamt bleibt die Population \(N\)gleich.</p>
+                \[S(t)+I(t)+R(t)=N\]
+            </li>
+            <li>
+                <p>Die Summe aller Änderungen ist null:</p>
+                \[\frac{dS}{dt} + \frac{dI}{dt} + \frac{dR}{dt} = 0\]
+            </li>
+            <li>
+                <p>Der <b>Reproduktionsfaktor</b> \(R_0\) ist durch die beiden Faktoren definiert:</p>
+                \[R_0=\frac{\beta \cdot N}{\gamma}\]
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="vblock">
+    <div class="content">
+        <h4>Anfangsphase einer Epidemie</h4>
+        <p>Zu Beginn der SARS-Cov-2 Epidemie wurde immer von einem exponentiellen Wachstum der Infizierten 
+            gesprochen. Dieser Fall kann durch das SIR-Modell sehr gut beschrieben werden. In den meisten 
+            Ländern ist davon auszugehen, dass die Bevölkerung sehr groß ist und nur sehr wenige Infiziert sind.
+            Dies bedeutet, dass die Anzahl der gesunden Menschen sich fast nicht ändert sondern konstant bleibt.
+            Es gilt \(S(t)=S_0=N\), also die Zahl der Gesunden entspricht der Gesamtbevölkerung \(N\). Hierdurch 
+            kann die zweite Gleichung aus dem System der Differenzialgleichungen entkoppelt werden und
+            mit einfachen Mitteln gelöst werden. </p>
+            \[\frac{dI}{dt}=\beta IS_0 - \gamma I = (\beta S_0 - \gamma) I\]
+            <p>Gesucht ist eine Funktion \(I(t)\) deren Ableitung \((\beta S_0 - \gamma) I(t)\) ist. Dies gilt für 
+                die Exponentialfunktion mit der Kettenregel. Durch Ableitung nach \(t\) kann man schnell zeigen, dass dies für:</p> 
+            \[I(t)=I_0 \cdot e^{(\beta S_0 - \gamma)\cdot t}\]
+            <p>gilt. Der <b>Wachstumsfaktor</b> \(p\) für eine exponentielle Entwicklung (Achtung: \(t=x\), da es die Zeit ist) 
+                \(f(x)=A\cdot p^x=A\cdot p^t=A\cdot e^{\ln(p)\cdot t}\) ist somit
+                \(p = e^{\beta S_0 - \gamma}\). </p>
+            <p>Dieses Verhalten wurde auch bei dieser Epidemie beobachtet. Er ist fester Bestandteil jeder Epidemie, da er mathematisch immer 
+                vorkommt. Wer die prozentuale Zunahme aus dem <b>Wachstumsfaktor</b> ermitteln will, es gilt \((p-1)\cdot 100\) ergibt das Wachstum 
+                als Prozentwert. Z.B.: \(p=1,13\) bedeutet ein prozentuales Wachstum von 13%. </p>
+            <p>Alternativ kann die <b>Verdopplungszeit</b> \(T_2\) bestimmt 
+                werden, durch \(2=p^t=p^{T_2}  \Leftrightarrow  2=e^{ln(p)\cdot T_2}\). Auf beiden Seiten wird jetzt der Logarithmus gezogen
+                und es ergibt sich: </p>
+            \[ln(2)=ln(p)\cdot T_2 \Leftrightarrow \frac{ln(2)}{T_2}=ln(p)\]
+            <p>Jetzt kann man wieder durch Anwenden der Exponentialfunktion \(p\) bestimmen:</p>
+            \[e^{\frac{ln(2)}{T_2}}=p\]
+            <p>Als Beispiel kann man den Wachstumsfaktor ausrechnen, wenn die Verdopplungszeit \(T_2=10\) sein soll:</p>
+            \[p=e^{\frac{ln(2)}{10}}=1.07177...\]
+            <p>Also ein Wachstum von ca. 7%.</p>
+    </div>
+</div>
+
+<div class="vblock">
+    <div class="content">
+        <h4>SIRD Modell</h4>
+        <p>Es gibt eine einfache abwandlung des SIR Modells, welches eine Sterberate beinhaltet. Dabei wird das obige SIR Modell ergänzt:</p>
+        <ol>
+            <li>
+                \[\frac{dS}{dt}=-\beta IS\]
+            </li>
+            <li>
+                <p>Die Erkrankten \(I\) werden zusätzlich eine Anzahl verstorbener abgezogen.
+                </p>
+                \[\frac{dI}{dt}=\beta IS - \gamma I\ -\mu I\]
+            </li>
+            <li>
+                \[\frac{dR}{dt}=\gamma I\]
+            </li>
+            <li>
+                <p>Die Sterberate ist analog zur Rate der Genesenen:</p>
+                \[\frac{dD}{dt}=\mu I\]
+            </li>
+        </ol>
+    </div>
+</div>  
+
+<div class="vblock">
+    <div class="content">
+        <h4>Simulation</h4>
+        <p>Das SIR bzw. SIRD Modell wurde explizit gelöst von <a href="https://www.sciencedirect.com/science/article/abs/pii/S009630031400383X?via%3Dihub">Harko et al.</a></p>
+        
+        <h4>SIR Modell</h4>
+        <p>Hier wird das SIR Modell durch Simulation gelöst.</p>
+        <figure>
+            <canvas id="SIR" style="width: 100%; height: 75vh;"></canvas>
+            <figcaption> Ergebnis einer SIR Simulation mit 
+                N=<span calc="N"></span>,
+                &beta;=<span calc="beta"></span> und
+                &gamma;=<span calc="gamma"></span>, daraus folgt 
+                R<sub>0</sub>=<span calc="R_SIR"></span>
+            </figcaption>
+        </figure>
+        <script>
+            var len = 150;
+            var N = 1000, I0 = 0.1, S0 = N-I0;
+            var beta = 0.0002, gamma = 0.09, mu = 0.005, R_SIR= (beta*N/gamma).toFixed(2);
+            var days = TR.math.seq(len);
+            var S = new Array(len), I = new Array(len), R = new Array(len), D = new Array(len);
+            S[0] = S0;
+            I[0] = I0;
+            R[0] = 0.0;
+            for(var i = 1; i < len; i++){
+                S[i]=S[i-1]*(1-beta*I[i-1]);
+                I[i]=I[i-1]*(1+beta*S[i-1]-gamma-mu);
+                R[i]=R[i-1]+gamma*I[i-1];
+            }
+            var plt_sird = new TR.math.plot.Plot("SIRD Simulation");
+            plt_sird.x(days);
+            plt_sird.line(S,"Gesund (S)","#3e95cd");
+            plt_sird.line(I,"Infektiös (I)","#f1cf0b");
+            plt_sird.line(R,"Genesen (R)","#5DA399");
+            plt_sird.draw("SIR");
+        </script>
+    
+        <h4>SIRD Modell</h4>
+        <p>Hier wird das SIRD Modell durch Simulation gelöst.</p>
+        <figure>
+            <canvas id="SIRD" style="width: 100%; height: 75vh;"></canvas>
+            <figcaption> Ergebnis einer SIRD Simulation mit 
+                N=<span calc="N"></span>,
+                &beta;=<span calc="beta"></span>,
+                &gamma;=<span calc="gamma"></span> und
+                &mu;=<span calc="mu"></span>, daraus folgt 
+                R<sub>0</sub>=<span calc="R_SIRD"></span>
+            </figcaption>
+        </figure>
+        <script>
+            var R_SIRD = (beta*N/(gamma+mu)).toFixed(2);
+            S[0] = S0;
+            I[0] = I0;
+            R[0] = 0.0;
+            D[0] = 0.0;
+            for(var i = 1; i < len; i++){
+                S[i]=S[i-1]*(1-beta*I[i-1]);
+                I[i]=I[i-1]*(1+beta*S[i-1]-gamma-mu);
+                R[i]=R[i-1]+gamma*I[i-1];
+                D[i]=D[i-1]+mu*I[i-1];
+            }
+            var plt_sird = new TR.math.plot.Plot("SIRD Simulation");
+            plt_sird.x(days);
+            plt_sird.line(S,"Gesund (S)","#3e95cd");
+            plt_sird.line(I,"Infektiös (I)","#f1cf0b");
+            plt_sird.line(R,"Genesen (R)","#5DA399");
+            plt_sird.line(D,"Verstorben (D)","#af5431");
+            plt_sird.draw("SIRD");
+        </script>
+    </div>
+</div>
