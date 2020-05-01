@@ -115,7 +115,7 @@ $page_content_width: 800px !default;
 
     .vblock {
         width:100%;
-        overflow-x: auto;
+        overflow-x: hidden;
         overflow-y: visible;
     }
 
@@ -124,4 +124,39 @@ $page_content_width: 800px !default;
             font-size: #{$page_font_size *0.8}; 
         }
     }
+
+    .marked-field {
+        background-color: rgba( $page_color, 0.2);
+        border-left: solid $page_color_hl 5px;
+        padding: 5px;
+        margin: 5px 0px;
+        border-radius: 4px;
+    }
+
+    label {
+        display: inline-block;
+        position: relative;
+        white-space: nowrap;
+        top: -16px;
+        width: 0px;
+        z-index: 600;
+        font-size: 8px;
+        vertical-align: super;
+    }
+
+    input, select {
+        width: auto;
+        padding: 6px 8px;
+        margin: 8px 16px 8px 0px;
+        display: inline-block;
+        border: 1px solid  $page_color_bg_2;
+        border-radius: 4px;
+        background-color: inherit;
+        box-sizing: border-box;
+
+        &.fill {
+            width: 100%;
+        }
+    }
+
 }

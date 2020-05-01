@@ -22,15 +22,15 @@
                 <p>Der gesunde Teil der Bevölkerung \(S\) wird über die Zeit \(t\) kleiner in Abhängigkeit 
                 der Gesunden  \(S\), der Erkrankten \(I\) und einer Übergangsrate \(\beta\). Die Änderung 
                 der Gesunden pro Zeit ist:</p>
-                \[\frac{dS}{dt}=-\beta IS\]
+                \[\frac{dS}{dt}=-\frac{\beta IS}{N}\]
             </li>
             <li>
-                <p>Die Erkrankten \(I\) werden natürlich um so viele mehr, wie in der gleichen Zeit erkranken \(\beta IS\).
+                <p>Die Erkrankten \(I\) werden natürlich um so viele mehr, wie in der gleichen Zeit erkranken \(\frac{\beta IS}{N}\).
                     Wenn jetzt einige gesunden oder versterben, dann nimmt die Zahl der Erkrankten entsprechend ab. 
                     Diese Gruppe hängt nur von den Erkrankten \(I\) und einem Faktor \(\gamma\) ab. Die Änderung pro Zeit ist 
                     somit:
                 </p>
-                \[\frac{dI}{dt}=\beta IS - \gamma I\]
+                \[\frac{dI}{dt}=\frac{\beta IS}{N} - \gamma I\]
             </li>
             <li>
                 <p>Die letzte Gruppe wächst genau so, wie die Gruppe der Infizierten sinkt:</p>
@@ -47,15 +47,15 @@
                 <p>Die Summe aller Änderungen ist null:</p>
                 \[\frac{dS}{dt} + \frac{dI}{dt} + \frac{dR}{dt} = 0\]
             </li>
-            <li>
-                <p>Der <b>Reproduktionsfaktor</b> \(R_0\) ist durch die beiden Faktoren definiert:</p>
-                \[R_0=\frac{\beta \cdot N}{\gamma}\]
-            </li>
         </ol>
+        <p>Der <b>Reproduktionsfaktor</b> \(R_0\) ist durch die beiden Faktoren definiert:</p>
+        \[R_0=\frac{\beta}{\gamma}\]
+            
+        <p>Die immer wieder diskutierte <b>Herdenimmunität</b>  kann aus diesem Modell berechnet werden. Hierfür muss die Zahl der immunen 
+            Personen (R) anteilig von der Gesamtpopulation (N) über dem Verhältnis der virusspezifischen Faktoren liegen:</p>
+        \[\frac{R}{N} \geq 1-\frac{1}{R_0}\]
     </div>
-</div>
 
-<div class="vblock">
     <div class="content">
         <h4>Anfangsphase einer Epidemie</h4>
         <p>Zu Beginn der SARS-Cov-2 Epidemie wurde immer von einem exponentiellen Wachstum der Infizierten 
@@ -65,13 +65,13 @@
             Es gilt \(S(t)=S_0=N\), also die Zahl der Gesunden entspricht der Gesamtbevölkerung \(N\). Hierdurch 
             kann die zweite Gleichung aus dem System der Differenzialgleichungen entkoppelt werden und
             mit einfachen Mitteln gelöst werden. </p>
-            \[\frac{dI}{dt}=\beta IS_0 - \gamma I = (\beta S_0 - \gamma) I\]
-            <p>Gesucht ist eine Funktion \(I(t)\) deren Ableitung \((\beta S_0 - \gamma) I(t)\) ist. Dies gilt für 
+            \[\frac{dI}{dt}=\frac{\beta IS_0}{N} - \gamma I = (\frac{\beta S_0}{N}- \gamma) I\]
+            <p>Gesucht ist eine Funktion \(I(t)\) deren Ableitung \((\frac{\beta S_0}{N} - \gamma) I(t)\) ist. Dies gilt für 
                 die Exponentialfunktion mit der Kettenregel. Durch Ableitung nach \(t\) kann man schnell zeigen, dass dies für:</p> 
-            \[I(t)=I_0 \cdot e^{(\beta S_0 - \gamma)\cdot t}\]
+            \[I(t)=I_0 \cdot e^{(\frac{\beta S_0}{N}- \gamma)\cdot t}\]
             <p>gilt. Der <b>Wachstumsfaktor</b> \(p\) für eine exponentielle Entwicklung (Achtung: \(t=x\), da es die Zeit ist) 
                 \(f(x)=A\cdot p^x=A\cdot p^t=A\cdot e^{\ln(p)\cdot t}\) ist somit
-                \(p = e^{\beta S_0 - \gamma}\). </p>
+                \(p = e^{\frac{\beta S_0}{N}- \gamma}\). </p>
             <p>Dieses Verhalten wurde auch bei dieser Epidemie beobachtet. Er ist fester Bestandteil jeder Epidemie, da er mathematisch immer 
                 vorkommt. Wer die prozentuale Zunahme aus dem <b>Wachstumsfaktor</b> ermitteln will, es gilt \((p-1)\cdot 100\) ergibt das Wachstum 
                 als Prozentwert. Z.B.: \(p=1,13\) bedeutet ein prozentuales Wachstum von 13%. </p>
@@ -84,21 +84,20 @@
             <p>Als Beispiel kann man den Wachstumsfaktor ausrechnen, wenn die Verdopplungszeit \(T_2=10\) sein soll:</p>
             \[p=e^{\frac{ln(2)}{10}}=1.07177...\]
             <p>Also ein Wachstum von ca. 7%.</p>
+           
     </div>
-</div>
 
-<div class="vblock">
     <div class="content">
         <h4>SIRD Modell</h4>
         <p>Es gibt eine einfache abwandlung des SIR Modells, welches eine Sterberate beinhaltet. Dabei wird das obige SIR Modell ergänzt:</p>
         <ol>
             <li>
-                \[\frac{dS}{dt}=-\beta IS\]
+                \[\frac{dS}{dt}=-\frac{\beta IS}{N}\]
             </li>
             <li>
-                <p>Die Erkrankten \(I\) werden zusätzlich eine Anzahl verstorbener abgezogen.
+                <p>Die Erkrankten \(I\) wird zusätzlich eine Anzahl verstorbener abgezogen.
                 </p>
-                \[\frac{dI}{dt}=\beta IS - \gamma I\ -\mu I\]
+                \[\frac{dI}{dt}=\frac{\beta IS}{N} - \gamma I\ -\mu I\]
             </li>
             <li>
                 \[\frac{dR}{dt}=\gamma I\]
@@ -108,10 +107,15 @@
                 \[\frac{dD}{dt}=\mu I\]
             </li>
         </ol>
+        <p>Im SIRD Modell kann man auch eine <b>Sterblichkeit</b> bestimmen. Hierbei handelt es sich um die Gesamtsterblichkeit 
+            (Infection Fatility Rate: IFR), die immer niedriger als die Fallsterberate (Case Fatility Rate) ist. Dies liegt daran,
+            dass in den meisten Fällen fast alle an einer Krankheit Verstorbenen bekannt sind, aber nicht alle Erkrankte 
+            medizinisch behandelt wurden. Somit ist die Zahl der Fälle kleiner als die Zahl der Infektionen, was sich dann
+            auf die Verhältnisse niederschlägt.  
+        </p>
+        \[IFR=\frac{\mu}{\gamma + \mu}\]
     </div>
-</div>  
-
-<div class="vblock">
+    
     <div class="content">
         <h4>Simulation</h4>
         <p>Das SIR bzw. SIRD Modell wurde explizit gelöst von <a href="https://www.sciencedirect.com/science/article/abs/pii/S009630031400383X?via%3Dihub">Harko et al.</a></p>
@@ -130,15 +134,15 @@
         <script>
             var len = 150;
             var N = 1000, I0 = 0.1, S0 = N-I0;
-            var beta = 0.0002, gamma = 0.09, mu = 0.005, R_SIR= (beta*N/gamma).toFixed(2);
+            var beta = 0.2, gamma = 0.09, mu = 0.005, R_SIR= (beta/gamma).toFixed(2);
             var days = TR.math.seq(len);
             var S = new Array(len), I = new Array(len), R = new Array(len), D = new Array(len);
             S[0] = S0;
             I[0] = I0;
             R[0] = 0.0;
             for(var i = 1; i < len; i++){
-                S[i]=S[i-1]*(1-beta*I[i-1]);
-                I[i]=I[i-1]*(1+beta*S[i-1]-gamma-mu);
+                S[i]=S[i-1]*(1-beta*I[i-1]/N);
+                I[i]=I[i-1]*(1+beta*S[i-1]/N-gamma-mu);
                 R[i]=R[i-1]+gamma*I[i-1];
             }
             var plt_sird = new TR.math.plot.Plot("SIRD Simulation");
@@ -162,14 +166,14 @@
             </figcaption>
         </figure>
         <script>
-            var R_SIRD = (beta*N/(gamma+mu)).toFixed(2);
+            var R_SIRD = (beta/(gamma+mu)).toFixed(2);
             S[0] = S0;
             I[0] = I0;
             R[0] = 0.0;
             D[0] = 0.0;
             for(var i = 1; i < len; i++){
-                S[i]=S[i-1]*(1-beta*I[i-1]);
-                I[i]=I[i-1]*(1+beta*S[i-1]-gamma-mu);
+                S[i]=S[i-1]*(1-beta*I[i-1]/N);
+                I[i]=I[i-1]*(1+beta*S[i-1]/N-gamma-mu);
                 R[i]=R[i-1]+gamma*I[i-1];
                 D[i]=D[i-1]+mu*I[i-1];
             }

@@ -2034,6 +2034,14 @@ var Plot = /*#__PURE__*/function () {
   }
 
   _createClass(Plot, [{
+    key: "clear",
+    value: function clear() {
+      if (this.chart) this.chart.destroy();
+      this.data.datasets = [];
+      this.xmarker = [];
+      this.ymarker = [];
+    }
+  }, {
     key: "x",
     value: function x(data) {
       this.data.labels = data;
@@ -2070,15 +2078,17 @@ var Plot = /*#__PURE__*/function () {
     key: "draw",
     value: function draw(target) {
       var ctx = document.getElementById(target);
-      return new Chart(ctx, {
+      this.chart = new Chart(ctx, {
         type: 'line',
         data: this.data,
         options: {
-          responsive: false
+          responsive: true,
+          maintainAspectRatio: true
         },
         xMarker: this.xmarker,
         yMarker: this.ymarker
       });
+      return this.chart;
     }
   }, {
     key: "x_marker",
@@ -2485,7 +2495,7 @@ function inv_gamma_inc_lower(p, a) {
 /*!********************************!*\
   !*** ./src/math/stat/index.js ***!
   \********************************/
-/*! exports provided: erf, cnorm, norm, boxmullerrand, dnorm, pnorm, rnorm, floating_mean, linear_regression, exponential_regression, bernoulli, binomial, chi_squared */
+/*! exports provided: erf, cnorm, norm, boxmullerrand, dnorm, pnorm, rnorm, floating_mean, chi_squared_value, linear_regression, exponential_regression, bernoulli, binomial, chi_squared */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2498,6 +2508,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "pnorm", function() { return pnorm; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "rnorm", function() { return rnorm; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "floating_mean", function() { return floating_mean; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "chi_squared_value", function() { return chi_squared_value; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "linear_regression", function() { return linear_regression; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "exponential_regression", function() { return exponential_regression; });
 /* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../index */ "./src/math/index.js");
@@ -2596,6 +2607,27 @@ function floating_mean(Data, n) {
   }
 
   return r;
+}
+function chi_squared_value(X, Y) {
+  var offset = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+  var length = arguments.length > 3 ? arguments[3] : undefined;
+  if (!length) length = X.length;
+  var sum = 0.0,
+      h,
+      n = 0;
+
+  for (var i = offset; i < length; i++) {
+    if (X[i] && Y[i]) {
+      h = X[i] - Y[i];
+      sum += h * h / Y[i];
+      n++;
+    }
+  }
+
+  return {
+    chi2: sum,
+    df: n - 1
+  };
 }
 function linear_regression(X, Y) {
   var offset = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;

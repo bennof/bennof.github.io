@@ -88,6 +88,19 @@ export function floating_mean(Data, n) {
     return r;
 }
 
+export function chi_squared_value(X,Y, offset=0, length) {
+    if(!length) length = X.length;
+    var sum=0.0, h, n=0;
+    for(var i = offset; i < length; i++){
+        if(X[i] && Y[i]){
+            h=X[i]-Y[i];
+            sum += h*h/Y[i];
+            n++;
+        }
+    }
+    return {chi2: sum, df: n-1};
+}
+
 
 export function linear_regression(X,Y,offset=0, length){
     var xm=0, ym=0, sx=0, sx2, sy=0, sxy=0, h, g, n=0;

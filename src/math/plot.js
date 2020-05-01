@@ -102,6 +102,14 @@ class Plot {
         this.ymarker = [];
     }
 
+    clear() {
+        if(this.chart)
+            this.chart.destroy();
+        this.data.datasets = []; 
+        this.xmarker = [];
+        this.ymarker = [];
+    }
+
     x(data) {
         this.data.labels = data;
     }
@@ -130,14 +138,19 @@ class Plot {
     }    
 
     draw(target) {
+        
         var ctx = document.getElementById(target);
-        return new Chart(ctx,{
+        this.chart = new Chart(ctx,{
             type: 'line', 
             data: this.data,
-            options: { responsive: false },
+            options: { 
+                responsive: true,
+                maintainAspectRatio: true
+            },
             xMarker: this.xmarker,
             yMarker: this.ymarker
         });
+        return this.chart;
     }
 
     x_marker(idx, title, color = "#c45850") {
