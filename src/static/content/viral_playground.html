@@ -1,0 +1,282 @@
+<script id="data" type="application/json" src="/content/covid19data.json"></script>
+
+<!-- head -->
+<div class="vblock">
+    <div class="content">
+        <h1>Virus Spielplatz</h1>
+        <h3>Hier kann man verschiedene Szenarien durchspielen</h3>
+        <h6>Vorsicht die Werte werden noch nicht optimiert! Alle Werte sind geraten und
+            orientieren sich an den Vorgaben des RKI und Schätzungen aus 
+            wissenschaftlichen Publikationen.
+        </h6>
+    </div>
+</div>
+
+<script>
+    var c19 = new TR.data.table.Table("RKI Daten",["date","cases","deaths","recovered"]);
+    c19.read_json(document.getElementById('data').innerText);
+    c19.add_colum("infected");
+    c19.map2((d,i) => {
+            var h = (c19.data[i][2]) ? c19.data[i][1]-c19.data[i][2]: c19.data[i][1];
+            return(c19.data[i][3]) ? h-c19.data[i][3]: h;
+        },"infected",0);
+</script>
+
+<div class="vblock">
+    <div class="content">
+        <h4>Der SIRD Setup</h4>
+        
+        <h5>Population & Zeitraum</h5>
+        <p>
+            <label for="sim_population">Population</label>
+            <input type="number" id="sim_population" name="population" value="83149300">
+            <label for="sim_infected">Infizierte</label>
+            <input type="number" id="sim_infected" name="infected" value="262">
+            <label for="sim_unid">Dunkelziffer (0,0-1,0)</label>
+            <input type="number" id="sim_unid" name="sim_unid" value="0.95">
+        </p>
+        <p>
+            <label for="date_start">Anfang:</label>
+            <input type="date" id="date_start" name="date_start" value="2020-03-04" onchange="on_time_span_change()">
+            <label for="date_end">Ende:</label>
+            <input type="date" id="date_end" name="date_end" value="2020-08-01" onchange="on_time_span_change()">
+        </p>
+
+        <div class="marked-field">
+            <p>Die Simulation läuft <span id="sim_time_span">0</span> Tage.</p>
+        </div>
+        <script>
+            var ONE_DAY = 24 * 60 * 60 * 1000;
+            function on_time_span_change(){
+                var start = new Date(document.getElementById("date_start").value);
+                var end = new Date(document.getElementById("date_end").value);
+                var days = Math.round(Math.abs((start - end) / ONE_DAY));
+                document.getElementById("sim_time_span").innerText = days;
+            }
+            on_time_span_change();
+        </script>
+
+        
+        <h5>Virus</h5>
+        <p>
+            <label for="sim_transmission">Übertragungsfaktor</label>
+            <input type="number" id="sim_transmission" name="transmission" value="0.78" onchange="on_virus_stettings_change()">
+            <label for="sim_recovery">Genesungsfaktor</label>
+            <input type="number" id="sim_recovery" name="recovery" value="0.32" onchange="on_virus_stettings_change()">
+            <label for="sim_mortality">Sterbefaktor</label>
+            <input type="number" id="sim_mortality" name="mortality" value="0.00016" onchange="on_virus_stettings_change()">
+        </p>
+        <p>
+            <label for="sim_recovery_offset">Zeit bis zur Genesung (kein Effekt)</label>
+            <input type="number" id="sim_recovery_offset" name="sim_recovery_offset" value="18" onchange="on_virus_stettings_change()" readonly>
+            <label for="sim_death_offset">Zeit bis zum Tod (kein Effekt)</label>
+            <input type="number" id="sim_death_offset" name="sim_death_offset" value="19" onchange="on_virus_stettings_change()" readonly>
+        </p>
+
+        <div class="marked-field">
+            <p>Aus den Einstellungen ergibt sich folgende Werte für das Virus: 
+                R<sub>0</sub>=<span id="sim_rfactor0"></span> (2,2 bis 2,7 nach <a href="https://thinkpol.ca/2020/04/08/covid-19-twice-contagious-previously-thought/">CDC</a> ), 
+                Sterberate (IFR): <span id="sim_mortilityrate"></span>% (0,04-0,12% <a href="https://www.medrxiv.org/content/10.1101/2020.02.12.20022434v2">Mizumoto et al.</a> ) und
+                Herdenimmunität bei: <span id="sim_herd_immunity"></span>% (60-70%).
+            </p>
+        </div>
+        <script>
+            function on_virus_stettings_change() {
+                var pop = parseFloat(document.getElementById("sim_population").value);
+                var beta = parseFloat(document.getElementById("sim_transmission").value.replace(',', '.'));
+                var gamma = parseFloat(document.getElementById("sim_recovery").value.replace(',', '.'));
+                var mu = parseFloat(document.getElementById("sim_mortality").value.replace(',', '.'));
+
+                document.getElementById("sim_rfactor0").innerText = (beta/(gamma+mu)).toFixed(2);
+                document.getElementById("sim_mortilityrate").innerText = (mu/(gamma+mu)*100).toFixed(2);
+                document.getElementById("sim_herd_immunity").innerText = (100-1/(beta/(gamma+mu))*100).toFixed(1);
+            }
+            on_virus_stettings_change();
+        </script>
+        
+        
+        <h5>Maßnahmen</h5>
+        <p>Die Ausgewählten Events haben einen Einfluss auf die Transmission in der Simulation.</p>
+        <label for="e1_offset">Wirkungsverzögerung in Tagen:</label>
+        <input type="number" id="e1_offset" name="e1_offset" value="8">
+        <p>
+            <h6>Schulschließungen</h6>
+            <label for="e1_on">An</label>
+            <input type="checkbox" id="e1_on" name="e1_on" checked>
+            <label for="e1_start">Start:</label>
+            <input type="date" id="e1_start" name="e1_start" value="2020-03-16">
+            <label for="e1_end">Ende:</label>
+            <input type="date" id="e1_end" name="e1_end" value="2020-08-01">
+            <label for="e1_eff">Effektivität (0.0-1.0):</label>
+            <input type="number" id="e1_eff" name="e1_eff" value="0.3">
+            
+        </p>
+        <p>
+            <h6>Shutdown</h6>
+            <label for="e2_on">An</label>
+            <input type="checkbox" id="e2_on" name="e2_on" checked>
+            <label for="e2_start">Datum:</label>
+            <input type="date" id="e2_start" name="e2_start" value="2020-03-23">
+            <label for="e2_end">Ende:</label>
+            <input type="date" id="e2_end" name="e2_end" value="2020-08-01">
+            <label for="e2_eff">Effektivität (0.0-1.0):</label>
+            <input type="number" id="e2_eff" name="e2_eff" value="0.4">
+            
+        </p>
+        <div class="marked-field">
+        </div>
+
+        <h4>SIRD Simmulation</h4>
+        <p>Wertet die Simulation aus:</p>
+        <button onclick="sim_run_change()">Simulieren</button>
+        <figure>
+            <canvas id="vpg_sird" style="width: 100%; height: 75vh;" ></canvas>
+            <figcaption>Ergebnis der Simulation: 
+                Gestorben <span id="sim_died"></span> und
+                Immunität <span id="sim_immunities"></span>%
+            </figcaption>
+        </figure>
+        <p>
+            Im Folgenden sollte die Ergebnisse der Simulation mit den Daten 
+            des RKI vergleichen werden.
+        </p>
+        <figure>
+            <canvas id="vpg_sird_infections" style="width: 100%; height: 75vh;" ></canvas>
+            <figcaption>Infektionen in der Realität und Simulation 
+                (&Chi;<sup>2</sup>=<span id="vpg_sird_infections_chi2"></span>,
+                df=<span id="vpg_sird_infections_df"></span>)
+            </figcaption>
+        </figure>
+
+        <figure>
+            <canvas id="vpg_sird_deaths" style="width: 100%; height: 75vh;" ></canvas>
+            <figcaption>Verstorben in der Realität und Simulation (&Chi;<sup>2</sup>=<span id="vpg_sird_deaths_chi2"></span>,
+                df=<span id="vpg_sird_deaths_df"></span>)
+            </figcaption>
+        </figure>
+
+        <figure>
+            <canvas id="vpg_sird_recovered" style="width: 100%; height: 75vh;" ></canvas>
+            <figcaption>Genesen in der Realität und Simulation (&Chi;<sup>2</sup>=<span id="vpg_sird_recovered_chi2"></span>,
+                df=<span id="vpg_sird_recovered_df"></span>)
+            </figcaption>
+        </figure>
+        <script>
+            var plt_sird_sim = new TR.math.plot.Plot("SIRD Simulation Playground");
+            var plt_sird_sim_cmp_recovered = new TR.math.plot.Plot("SIRD Simulation Playground Genesen");
+            var plt_sird_sim_cmp_infected = new TR.math.plot.Plot("SIRD Simulation Playground Infizierte");
+            var plt_sird_sim_cmp_deaths = new TR.math.plot.Plot("SIRD Simulation Playground Verstorben");
+
+            function index_from_date(d1,ds) {
+                return Math.round(Math.abs((ds - d1) / ONE_DAY));
+            }
+
+            function sim_run_change() {
+                var start = new Date(document.getElementById("date_start").value);
+                var end = new Date(document.getElementById("date_end").value);
+                var len = Math.round(Math.abs((start - end) / ONE_DAY));
+                
+                var N = parseFloat(document.getElementById("sim_population").value);
+                var Unid = 1.0-parseFloat(document.getElementById("sim_unid").value);
+                var I0 = parseFloat(document.getElementById("sim_infected").value);
+                
+                var beta = parseFloat(document.getElementById("sim_transmission").value.replace(',', '.'));
+                var gamma = parseFloat(document.getElementById("sim_recovery").value.replace(',', '.'));
+                var mu = parseFloat(document.getElementById("sim_mortality").value.replace(',', '.'));
+
+                var e_offset = parseInt(document.getElementById("e1_offset").value);
+                var events =[
+                    {
+                        ok: document.getElementById("e1_on").checked,
+                        start: index_from_date(new Date(document.getElementById("e1_start").value),start)+e_offset,
+                        end: index_from_date(new Date(document.getElementById("e1_end").value),start)+e_offset,
+                        factor: 1.0-parseFloat(document.getElementById("e1_eff").value)
+                    },
+                    {
+                        ok: document.getElementById("e2_on").checked,
+                        start: index_from_date(new Date(document.getElementById("e2_start").value),start)+e_offset,
+                        end: index_from_date(new Date(document.getElementById("e2_end").value),start)+e_offset,
+                        factor: 1.0-parseFloat(document.getElementById("e2_eff").value)
+                    },
+                ];
+
+                var days_idx = TR.math.seq(len);
+
+                var days = new Array(len), S = new Array(len), I = new Array(len), R = new Array(len), D = new Array(len);
+                var today = start;
+                days[0] = today.getDate()+"."+(today.getMonth()+1)+"."+today.getFullYear();
+                S[0] = N-I0;;
+                I[0] = I0;
+                R[0] = 0.0;
+                D[0] = 0.0;
+                for(var i = 1; i < len; i++){
+                    today.setDate(today.getDate()+1);
+                    days[i] = today.getDate()+"."+(today.getMonth()+1)+"."+today.getFullYear();
+
+                    var beta1 = beta;
+                    for (var j=0; j<events.length; j++){
+                        if(events[j].ok && events[j].start <= i && events[j].end > i)
+                            beta1 *=  events[j].factor;
+                    }
+
+                    S[i]=S[i-1]*(1-beta1*I[i-1]/N);
+                    I[i]=I[i-1]*(1+beta1*S[i-1]/N - gamma - mu);
+                    R[i]=R[i-1]+gamma*I[i-1];
+                    D[i]=D[i-1]+mu*I[i-1];
+                }
+                
+                document.getElementById("sim_died").innerText = (D[len-1]).toFixed(1);
+                document.getElementById("sim_immunities").innerText = (R[len-1]/N*100).toFixed(1);
+
+                
+                for(var i=0; i<I.length; i++)
+                    I[i] *= Unid;
+                
+                for(var i=0; i<R.length; i++)
+                    R[i] *= Unid;
+                
+
+                plt_sird_sim.clear();
+                plt_sird_sim.x(days);
+                //plt_sird.line(S,"Gesund (S)","#3e95cd");
+                plt_sird_sim.line(I,"Infektiös (I)","#f1cf0b");
+                //plt_sird_sim.line(R,"Genesen (R)","#5DA399");
+                plt_sird_sim.line(D,"Verstorben (D)","#af5431");
+                plt_sird_sim.draw("vpg_sird");
+
+                plt_sird_sim_cmp_recovered.clear();
+                plt_sird_sim_cmp_infected.clear();
+                plt_sird_sim_cmp_deaths.clear();
+
+                plt_sird_sim_cmp_recovered.x(days);
+                plt_sird_sim_cmp_infected.x(days);
+                plt_sird_sim_cmp_deaths.x(days);
+
+                plt_sird_sim_cmp_recovered.fline(c19.get_colum("recovered"),"RKI: Genesen","#af5431");
+                plt_sird_sim_cmp_infected.fline(c19.get_colum("infected"),"RKI: Infektiös","#af5431");
+                plt_sird_sim_cmp_deaths.fline(c19.get_colum("deaths"),"RKI: Verstorben","#af5431");
+
+                plt_sird_sim_cmp_recovered.line(R,"Simuliert (R)","#f1cf0b");
+                plt_sird_sim_cmp_infected.line(I,"Simuliert (I)","#f1cf0b");
+                plt_sird_sim_cmp_deaths.line(D,"Simuliert (D)","#f1cf0b");
+
+                plt_sird_sim_cmp_recovered.draw("vpg_sird_recovered");
+                plt_sird_sim_cmp_infected.draw("vpg_sird_infections");
+                plt_sird_sim_cmp_deaths.draw("vpg_sird_deaths");
+
+                var chi_r = TR.math.stat.chi_squared_value(c19.get_colum("recovered"),R);
+                var chi_i = TR.math.stat.chi_squared_value(c19.get_colum("infected"),I);
+                var chi_d = TR.math.stat.chi_squared_value(c19.get_colum("deaths"),D);
+                document.getElementById("vpg_sird_recovered_chi2").innerText = chi_r.chi2.toFixed(3);
+                document.getElementById("vpg_sird_infections_chi2").innerText =  chi_i.chi2.toFixed(3);
+                document.getElementById("vpg_sird_deaths_chi2").innerText =  chi_d.chi2.toFixed(3);
+
+                document.getElementById("vpg_sird_recovered_df").innerText = chi_r.df;
+                document.getElementById("vpg_sird_infections_df").innerText =  chi_r.df;
+                document.getElementById("vpg_sird_deaths_df").innerText =  chi_r.df;
+
+            }
+            sim_run_change();
+        </script>
+    </div>
+</div>
