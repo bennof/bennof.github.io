@@ -126,7 +126,7 @@ $page_content_width: 800px !default;
     }
 
     .marked-field {
-        background-color: rgba( $page_color, 0.2);
+        background-color: $page_color_bg_2;
         border-left: solid $page_color_hl 5px;
         padding: 5px;
         margin: 5px 0px;

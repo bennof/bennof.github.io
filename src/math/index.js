@@ -27,6 +27,7 @@
 import * as stat from "./stat/index";
 import * as filter from "./filter/index";
 //import * as func from "./func"
+import * as solver from "./solver/index";
 import * as plot from "./plot"
 
 class Func{
@@ -70,5 +71,6 @@ export {
     seq,
     stat,
     filter,
+    solver,
     plot
 };

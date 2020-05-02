@@ -204,7 +204,7 @@ div.hblock {
   .page .refecrences > ol, .page .refecrences ul, .page .refecrences p {
     font-size: 9.6pt; }
   .page .marked-field {
-    background-color: rgba(53, 57, 60, 0.2);
+    background-color: #f2f2f2;
     border-left: solid #f1cf0b 5px;
     padding: 5px;
     margin: 5px 0px;

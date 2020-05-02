@@ -1806,7 +1806,7 @@ function convolveComplex(xreal, ximag, yreal, yimag, outreal, outimag) {
 /*!***************************!*\
   !*** ./src/math/index.js ***!
   \***************************/
-/*! exports provided: Func, seq, stat, filter, plot */
+/*! exports provided: Func, seq, stat, filter, solver, plot */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1818,8 +1818,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _filter_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./filter/index */ "./src/math/filter/index.js");
 /* harmony import */ var _filter_index__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_filter_index__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "filter", function() { return _filter_index__WEBPACK_IMPORTED_MODULE_1__; });
-/* harmony import */ var _plot__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./plot */ "./src/math/plot.js");
-/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "plot", function() { return _plot__WEBPACK_IMPORTED_MODULE_2__; });
+/* harmony import */ var _solver_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./solver/index */ "./src/math/solver/index.js");
+/* harmony import */ var _solver_index__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_solver_index__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "solver", function() { return _solver_index__WEBPACK_IMPORTED_MODULE_2__; });
+/* harmony import */ var _plot__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./plot */ "./src/math/plot.js");
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "plot", function() { return _plot__WEBPACK_IMPORTED_MODULE_3__; });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -1853,6 +1856,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 */
 
  //import * as func from "./func"
+
 
 
 
@@ -2116,6 +2120,52 @@ var Plot = /*#__PURE__*/function () {
 }();
 
 
+
+/***/ }),
+
+/***/ "./src/math/solver/index.js":
+/*!**********************************!*\
+  !*** ./src/math/solver/index.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var NewtonSolver = /*#__PURE__*/function () {
+  function NewtonSolver(df) {
+    _classCallCheck(this, NewtonSolver);
+
+    this.df = df;
+  }
+
+  _createClass(NewtonSolver, [{
+    key: "run",
+    value: function run(X0, n) {
+      var len = X0.length,
+          data = new Array();
+      data[0] = X0;
+
+      for (var i = 1; i < n; i++) {
+        var d = new Array(len);
+
+        for (var j = 0; j < len; j++) {
+          d[j] = data[i - 1][j] + this.df[j].call(this, data[i - 1]);
+        }
+
+        data.push(d);
+      }
+
+      return data;
+    }
+  }]);
+
+  return NewtonSolver;
+}();
 
 /***/ }),
 
