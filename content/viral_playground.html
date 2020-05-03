@@ -94,8 +94,8 @@
         <p>
             <label for="sim_ifr">Sterberate IFR: (0,04-0,12% <a href="https://www.medrxiv.org/content/10.1101/2020.02.12.20022434v2">Mizumoto et al.</a> )</label>
             <input type="number" id="sim_ifr" name="sim_ifr" value="0.08" onchange="on_hospitalization_stettings_change()">
-            <label for="sim_t_death">Zeit bis zum Tod (32)</label>
-            <input type="number" id="sim_t_death" name="sim_t_death" value="32">
+            <label for="sim_t_death">Zeit bis zum Tod (19)</label>
+            <input type="number" id="sim_t_death" name="sim_t_death" value="19">
         </p>
 
         <h6>Hospitalisierung</h6>
@@ -140,7 +140,7 @@
             <label for="e1_end">Ende:</label>
             <input type="date" id="e1_end" name="e1_end" value="2020-08-01">
             <label for="e1_eff">Effektivität (%):</label>
-            <input type="number" id="e1_eff" name="e1_eff" value="30">
+            <input type="number" id="e1_eff" name="e1_eff" value="35">
             
         </p>
         <p>
@@ -152,7 +152,7 @@
             <label for="e2_end">Ende:</label>
             <input type="date" id="e2_end" name="e2_end" value="2020-08-01">
             <label for="e2_eff">Effektivität (%):</label>
-            <input type="number" id="e2_eff" name="e2_eff" value="40">
+            <input type="number" id="e2_eff" name="e2_eff" value="45">
             
         </p>
         <div class="marked-field">
@@ -219,7 +219,7 @@
                 var it0_hosp = 1.0/parseFloat(document.getElementById("sim_t0_hospitalization").value.replace(',', '.'));
                 var it_hosp = 1.0/parseFloat(document.getElementById("sim_t_hospitalization").value.replace(',', '.'));
                 var it_recovery = 1/parseFloat(document.getElementById("sim_t_recovery").value.replace(',', '.'));
-                var cfr = ifr/hr;
+                var cfr = ifr/hr*100;
                 // events
                 var e_offset = parseInt(document.getElementById("e_offset").value);
                 var events =[
@@ -245,7 +245,8 @@
                     H = new Array(len),
                     M = new Array(len),
                     R = new Array(len), 
-                    D = new Array(len);
+                    D = new Array(len),
+                    C = new Array(len);
                 
                 // init
                 var today = start;
@@ -257,6 +258,7 @@
                 M[0] = 0.0;
                 R[0] = 0.0;
                 D[0] = 0.0;
+                C[0] = E0+I0;
 
                 // sim loop
                 var rt;
@@ -281,10 +283,12 @@
                     M[i] = M[i-1] - it_recovery * M[i-1] + it_inf * (1-hr) * I[i-1];
                     R[i] = R[i-1] + it_recovery * M[i-1] + it_hosp * (1-cfr) * H[i-1];
                     D[i] = D[i-1] + it_hosp * cfr * H[i-1];
+
+                    C[i] =   E[i] + I[i] + H[i] + M[i] + R[i] + D[i];
                 }
 
                 // Summary
-                document.getElementById("sim_died").innerText = (D[len-1]).toFixed(1);
+                document.getElementById("sim_died").innerText = (D[len-1]).toFixed(1)+" ("+(D[len-1]/C[len-1]*100).toFixed(1)+"%)";
                 document.getElementById("sim_immunities").innerText = (R[len-1]/N*100).toFixed(1);
                 var chi_r = TR.math.stat.chi_squared_value(c19.get_colum("recovered"),R);
                 var chi_i = TR.math.stat.chi_squared_value(c19.get_colum("infected"),I);
@@ -320,11 +324,11 @@
                     plt_sird_sim.x_marker(events[1].start-e_offset,"Shutdown","#35393C");
                
                 plt_sird_sim_cmp_recovered.fline(c19.get_colum("recovered"),"RKI: Genesen","#af5431");
-                plt_sird_sim_cmp_infected.fline(c19.get_colum("infected"),"RKI: Infektiös","#af5431");
+                plt_sird_sim_cmp_infected.fline(c19.get_colum("cases"),"RKI: Fälle","#af5431");
                 plt_sird_sim_cmp_deaths.fline(c19.get_colum("deaths"),"RKI: Verstorben","#af5431");
 
                 plt_sird_sim_cmp_recovered.line(R,"Simuliert (R)","#f1cf0b");
-                plt_sird_sim_cmp_infected.line(I,"Simuliert (I)","#f1cf0b");
+                plt_sird_sim_cmp_infected.line(C,"Simuliert Fälle","#f1cf0b");
                 plt_sird_sim_cmp_deaths.line(D,"Simuliert (D)","#f1cf0b");
 
                 plt_sird_sim.draw("vpg_sird");
@@ -432,11 +436,11 @@
                 plt_sird_sim_cmp_deaths.x(days);
 
                 plt_sird_sim_cmp_recovered.fline(c19.get_colum("recovered"),"RKI: Genesen","#af5431");
-                plt_sird_sim_cmp_infected.fline(c19.get_colum("infected"),"RKI: Infektiös","#af5431");
+                plt_sird_sim_cmp_infected.fline(c19.get_colum("cases"),"RKI: Fäller","#af5431");
                 plt_sird_sim_cmp_deaths.fline(c19.get_colum("deaths"),"RKI: Verstorben","#af5431");
 
                 plt_sird_sim_cmp_recovered.line(R,"Simuliert (R)","#f1cf0b");
-                plt_sird_sim_cmp_infected.line(I,"Simuliert (I)","#f1cf0b");
+                plt_sird_sim_cmp_infected.line(C,"Simuliert Cases","#f1cf0b");
                 plt_sird_sim_cmp_deaths.line(D,"Simuliert (D)","#f1cf0b");
 
                 plt_sird_sim_cmp_recovered.draw("vpg_sird_recovered");
@@ -444,7 +448,7 @@
                 plt_sird_sim_cmp_deaths.draw("vpg_sird_deaths");
 
                 var chi_r = TR.math.stat.chi_squared_value(c19.get_colum("recovered"),R);
-                var chi_i = TR.math.stat.chi_squared_value(c19.get_colum("infected"),I);
+                var chi_i = TR.math.stat.chi_squared_value(c19.get_colum("cases"),C);
                 var chi_d = TR.math.stat.chi_squared_value(c19.get_colum("deaths"),D);
                 document.getElementById("vpg_sird_recovered_chi2").innerText = chi_r.chi2.toFixed(3);
                 document.getElementById("vpg_sird_infections_chi2").innerText =  chi_i.chi2.toFixed(3);

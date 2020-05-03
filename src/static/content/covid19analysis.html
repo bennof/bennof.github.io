@@ -197,7 +197,8 @@ pcases.draw("data_chart_cases");
 <div class="vblock">
     <div class="content">
         <h4>Wachstum:</h4>
-        <p>Das Wachstum der Fallzahlen folgt der Annahme nicht. 
+        <p>Das Wachstum der Fallzahlen war zu Beginn exponential entsprechend der Erwartung des
+            SIR Modells.  
         </p>
         <figure>
             <canvas id="data_chart_growth" style="width: 100%; height: 75vh;" ></canvas>
@@ -206,12 +207,12 @@ pcases.draw("data_chart_cases");
         <script>
             c19.add_colum("growth");
             c19.map2((d,i) => {return c19.data[i][1]-c19.data[i-1][1];},"growth",1);
-            var f_growth = TR.math.stat.exponential_regression(idx,c19.get_colum("growth"));
+            var f_growth = TR.math.stat.exponential_regression(idx,c19.get_colum("growth"),0,24);
             var fm_growth = TR.math.stat.floating_mean(c19.get_colum("growth"),7);
             var pgrowth = new TR.math.plot.Plot("Zuwachs");
             pgrowth.x(c19.get_colum("date"));
             pgrowth.fline(c19.get_colum("growth"),"Zuwachs","#3e95cd");
-            pgrowth.line(f_growth.seq(c19.length()),f_growth.toString(),"#af5431");
+            pgrowth.line(f_growth.seq(24),f_growth.toString(),"#af5431");
             pgrowth.fline(fm_growth,"Gleitendes Mittel","#f1cf0b");
             pgrowth.draw("data_chart_growth");
         </script>
@@ -233,6 +234,7 @@ pcases.draw("data_chart_cases");
             <li><a href="https://www.ecdc.europa.eu/en/publications-data/guide-public-health-measures-reduce-impact-influenza-pandemics-europe-ecdc-menu">ECDC: Pandemie Anleitung 2009</a></li>
             <li><a href="https://www.who.int/influenza/publications/public_health_measures/publication/en/">WHO: Nicht pharmazeutische Maßnahmen bei Epidemien und Pandemien 2019 </a></li>
             <li><a href="https://www.sciencedirect.com/science/article/pii/S0924857920300972">Roussel et al. SARS-CoV-2: fear versus data März 2020</a></li>
+            <li><a href="https://advance.sagepub.com/articles/The_Scenario_of_a_Pandemic_Spread_of_the_Coronavirus_SARS-CoV-2_is_Based_on_a_Statistical_Fallacy/12151962">Kuhbandner über die Ausbreitung des Virus</a></li>
         </ol>
         <p>Wird immer wieder ergänzt ...</p>
     </div>
