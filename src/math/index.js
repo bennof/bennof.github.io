@@ -51,7 +51,7 @@ class Func{
         for(var i=0; i<offset; i++)
             a[i] = undefined;
         for(; i<end-start+offset; i++)
-            a[i] = this.func(start + i*step);
+            a[i] = this.func(start + (i)*step);
         return a; 
     }
 };

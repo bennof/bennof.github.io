@@ -30,3 +30,11 @@ export function array_map(Fun,Arr){
         R[i] = Fun(Arr[i],i);
     return R;
 };
+
+export function array2d_col(arr,idx) {
+    var len = arr.length;
+    var r = new Array(len);
+    for(var i=0; i<len; i++)
+        r[i]=arr[i][idx];
+    return r;
+}

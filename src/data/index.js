@@ -25,11 +25,12 @@
 */
 
 import * as table from "./table";
-import {array_map} from "./array";
+import {array_map,array2d_col} from "./array";
 
 
 export {
     table,
-    array_map
+    array_map,
+    array2d_col
 };
 

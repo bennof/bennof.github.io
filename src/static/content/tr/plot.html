@@ -1,0 +1,49 @@
+<div class="vblock">
+    <div class="content">
+        <h1>TabularRasa</h1>
+        <h3>Plotting</h3>
+        <h6>math/plot</h6>
+        <button onclick="window.location.href='#hash-router=/content/tabularrasa.html'">Back</button>
+    </div>
+
+    <div class="content">
+        <h4>ChartJS</h4>
+        <p>TabularRasa uses <a href="https://www.chartjs.org">ChartJS</a>for plotting.
+            all ChartJS features an the object is available. The Chart object is returned
+            by draw function.</p>
+
+        <h4>Create a plot</h4>
+        <p>To create a simple plot:</p>
+        <pre><code>
+// Javascript
+var plot = new TR.math.plot.Plot("Fallzahlen");
+plot.x(TR.math.seq(-2,16)); // set x axis from -2 to 15
+plot.line(TR.math.seq(-4,6,1),"Line Plot","#af5431"); // a red line
+plot.fline(TR.math.seq(0,16,0.4),"Filled Line Plot","#3e95cd"); // blue line filled below
+plot.x_marker(3,"X-Marker","#f1cf0b"); // vertical line at index 3
+plot.y_marker(3,"Y-Marker","#8b61ad"); // horizontal line at value 3
+plot.draw("tr_plot_example"); //draw to html canvas with id="tr_plot_example"
+        </code></pre>
+        <p>Output:</p>
+        <figure>
+            <canvas id="tr_plot_example" style="width: 100%; height: 75vh;"></canvas>
+            <figcaption>Plotting with TabularRasa and ChartJS</figcaption>
+        </figure>
+        <script>
+            (function() {
+                // Javascript
+                var plot = new TR.math.plot.Plot("Some Plot Title");
+                plot.x(TR.math.seq(-2,16)); // set x axis from -2 to 15
+                plot.line(TR.math.seq(-4,6,1),"Line Plot","#af5431"); // a red line
+                plot.fline(TR.math.seq(0,16,0.4),"Filled Line Plot","#3e95cd"); // blue line filled below
+                plot.x_marker(3,"X-Marker","#f1cf0b"); // vertical line at index 3
+                plot.y_marker(3,"Y-Marker","#8b61ad"); // horizontal line at value 3
+                plot.draw("tr_plot_example"); //draw to html canvas with id="tr_plot_example"
+            }());
+        </script>
+
+        <p>A plot can be redrawn by first calling <code>plot.clear()</code> an then
+            calling draw method again.</p>
+    </div>
+</div>
+

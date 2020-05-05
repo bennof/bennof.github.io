@@ -100,12 +100,13 @@ return /******/ (function(modules) { // webpackBootstrap
 /*!***************************!*\
   !*** ./src/data/array.js ***!
   \***************************/
-/*! exports provided: array_map */
+/*! exports provided: array_map, array2d_col */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "array_map", function() { return array_map; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "array2d_col", function() { return array2d_col; });
 /* Tabular Rasa JS Data Array Functions
 ** Copyright (c) 2018-2020 Benjamin Benno Falkner
 **
@@ -142,6 +143,16 @@ function array_map(Fun, Arr) {
   return R;
 }
 ;
+function array2d_col(arr, idx) {
+  var len = arr.length;
+  var r = new Array(len);
+
+  for (var i = 0; i < len; i++) {
+    r[i] = arr[i][idx];
+  }
+
+  return r;
+}
 
 /***/ }),
 
@@ -149,7 +160,7 @@ function array_map(Fun, Arr) {
 /*!***************************!*\
   !*** ./src/data/index.js ***!
   \***************************/
-/*! exports provided: table, array_map */
+/*! exports provided: table, array_map, array2d_col */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -158,6 +169,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "table", function() { return _table__WEBPACK_IMPORTED_MODULE_0__; });
 /* harmony import */ var _array__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./array */ "./src/data/array.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "array_map", function() { return _array__WEBPACK_IMPORTED_MODULE_1__["array_map"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "array2d_col", function() { return _array__WEBPACK_IMPORTED_MODULE_1__["array2d_col"]; });
 
 /* Tabular Rasa JS Data Functions
 ** Copyright (c) 2018-2020 Benjamin Benno Falkner
@@ -1819,7 +1832,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _filter_index__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_filter_index__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "filter", function() { return _filter_index__WEBPACK_IMPORTED_MODULE_1__; });
 /* harmony import */ var _solver_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./solver/index */ "./src/math/solver/index.js");
-/* harmony import */ var _solver_index__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_solver_index__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "solver", function() { return _solver_index__WEBPACK_IMPORTED_MODULE_2__; });
 /* harmony import */ var _plot__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./plot */ "./src/math/plot.js");
 /* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "plot", function() { return _plot__WEBPACK_IMPORTED_MODULE_3__; });
@@ -2127,8 +2139,30 @@ var Plot = /*#__PURE__*/function () {
 /*!**********************************!*\
   !*** ./src/math/solver/index.js ***!
   \**********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! exports provided: Solver, EulerSolver, HeunSolver, RungeKuttaSolver */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Solver", function() { return Solver; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EulerSolver", function() { return EulerSolver; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HeunSolver", function() { return HeunSolver; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RungeKuttaSolver", function() { return RungeKuttaSolver; });
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -2136,25 +2170,58 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var NewtonSolver = /*#__PURE__*/function () {
-  function NewtonSolver(df) {
-    _classCallCheck(this, NewtonSolver);
+var Solver = /*#__PURE__*/function () {
+  function Solver(df) {
+    _classCallCheck(this, Solver);
 
     this.df = df;
   }
 
-  _createClass(NewtonSolver, [{
+  _createClass(Solver, [{
+    key: "set_param",
+    value: function set_param(name, value) {
+      this[name] = value;
+    }
+  }, {
+    key: "get_param",
+    value: function get_param(name) {
+      return this[name];
+    }
+  }, {
+    key: "run",
+    value: function run() {
+      return "ERROR: no solver defined";
+    }
+  }]);
+
+  return Solver;
+}();
+;
+var EulerSolver = /*#__PURE__*/function (_Solver) {
+  _inherits(EulerSolver, _Solver);
+
+  var _super = _createSuper(EulerSolver);
+
+  function EulerSolver(df) {
+    _classCallCheck(this, EulerSolver);
+
+    return _super.call(this, df);
+  }
+
+  _createClass(EulerSolver, [{
     key: "run",
     value: function run(X0, n) {
+      var h = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
       var len = X0.length,
           data = new Array();
       data[0] = X0;
+      if (len != this.df.length) return "ERROR: dimensions do not match";
 
       for (var i = 1; i < n; i++) {
         var d = new Array(len);
 
         for (var j = 0; j < len; j++) {
-          d[j] = data[i - 1][j] + this.df[j].call(this, data[i - 1]);
+          d[j] = data[i - 1][j] + this.df[j].call(this, (i - 1) * h, data[i - 1]);
         }
 
         data.push(d);
@@ -2164,8 +2231,110 @@ var NewtonSolver = /*#__PURE__*/function () {
     }
   }]);
 
-  return NewtonSolver;
-}();
+  return EulerSolver;
+}(Solver);
+var HeunSolver = /*#__PURE__*/function (_Solver2) {
+  _inherits(HeunSolver, _Solver2);
+
+  var _super2 = _createSuper(HeunSolver);
+
+  function HeunSolver() {
+    _classCallCheck(this, HeunSolver);
+
+    return _super2.apply(this, arguments);
+  }
+
+  _createClass(HeunSolver, [{
+    key: "run",
+    value: function run(X0, n) {
+      var h = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
+      var len = X0.length,
+          data = new Array();
+      data[0] = X0;
+      if (len != this.df.length) return "ERROR: dimensions do not match";
+      var u = new Array(len);
+
+      for (var i = 1; i < n; i++) {
+        var d = new Array(len);
+
+        for (var j = 0; j < len; j++) {
+          u[j] = data[i - 1][j] + this.df[j].call(this, (i - 1) * h, data[i - 1]);
+          d[j] = data[i - 1][j] + 0.5 * h * (this.df[j].call(this, (i - 1) * h, data[i - 1]) + this.df[j].call(this, i * h, u));
+        }
+
+        data.push(d);
+      }
+
+      return data;
+    }
+  }]);
+
+  return HeunSolver;
+}(Solver);
+var RungeKuttaSolver = /*#__PURE__*/function (_Solver3) {
+  _inherits(RungeKuttaSolver, _Solver3);
+
+  var _super3 = _createSuper(RungeKuttaSolver);
+
+  function RungeKuttaSolver() {
+    _classCallCheck(this, RungeKuttaSolver);
+
+    return _super3.apply(this, arguments);
+  }
+
+  _createClass(RungeKuttaSolver, [{
+    key: "run",
+    value: function run(X0, n) {
+      var h = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
+      var len = X0.length,
+          data = new Array();
+      data[0] = X0;
+      if (len != this.df.length) return "ERROR: dimensions do not match";
+      var u = new Array(len);
+      var k1 = new Array(len);
+      var k2 = new Array(len);
+      var k3 = new Array(len);
+      var k4 = new Array(len);
+
+      for (var i = 1; i < n; i++) {
+        var d = new Array(len); // k1
+
+        for (var j = 0; j < len; j++) {
+          k1[j] = this.df[j].call(this, (i - 1) * h, data[i - 1]);
+          u[j] = data[i - 1][j] + h / 2 * k1[j];
+        } // k2
+
+
+        for (var j = 0; j < len; j++) {
+          k2[j] = this.df[j].call(this, (i - 0.5) * h, u);
+          u[j] = data[i - 1][j] + h / 2 * k2[j];
+        } // k3
+
+
+        for (var j = 0; j < len; j++) {
+          k3[j] = this.df[j].call(this, (i - 0.5) * h, u);
+          u[j] = data[i - 1][j] + h * k3[j];
+        } // k4
+
+
+        for (var j = 0; j < len; j++) {
+          k4[j] = this.df[j].call(this, i * h, u);
+        } //sum all
+
+
+        for (var j = 0; j < len; j++) {
+          d[j] = data[i - 1][j] + h * (k1[j] + 2 * k2[j] + 2 * k3[j] + k4[j]) / 6;
+        }
+
+        data.push(d);
+      }
+
+      return data;
+    }
+  }]);
+
+  return RungeKuttaSolver;
+}(Solver);
 
 /***/ }),
 

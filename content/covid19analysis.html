@@ -208,11 +208,13 @@ pcases.draw("data_chart_cases");
             c19.add_colum("growth");
             c19.map2((d,i) => {return c19.data[i][1]-c19.data[i-1][1];},"growth",1);
             var f_growth = TR.math.stat.exponential_regression(idx,c19.get_colum("growth"),0,24);
+            var f_growth2 = TR.math.stat.exponential_regression(idx,c19.get_colum("growth"),29);
             var fm_growth = TR.math.stat.floating_mean(c19.get_colum("growth"),7);
             var pgrowth = new TR.math.plot.Plot("Zuwachs");
             pgrowth.x(c19.get_colum("date"));
             pgrowth.fline(c19.get_colum("growth"),"Zuwachs","#3e95cd");
             pgrowth.line(f_growth.seq(24),f_growth.toString(),"#af5431");
+            pgrowth.line(f_growth2.seq(0,c19.length(),1,25),f_growth2.toString(),"#5DA399");
             pgrowth.fline(fm_growth,"Gleitendes Mittel","#f1cf0b");
             pgrowth.draw("data_chart_growth");
         </script>
@@ -235,6 +237,8 @@ pcases.draw("data_chart_cases");
             <li><a href="https://www.who.int/influenza/publications/public_health_measures/publication/en/">WHO: Nicht pharmazeutische Maßnahmen bei Epidemien und Pandemien 2019 </a></li>
             <li><a href="https://www.sciencedirect.com/science/article/pii/S0924857920300972">Roussel et al. SARS-CoV-2: fear versus data März 2020</a></li>
             <li><a href="https://advance.sagepub.com/articles/The_Scenario_of_a_Pandemic_Spread_of_the_Coronavirus_SARS-CoV-2_is_Based_on_a_Statistical_Fallacy/12151962">Kuhbandner über die Ausbreitung des Virus</a></li>
+            <li><a href="https://www.nytimes.com/reuters/2020/05/01/world/europe/01reuters-health-coronavirus-sweden-economy.html?fbclid=IwAR3m6KmEclg3ON01LZoA9gXT_tad1_INzXVfLoT4ivNNHuNanmgOlychp6E">NY Times: about Sweden at Corona</a></li>
+            <li><a href="https://www.youtube.com/watch?v=T-saAuXaPok">John Ioannidis: Results of Coronavirus Studies</a></li>
         </ol>
         <p>Wird immer wieder ergänzt ...</p>
     </div>
