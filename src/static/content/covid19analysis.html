@@ -18,7 +18,7 @@
 <!-- Data Block -->
 <div class="vblock">
     <div class="content">
-        <h4>Daten:</h4>
+        <h4>Daten</h4>
         <p> <b>Achtung!</b> Anzahl der Tests ändert sich pro Tag. Leider liegen vom RKI (jeden Mittwoch) 
             nur Zahlen pro Woche vor.</p>
         <table>
@@ -26,11 +26,12 @@
             <tr><td>11 (09.03. - 15.03.)</td><td>127.457</td><td>5,9%</td></tr>
             <tr><td>12 (16.03. - 22.03.)</td><td>348.619</td><td>6,8%</td></tr>
             <tr><td>13 (23.03. - 29.03.)</td><td>361.515</td><td>8,7%</td></tr>
-            <tr><td>14 (30.03. - 05.04.)</td><td>408.348</td><td>9.1%</td></tr>
-            <tr><td>15 (06.04. - 12.04.)</td><td>379.233</td><td>8.1%</td></tr>
-            <tr><td>16 (13.04. - 19.04.)</td><td>330.027</td><td>6.7%</td></tr>
-            <tr><td>17 (20.04. - 26.04.)</td><td>467.137</td><td>5.4%</td></tr>
-            <caption> Anzahl der Tests pro Woch mit dem Anteil der positiven Tests.</caption>
+            <tr><td>14 (30.03. - 05.04.)</td><td>408.348</td><td>9,1%</td></tr>
+            <tr><td>15 (06.04. - 12.04.)</td><td>379.233</td><td>8,1%</td></tr>
+            <tr><td>16 (13.04. - 19.04.)</td><td>330.027</td><td>6,7%</td></tr>
+            <tr><td>17 (20.04. - 26.04.)</td><td>357.876</td><td>5,0%</td></tr>
+            <tr><td>18 (27.04. - 03.05.)</td><td>317.979</td><td>3,8%</td></tr>
+            <caption> Anzahl der Tests pro Woche mit dem Anteil der positiven Tests.</caption>
         </table>
         <p> Wahrscheinlich ist die erhöhte Steigerung in der 12. Woche auf die fast Verdreifachung 
             der Tests zurück zuführen.</p> 
@@ -50,6 +51,8 @@
         <h4>Wichtige Termine</h4>
         <p>16.03. Schulschließungen</p>
         <p>23.03. Shutdown</p>
+        <p>20.04. Erste Öffnungen</p>
+        <p>10.05. Ende Shutdown</p>
     </div>
 </div>
 
@@ -79,7 +82,22 @@
 
 <div class="vblock">
     <div class="content">
-        <h4>Modell:</h4>
+        <h4>Impfung</h4>
+        <p>Nach aktuellen Berichten sind verschiedene Impfstoffe in der Erforschung bzw. Erprobung. 
+            Impfstoffe lassen sich in zwei Gruppen unterteilen: traditionelle und RNA/DNA Impfstoffe.
+            Virale Vektoren sind kein wirklicher neuer Typ, sondern nur ein Weg RNA/DNA einzuschleusen.
+            Im Folgenden werden hier besonders die Eigenschaften der DNA/RNA Impfstoffe zusammenstellt, da diese 
+            bislang nur in der Grundlagenforschung verwendet wurden. 
+        </p>
+        <p>Traditionelle Impfstoffe wurden seit Jahren erforscht und die meisten Eigenschaften und Risiken sind bekannt.
+            Daher wäre ein solcher Impfstoff bei hinreichender Erprobung wahrscheinlich unbedenklich.
+        </p>
+    </div>
+</div>
+
+<div class="vblock">
+    <div class="content">
+        <h4>Modell</h4>
         <p>Als Modell wird das "worst case" Szenario angenommen, welches ein 
             exponentielles Wachstum annimmt.
         </p>
@@ -109,7 +127,7 @@
 
 <div class="vblock">
     <div class="content">
-        <h4>Berechnung:</h4>
+        <h4>Berechnung</h4>
         <p>
             Die Berechnung erfolgt durch die lineare Regression \(f_R(x)=ax+b\) unter der Annahme, dass 
             ein Exponentielles Wachstum vorliegt: \(f(x)=A \cdot p^x = A\cdot \exp^{ln(p)\cdot x}\). Dies 
@@ -124,10 +142,12 @@
 
 <div class="vblock">
     <div class="content">
-        <h4>Fallzahlen:</h4>
+        <h4>Fallzahlen</h4>
         <p>Die Fallzahlen folgen der Annahme nicht mehr. Als wichtige Grenze ist die Anzahl an 
             Intensivbetten (ICU) zu betrachten. Sie wird auf Basis der Zahlen vom 22.04. des RKI 
-            geschätzt.
+            geschätzt. In den nächsten Tagen/Wochen wird die Grenze durch geänderte Vorgaben der
+            Bundes- und Landesregierungen sinken. Sobald stabile Daten vorliegen, wird die Obergrenze 
+            hier angepasst.
         </p>
         <figure>
             <canvas id="data_chart_cases" style="width: 100%; height: 75vh;"></canvas>
@@ -150,7 +170,7 @@ pcases.x(c19.get_colum("date"));
 pcases.fline(c19.get_colum("sick"),"z.Z. Kranke","#f1cf0b");
 pcases.line(c19.get_colum("sick_or_dead"),"Verstorben und Infizierte","#af5431");
 pcases.fline(c19.get_colum("cases"),"Genesen, Verstorben und Infizierte","#5DA399");
-pcases.line(f_cases.seq(c19.length()-14),f_cases.toString(),"#3e95cd");
+pcases.line(f_cases.seq(c19.length()-10),f_cases.toString(),"#3e95cd");
 pcases.x_marker(12,"Schulschließ.","#f1cf0b");
 pcases.x_marker(19,"Shutdown","#8b61ad");
 pcases.y_marker(258083,"Obergrenze ICU 22.04.","#22aa22");
@@ -161,7 +181,7 @@ pcases.draw("data_chart_cases");
 
 <div class="vblock">
     <div class="content">
-        <h4>Verstorben:</h4>
+        <h4>Verstorben</h4>
         <p>Die Anzahl an Verstorbenen folgt der exponentiellen Annahme nicht mehr. Bei der Anzahl an Verstorbenen 
             ist wegen des Alters zu 
             überlegen, wie viele über eine Patientenverfügung verfügten. In der 
@@ -196,9 +216,12 @@ pcases.draw("data_chart_cases");
 
 <div class="vblock">
     <div class="content">
-        <h4>Wachstum:</h4>
+        <h4>Wachstum</h4>
         <p>Das Wachstum der Fallzahlen war zu Beginn exponential entsprechend der Erwartung des
-            SIR Modells.  
+            SIR Modells. Der Abfall der Zuwächse ist ebenfalls exponentiell. Daher wird hier
+            abweichend vom RKI dies zur Bewertung der Entwicklung herangezogen. Die daraus folgende 
+            Halbwertszeit liegt bei ca. 14 Tagen und hat sich in den letzten Tagen verbessert von 
+            ca 22 Tagen.
         </p>
         <figure>
             <canvas id="data_chart_growth" style="width: 100%; height: 75vh;" ></canvas>

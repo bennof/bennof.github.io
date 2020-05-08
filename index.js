@@ -134,7 +134,7 @@ __webpack_require__.r(__webpack_exports__);
 */
 function array_map(Fun, Arr) {
   var i,
-      R = [];
+      R = new Array(Arr.length);
 
   for (i = 0; i < Arr.length; i++) {
     R[i] = Fun(Arr[i], i);
@@ -2210,8 +2210,8 @@ var EulerSolver = /*#__PURE__*/function (_Solver) {
 
   _createClass(EulerSolver, [{
     key: "run",
-    value: function run(X0, n) {
-      var h = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
+    value: function run(t0, X0, n) {
+      var h = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1;
       var len = X0.length,
           data = new Array();
       data[0] = X0;
@@ -2221,7 +2221,7 @@ var EulerSolver = /*#__PURE__*/function (_Solver) {
         var d = new Array(len);
 
         for (var j = 0; j < len; j++) {
-          d[j] = data[i - 1][j] + this.df[j].call(this, (i - 1) * h, data[i - 1]);
+          d[j] = data[i - 1][j] + this.df[j].call(this, t0 + (i - 1) * h, data[i - 1]);
         }
 
         data.push(d);
@@ -2246,8 +2246,8 @@ var HeunSolver = /*#__PURE__*/function (_Solver2) {
 
   _createClass(HeunSolver, [{
     key: "run",
-    value: function run(X0, n) {
-      var h = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
+    value: function run(t0, X0, n) {
+      var h = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1;
       var len = X0.length,
           data = new Array();
       data[0] = X0;
@@ -2258,8 +2258,8 @@ var HeunSolver = /*#__PURE__*/function (_Solver2) {
         var d = new Array(len);
 
         for (var j = 0; j < len; j++) {
-          u[j] = data[i - 1][j] + this.df[j].call(this, (i - 1) * h, data[i - 1]);
-          d[j] = data[i - 1][j] + 0.5 * h * (this.df[j].call(this, (i - 1) * h, data[i - 1]) + this.df[j].call(this, i * h, u));
+          u[j] = data[i - 1][j] + this.df[j].call(this, t0 + (i - 1) * h, data[i - 1]);
+          d[j] = data[i - 1][j] + 0.5 * h * (this.df[j].call(this, t0 + (i - 1) * h, data[i - 1]) + this.df[j].call(this, t0 + i * h, u));
         }
 
         data.push(d);
@@ -2284,8 +2284,8 @@ var RungeKuttaSolver = /*#__PURE__*/function (_Solver3) {
 
   _createClass(RungeKuttaSolver, [{
     key: "run",
-    value: function run(X0, n) {
-      var h = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
+    value: function run(t0, X0, n) {
+      var h = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1;
       var len = X0.length,
           data = new Array();
       data[0] = X0;
@@ -2300,25 +2300,25 @@ var RungeKuttaSolver = /*#__PURE__*/function (_Solver3) {
         var d = new Array(len); // k1
 
         for (var j = 0; j < len; j++) {
-          k1[j] = this.df[j].call(this, (i - 1) * h, data[i - 1]);
+          k1[j] = this.df[j].call(this, t0 + (i - 1) * h, data[i - 1]);
           u[j] = data[i - 1][j] + h / 2 * k1[j];
         } // k2
 
 
         for (var j = 0; j < len; j++) {
-          k2[j] = this.df[j].call(this, (i - 0.5) * h, u);
+          k2[j] = this.df[j].call(this, t0 + (i - 0.5) * h, u);
           u[j] = data[i - 1][j] + h / 2 * k2[j];
         } // k3
 
 
         for (var j = 0; j < len; j++) {
-          k3[j] = this.df[j].call(this, (i - 0.5) * h, u);
+          k3[j] = this.df[j].call(this, t0 + (i - 0.5) * h, u);
           u[j] = data[i - 1][j] + h * k3[j];
         } // k4
 
 
         for (var j = 0; j < len; j++) {
-          k4[j] = this.df[j].call(this, i * h, u);
+          k4[j] = this.df[j].call(this, t0 + i * h, u);
         } //sum all
 
 

@@ -1,0 +1,132 @@
+<div class="vblock">
+    <div class="content">
+        <h1>TabularRasa</h1>
+        <h3>Solver</h3>
+        <h6>math/solver</h6>
+        <button onclick="window.location.href='#hash-router=/content/tr/tabularrasa.html'">Back</button>
+    </div>
+
+    <div class="content">
+        <h4>Initial value problem</h4>
+
+        <h5>Euler Method</h5>
+        <p>The next point will be calculated by:</p>
+        \[y_{{k+1}}=y_{k}+hf(t_{k},y_{k})\]
+        <div class="pre">
+            <code>class EulerSolver
+    constructor([df(t,x)]) // takes an array of differential equations
+    set_param(name,value) // sets an additional parameter
+    get_param(name) // returns an additional parameter
+    run(t0,X0,n,h=1) // calculate n steps with step size h from t0, X0      
+            </code>
+            <div class="caption">Definition Euler solver</div>
+        </div>
+        <h5>Heun Method</h5>
+        <p>intermediate value:</p>
+        \[{ y_{k+1}^{*}=y_{k}+hf(t_{k},y_{k})}\]
+        <p>next integration point:</p>
+        \[{ y_{k+1}=y_{k}+{\frac {1}{2}}h(f(t_{k},y_{k})+f(t_{k+1},y_{k+1}^{*}))}\]
+        <div class="pre">
+            <code>class HeunSolver
+    constructor([df(t,x)]) // takes an array of differential equations
+    set_param(name,value) // sets an additional parameter
+    get_param(name) // returns an additional parameter
+    run(t0,X0,n,h=1) // calculate n steps with step size h from t0, X0      
+            </code>
+            <div class="caption">Definition Heun solver</div>
+        </div>
+
+        <h5>Runge Kutta Method</h5>
+        <p>Intermediate steps:</p>
+        \[\begin{align} k_1 &= f(t_i, y_i), \\ k_2 &= f(t_i + \frac{h}{2}, y_i + \frac{h}{2} k_1), \\ k_3 &= f(t_i + \frac{h}{2}, y_i + \frac{h}{2} k_2), \\ k_4 &= f(t_i + h, y_i + hk_3). \end{align}\]
+        <p>Final step to calculate next point:</p>
+        \[{ y_{i+1}=y_{i}+h\cdot {\frac {1}{6}}\left(k_{1}+2k_{2}+2k_{3}+k_{4}\right)}\]
+        <div class="pre">
+            <code>class RungeKuttaSolver
+    constructor([df(t,x)]) // takes an array of differential equations
+    set_param(name,value) // sets an additional parameter
+    get_param(name) // returns an additional parameter
+    run(t0,X0,n,h=1) // calculate n steps with step size h from t0, X0 
+            </code>
+            <div class="caption">Definition Runge Kutta solver</div>
+        </div>
+        <h5>Example</h5>
+        <p>Examining the problem:</p>
+        \[\frac{dy}{dt}=t\cdot e^{-t^2},\quad y(0)=0\]
+        <p>The analytical solution is:</p>
+        \[y(t)=-\frac{1}{2}(e^{-t^2}-1)\]
+        <div class="pre">
+            <code>// Javascript
+
+// # Analytic solution (for comparison)
+var f = new TR.math.Func("real solution",
+    (t) => {return -0.5*(Math.exp(-t*t)-1;})
+
+// # Euler method approximation
+// setup Euler solver
+var euler = new TR.math.solver.EulerSolver(
+    [function(t,x) {return Math.exp(2*t-3)}]);
+// run approx. and extract first column as array
+var euler_data = TR.data.array2d_col(euler.run(0,[0],5,1),0); 
+
+// # Heun method approximation (same result as euler)
+// setup Heun solver
+var heun = new TR.math.solver.HeunSolver(
+    [function(t,x) {return Math.exp(2*t-3)}]);
+// run approx. and extract first column as array
+var heun_data = TR.data.array2d_col(euler.run(0,[0],5,1),0); 
+
+// # Runge Kutta method approximation (same result as analytic)
+// setup Runge Kutta solver
+var rk = new TR.math.solver.RungeKuttaSolver(
+    [function(t,x) {return Math.exp(2*t-3)}]);
+// run approx. and extract first column as array
+var rk_data = TR.data.array2d_col(rk.run(0,[0],5,1),0);
+
+// # Plot
+var plot = new TR.math.plot.Plot("Comparison initial value problem");
+plot.x(TR.math.seq(0,5)); // set x axis from 0 to 4
+plot.line(f.seq(5),f.toString(),"#af5431");
+plot.line(euler_data,"Euler Method","#33658A");
+plot.line(heun_data,"Heun Method","#5DA399");
+plot.line(rk_data,"Runge Kutta Method","#f1cf0b");
+plot.draw("tr_solver_example"); //draw
+            </code>
+            <div class="caption">Example calculate initial value problem with different solvers compared to analytic solution</div>
+    
+        </div>
+
+        <figure>
+            <canvas id="tr_solver_example" style="width: 100%; height: 75vh;"></canvas>
+            <figcaption>Plotting of different initial value problem solvers compared to analytic solution</figcaption>
+        </figure>
+        <script>
+            (function() {
+                // Javascript
+                var f = new TR.math.Func("Analytic Solution",(t) => {return  -0.5*(Math.exp(-t*t)-1);});
+
+                var euler = new TR.math.solver.EulerSolver([function(t,x) {return t*Math.exp(-t*t)}]);
+                var euler_data = TR.data.array2d_col(euler.run(0,[0],5,1),0);
+                console.log(euler_data)
+
+                var heun = new TR.math.solver.HeunSolver([function(t,x) {return t*Math.exp(-t*t)}]);
+                var heun_data = TR.data.array2d_col(euler.run(0,[0],5,1),0);
+                console.log(heun_data)
+
+
+                var rk = new TR.math.solver.RungeKuttaSolver([function(t,x) {return t*Math.exp(-t*t)}]);
+                var rk_data = TR.data.array2d_col(rk.run(0,[0],5,1),0);
+                console.log(rk_data)
+
+                // plot
+                var plot = new TR.math.plot.Plot("Comparison initial value problem");
+                plot.x(TR.math.seq(0,5)); // set x axis from 0 to 15
+                plot.line(f.seq(5),f.toString(),"#af5431");
+                plot.line(euler_data,"Euler Method","#33658A");
+                plot.line(heun_data,"Heun Method","#5DA399");
+                plot.line(rk_data,"Runge Kutta Method","#f1cf0b");
+                plot.draw("tr_solver_example"); //draw
+            })()
+        </script>
+    </div>
+</div>

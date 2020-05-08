@@ -25,7 +25,7 @@
 */
 
 export function array_map(Fun,Arr){
-    var i, R = [];
+    var i, R = new Array(Arr.length);
     for (i=0;i<Arr.length;i++)
         R[i] = Fun(Arr[i],i);
     return R;

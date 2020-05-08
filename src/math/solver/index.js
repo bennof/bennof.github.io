@@ -23,7 +23,7 @@ export class EulerSolver extends Solver{
         super(df);
     }
 
-    run(X0,n,h=1) {
+    run(t0,X0,n,h=1) {
         var len = X0.length,
             data = new Array();
         data[0]=X0;
@@ -34,7 +34,7 @@ export class EulerSolver extends Solver{
         for(var i=1; i<n; i++){
             var d = new Array(len);
             for(var j=0; j<len; j++){
-                d[j] = data[i-1][j]+this.df[j].call(this,(i-1)*h,data[i-1]);
+                d[j] = data[i-1][j]+this.df[j].call(this,t0+(i-1)*h,data[i-1]);
             }
             data.push(d);
         }
@@ -43,7 +43,7 @@ export class EulerSolver extends Solver{
 }
 
 export class HeunSolver extends Solver{
-    run(X0,n,h=1) {
+    run(t0,X0,n,h=1) {
         var len = X0.length,
             data = new Array();
         data[0]=X0;
@@ -55,10 +55,10 @@ export class HeunSolver extends Solver{
         for(var i=1; i<n; i++){
             var d = new Array(len);
             for(var j=0; j<len; j++){
-                u[j] = data[i-1][j]+this.df[j].call(this,(i-1)*h,data[i-1]);
+                u[j] = data[i-1][j]+this.df[j].call(this,t0+(i-1)*h,data[i-1]);
                 d[j] = data[i-1][j]+0.5*h * 
-                    ( this.df[j].call(this,(i-1)*h,data[i-1])
-                    + this.df[j].call(this,i*h,u));
+                    ( this.df[j].call(this,t0+(i-1)*h,data[i-1])
+                    + this.df[j].call(this,t0+i*h,u));
             }
             data.push(d);
         }
@@ -67,7 +67,7 @@ export class HeunSolver extends Solver{
 }
 
 export class RungeKuttaSolver extends Solver{
-    run(X0,n, h=1) {
+    run(t0,X0,n, h=1) {
         var len = X0.length,
             data = new Array();
         data[0]=X0;
@@ -84,25 +84,25 @@ export class RungeKuttaSolver extends Solver{
             var d = new Array(len);
             // k1
             for(var j=0; j<len; j++){
-                k1[j] = this.df[j].call(this,(i-1)*h,data[i-1]);
+                k1[j] = this.df[j].call(this,t0+(i-1)*h,data[i-1]);
                 u[j] = data[i-1][j] + h/2*k1[j];
             }
 
             // k2
             for(var j=0; j<len; j++){
-                k2[j] = this.df[j].call(this,(i-0.5)*h,u);
+                k2[j] = this.df[j].call(this,t0+(i-0.5)*h,u);
                 u[j] = data[i-1][j] + h/2*k2[j];
             }
 
             // k3
             for(var j=0; j<len; j++){
-                k3[j] = this.df[j].call(this,(i-0.5)*h,u);
+                k3[j] = this.df[j].call(this,t0+(i-0.5)*h,u);
                 u[j] = data[i-1][j] + h*k3[j];
             }
 
             // k4
             for(var j=0; j<len; j++){
-                k4[j] = this.df[j].call(this,i*h,u);
+                k4[j] = this.df[j].call(this,t0+i*h,u);
             }
 
             //sum all
