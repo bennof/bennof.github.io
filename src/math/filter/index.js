@@ -20,10 +20,33 @@
 ** SOFTWARE.
 */
 
+
 /** 
 * @module math/filter
 */
 
+
+export function filter(x, f, sides = 1, cyclic = false){
+	var h, l = x.length, l1 = f.length, l2, y = new Array(l);
+	
+	if( sides == 1 ){
+		for(var i=0; i<l; i++){
+			h = 0.0;
+			l2 = ( l1 > i ) ? i: l1;
+			for(var j=0; j<l2; j++)
+				h += f[j]*x[i-j]; //f[0]*x[i-j]+...+f[p]*x[i+o-p];
+			y[i] = h;
+		}
+	} else { // both sides
+		for(var i=0; i<l; i++){
+			h = 0.0;
+			for(var j=0; j<l1; j++)
+				h += f[j]*x[(i-j)%l]//f[j]*x[i+o]+...+f[p]*x[i+o-p];
+			y[i] = h;
+		}
+	}
+	return y;
+}
 
 
 class RFFT {

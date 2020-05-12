@@ -1505,9 +1505,12 @@ function query_map(URL) {
 /*!**********************************!*\
   !*** ./src/math/filter/index.js ***!
   \**********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! exports provided: filter */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "filter", function() { return filter; });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -1539,6 +1542,44 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 /** 
 * @module math/filter
 */
+function filter(x, f) {
+  var sides = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
+  var cyclic = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+  var h,
+      l = x.length,
+      l1 = f.length,
+      l2,
+      y = new Array(l);
+
+  if (sides == 1) {
+    for (var i = 0; i < l; i++) {
+      h = 0.0;
+      l2 = l1 > i ? i : l1;
+
+      for (var j = 0; j < l2; j++) {
+        h += f[j] * x[i - j];
+      } //f[0]*x[i-j]+...+f[p]*x[i+o-p];
+
+
+      y[i] = h;
+    }
+  } else {
+    // both sides
+    for (var i = 0; i < l; i++) {
+      h = 0.0;
+
+      for (var j = 0; j < l1; j++) {
+        h += f[j] * x[(i - j) % l];
+      } //f[j]*x[i+o]+...+f[p]*x[i+o-p];
+
+
+      y[i] = h;
+    }
+  }
+
+  return y;
+}
+
 var RFFT = /*#__PURE__*/function () {
   function RFFT(size) {
     _classCallCheck(this, RFFT);
@@ -1829,7 +1870,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _stat_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./stat/index */ "./src/math/stat/index.js");
 /* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "stat", function() { return _stat_index__WEBPACK_IMPORTED_MODULE_0__; });
 /* harmony import */ var _filter_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./filter/index */ "./src/math/filter/index.js");
-/* harmony import */ var _filter_index__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_filter_index__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "filter", function() { return _filter_index__WEBPACK_IMPORTED_MODULE_1__; });
 /* harmony import */ var _solver_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./solver/index */ "./src/math/solver/index.js");
 /* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "solver", function() { return _solver_index__WEBPACK_IMPORTED_MODULE_2__; });
