@@ -2,7 +2,9 @@
 <script id="data" type="application/json" src="/content/covid19data.json"></script>
 
 <script id="code">
-   
+   var c19 = new TR.data.table.Table("RKI Daten",["date","cases","deaths","recovered"]);
+   c19.read_json(document.getElementById('data').innerText);
+   var idx = TR.math.seq(c19.length()); // index list
 </script>
 
 
@@ -12,6 +14,74 @@
         <h1>Covid-19 Data</h1>
         <h3>Unabhängige Analyse zur besseren Interpretation</h3>
         <h6>(Daten vom <a href="https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Situationsberichte/Gesamt.html">RKI</a>)</h6>
+    </div>
+</div>
+
+<div class="vblock">
+    <div class="content">
+        <h4>Neuinfektionen</h4>
+        <p>Das Wachstum der Fallzahlen war zu Beginn exponential entsprechend der Erwartung des
+            SIR Modells. Der Abfall der Zuwächse ist ebenfalls exponentiell. Daher wird hier
+            abweichend vom RKI dies zur Bewertung der Entwicklung herangezogen. Die daraus folgende 
+            Halbwertszeit liegt bei ca. <span calc="T_2.toFixed(1)"></span> Tagen.s
+        </p>
+        <p>    
+            Der R-Wert liegt nach dem Modell der exponentiellen Abnahme bei <span calc="R_RKI_EXP.toFixed(2)"></span> (RKI: <span calc="R_RKI.toFixed(2)"></span>).
+        </p>
+        <p>In der ersten Zeit lag der R-Wert bei <span calc="R_RKI_EXP_1.toFixed(2)"></span>.</p>
+        <figure>
+            <canvas id="data_chart_growth" style="width: 100%; height: 75vh;" ></canvas>
+            <figcaption>Tägliche Neuinfektionen; die Ereignisse sind um 14 Tage verschoben, welches die Zeit bis zur Sichtbarkeit in den Daten nach RKI ist.</figcaption>
+        </figure>
+        <script>
+            c19.add_colum("growth");
+            c19.map2((d,i) => {return c19.data[i][1]-c19.data[i-1][1];},"growth",1);
+            var f_growth = TR.math.stat.exponential_regression(idx,c19.get_colum("growth"),0,24);
+            var f_growth2 = TR.math.stat.exponential_regression(idx,c19.get_colum("growth"),29);
+            var fm_growth = TR.math.stat.floating_mean(c19.get_colum("growth"),7);
+            var pgrowth = new TR.math.plot.Plot("Zuwachs");
+            pgrowth.x(c19.get_colum("date"));
+            pgrowth.fline(c19.get_colum("growth"),"Zuwachs","#3e95cd");
+            pgrowth.line(f_growth.seq(24),f_growth.toString(),"#af5431");
+            pgrowth.line(f_growth2.seq(0,c19.length(),1,25),f_growth2.toString(),"#5DA399");
+            pgrowth.fline(fm_growth,"Gleitendes Mittel","#f1cf0b");
+            pgrowth.x_marker(61,"Erste Öffnungen wirken","#f1cf0b");
+            pgrowth.x_marker(32,"Shutdown wirkt","#8b61ad");
+            pgrowth.draw("data_chart_growth");
+
+            var f_R = [0.0,1/3,2/3,1,1,1,4/5,3/5,2/5,1/5];
+
+            var R_RKI_EXP = (1+Math.pow(f_growth2.a,-1)+Math.pow(f_growth2.a,-2)+Math.pow(f_growth2.a,-3))/
+                        (+Math.pow(f_growth2.a,-4)+Math.pow(f_growth2.a,-5)+Math.pow(f_growth2.a,-6)+Math.pow(f_growth2.a,-7));
+            
+            var R_RKI_EXP_1 = (1+Math.pow(f_growth.a,-1)+Math.pow(f_growth.a,-2)+Math.pow(f_growth.a,-3))/
+                        (+Math.pow(f_growth.a,-4)+Math.pow(f_growth.a,-5)+Math.pow(f_growth.a,-6)+Math.pow(f_growth.a,-7));
+            
+            function calc_R(data,day){
+                return (data[day]+data[day-1]+data[day-2]+data[day-3])/(data[day-4]+data[day-5]+data[day-6]+data[day-7]);
+            }
+
+
+            var day = 83;
+            var gr = c19.get_colum("growth")
+            var day = 1;
+            while(gr[day]) day ++;
+            day--; 
+            var R_RKI = calc_R(gr,day)
+
+            var T_2 = Math.abs(Math.log(2)/Math.log(f_growth2.a))
+        </script>
+    </div>
+</div>
+
+<div class="vblock">
+    <div class="content">
+        <h4>Chronologie</h4>
+        <p>08.03. Absage von Großveranstaltungen</p>
+        <p>16.03. Schulschließungen</p>
+        <p>22.03. Shutdown</p>
+        <p>15-20.04. Erste Öffnungen / Schulen öffnen / Maskenpflicht</p>
+        <p>6.05. Ende Shutdown (wird in den Daten gerade sichtbar)</p>
     </div>
 </div>
 
@@ -36,9 +106,7 @@
         <p> Wahrscheinlich ist die erhöhte Steigerung in der 12. Woche auf die fast Verdreifachung 
             der Tests zurück zuführen.</p> 
         <script>
-            var c19 = new TR.data.table.Table("RKI Daten",["date","cases","deaths","recovered"]);
-            c19.read_json(document.getElementById('data').innerText);
-            var idx = TR.math.seq(c19.length()); // index list
+            
         </script>
         <p>
             <button onclick="TR.dox.file.save('rki_data.csv','text/csv',c19.write_csv(','));">Daten Download</button>
@@ -46,15 +114,7 @@
     </div>
 </div>
 
-<div class="vblock">
-    <div class="content">
-        <h4>Wichtige Termine</h4>
-        <p>16.03. Schulschließungen</p>
-        <p>23.03. Shutdown</p>
-        <p>20.04. Erste Öffnungen</p>
-        <p>10.05. Ende Shutdown</p>
-    </div>
-</div>
+
 
 <div class="vblock">
     <div class="content">
@@ -214,55 +274,7 @@ pcases.draw("data_chart_cases");
     </div>
 </div>
 
-<div class="vblock">
-    <div class="content">
-        <h4>Wachstum</h4>
-        <p>Das Wachstum der Fallzahlen war zu Beginn exponential entsprechend der Erwartung des
-            SIR Modells. Der Abfall der Zuwächse ist ebenfalls exponentiell. Daher wird hier
-            abweichend vom RKI dies zur Bewertung der Entwicklung herangezogen. Die daraus folgende 
-            Halbwertszeit liegt bei ca. <span calc="T_2.toFixed(1)"></span> Tagen und hat sich in den letzten Tagen verbessert von 
-            ca 22 Tagen.
-            Der R-Wert liegt nach dem Modell der exponentiellen Abnahme bei <span calc="R_RKI_EXP.toFixed(1)"></span>(RKI: <span calc="R_RKI.toFixed(1)"></span>).
-        </p>
-        <figure>
-            <canvas id="data_chart_growth" style="width: 100%; height: 75vh;" ></canvas>
-            <figcaption>Täglicher Zuwachs</figcaption>
-        </figure>
-        <script>
-            c19.add_colum("growth");
-            c19.map2((d,i) => {return c19.data[i][1]-c19.data[i-1][1];},"growth",1);
-            var f_growth = TR.math.stat.exponential_regression(idx,c19.get_colum("growth"),0,24);
-            var f_growth2 = TR.math.stat.exponential_regression(idx,c19.get_colum("growth"),29);
-            var fm_growth = TR.math.stat.floating_mean(c19.get_colum("growth"),7);
-            var pgrowth = new TR.math.plot.Plot("Zuwachs");
-            pgrowth.x(c19.get_colum("date"));
-            pgrowth.fline(c19.get_colum("growth"),"Zuwachs","#3e95cd");
-            pgrowth.line(f_growth.seq(24),f_growth.toString(),"#af5431");
-            pgrowth.line(f_growth2.seq(0,c19.length(),1,25),f_growth2.toString(),"#5DA399");
-            pgrowth.fline(fm_growth,"Gleitendes Mittel","#f1cf0b");
-            pgrowth.draw("data_chart_growth");
 
-            var f_R = [0.0,1/3,2/3,1,1,1,4/5,3/5,2/5,1/5];
-
-            var R_RKI_EXP = (1+Math.pow(f_growth2.a,-1)+Math.pow(f_growth2.a,-2)+Math.pow(f_growth2.a,-3))/
-                        (+Math.pow(f_growth2.a,-4)+Math.pow(f_growth2.a,-5)+Math.pow(f_growth2.a,-6)+Math.pow(f_growth2.a,-7));
-            
-            function calc_R(data,day){
-                return (data[day]+data[day-1]+data[day-2]+data[day-3])/(data[day-4]+data[day-5]+data[day-6]+data[day-7]);
-            }
-
-
-            var day = 83;
-            var gr = c19.get_colum("growth")
-            var day = 1;
-            while(gr[day]) day ++;
-            day--; 
-            var R_RKI = calc_R(gr,day)
-
-            var T_2 = Math.abs(Math.log(2)/Math.log(f_growth2.a))
-        </script>
-    </div>
-</div>
 
 <!-- foot -->
 <div class="vblock">
