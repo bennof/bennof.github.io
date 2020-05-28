@@ -85,5 +85,5 @@
     {"date": "26.05.2020", "cases": 179002, "deaths": 8302, "recovered": 162000},
     {"date": "27.05.2020", "cases": 179364, "deaths": 8349, "recovered": 162800},
     {"date": "28.05.2020", "cases": 179717, "deaths": 8411, "recovered": 163200},
-    {"date": "29.05.2020", "cases": null, "deaths": null, "recovered": null}
+    {"date": "29.05.2020"}
 ]
