@@ -224,7 +224,7 @@
 c19.add_colum("sick_or_dead");
 c19.map2((d,i) => {return (c19.data[i][3]) ? c19.data[i][1]-c19.data[i][3]: c19.data[i][1];},"sick_or_dead",0);
 c19.add_colum("sick");
-c19.map2((d,i) => {return (c19.data[i][2]) ? c19.data[i][4]-c19.data[i][2]: c19.data[i][4];},"sick",0);
+c19.map2((d,i) => {return (c19.data[i][2]) ? c19.data[i][5]-c19.data[i][2]: c19.data[i][5];},"sick",0);
 // regression
 var f_cases = TR.math.stat.exponential_regression(idx,c19.get_colum("cases"))
 var pcases = new TR.math.plot.Plot("Fallzahlen");
