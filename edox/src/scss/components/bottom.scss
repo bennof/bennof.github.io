@@ -1,0 +1,32 @@
+$bottom_bg_color: $background !default;
+$bottom_bg_color_hl: #222 !default;
+$bottom_color: #eee !default;
+$bottom_color_hl: $primary !default;
+
+$bottom_height: 50px !default;
+$bottom_height_inner: #{$header_height - 10px} !default;
+
+$bottom_font_size: 12pt !default;
+$bottom_font_weight: 300 !default;
+
+.bottom-strip { 
+    position: fixed;
+    background-color: $bottom_bg_color;
+    bottom: 0px;
+    vertical-align: middle;
+    line-height: $bottom_height;
+    height: $bottom_height;
+    left: 0px;
+    right: 0px;
+    z-index:500;
+    font-size: $header_font_size;
+    border-bottom: 1px solid $border;
+
+    transition: all .25s;
+
+}
+
+
+.has-bottom-strip{
+    margin-bottom: $bottom_height; 
+} 

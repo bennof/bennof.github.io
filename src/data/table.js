@@ -70,9 +70,37 @@ export class Table {
         return r;
     }
 
-    map(Fun, offset, length) {
+    map(Fun, target, inputs, start, end){
+        if (end == undefined || end > this.data.length || end < 0) end = this.data.length;
+        if (start == undefined) start = 0;
+            
+        var data = this.data;        
+        
+        if(target){
+            if (typeof target == "string") target = this.header.indexOf(target);
+            if(inputs){
+                inputs = array_map(function(D){ return (typeof D == "string") ? this.header.indexOf(D) : D; },Inputs);
+                for (var i=start; i<end; i++){
+                    B = array_map( function(I){return this[I];}.bind(Data[i]),In);
+                    data[i][target] = Fun.apply(null,B.concat([data[i],i]));
+                }
+            } else {
+                for (i=offset;i<length;i++){
+                    Data[i][target] = Fun(Data[i],i);
+                }
+            }
+        } else {
+            for (var i = start; i < end; i++) {
+                data[i] = Fun(data[i],i);
+            }
+        }
+    }
+
+
+    map1(Fun, offset, length) {
         if (length == undefined || length > this.data.length || length < 0) length = this.data.length;
         if (offset == undefined) offset = 0;
+
         var Data = this.data, i;
         for (i = offset; i < length; i++) {
             Data[i] = Fun(Data[i],i);
@@ -83,6 +111,7 @@ export class Table {
         if (length == undefined || length > this.data.length) length = this.data.length;
         if (offset == undefined) offset = 0;
         var i, Data = this.data, col = (typeof Target == "string") ? this.header.indexOf(Target) : Target;
+
         for (i=offset;i<length;i++){
             Data[i][col] = Fun(Data[i],i);
         }
