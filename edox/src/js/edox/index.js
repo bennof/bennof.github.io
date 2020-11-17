@@ -8,9 +8,9 @@ import expand from 'emmet';
 import * as url from "./url";
 import * as file from "./file";
 
-const EDOX_ROUTER = "edox-router";
-const EDOX_INCLUDE = "edox-include";
-const EDOX_EDITOR = "edox-editor-r001";
+const EDOX_ROUTER = "edox-router"; //hash-router
+const EDOX_INCLUDE = "edox-include"; //"html-src"
+const EDOX_EDITOR = "edox-editor-r001"; 
 
 /**
  * Requests an resource
