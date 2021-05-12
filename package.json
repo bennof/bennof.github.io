@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/bennof/bennof.github.io#readme",
   "dependencies": {
-    "chart.js": "^2.9.3"
+    "chart.js": "^2.9.4"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
