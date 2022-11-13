@@ -38,7 +38,7 @@
     "serve": "^11.3.0",
     "uglify-js": "^3.8.1",
     "webpack": "^4.42.1",
-    "webpack-cli": "^3.3.11"
+    "webpack-cli": "^3.3.12"
   },
   "browserify": {
     "transform": [
